@@ -16,8 +16,36 @@
 
 <body>
 
+
   <div id="map-canvas"></div>
 
+  <div id="controls">
+    Date: <input type="date" onchange="filter({ date: this.value })">
+    <br>
+    Category:
+    <select onchange="filter({ category: this.value })">
+      <option value="">All</option>
+      <option value="**Annual Event**">Annual Event</option>
+      <option value="*Top Pick*">Top Pick</option>
+      <option value="Art & Museums">Art &amp; Museums</option>
+      <option value="Charity & Volunteering">Charity &amp; Volunteering</option>
+      <option value="Club / DJ">Club / DJ</option>
+      <option value="Comedy">Comedy</option>
+      <option value="Eating & Drinking">Eating &amp; Drinking</option>
+      <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
+      <option value="Free Stuff">Free Stuff</option>
+      <option value="Fun & Games">Fun &amp; Games</option>
+      <option value="Geek Event">Geek Event</option>
+      <option value="Kids & Families">Kids &amp; Families</option>
+      <option value="Lectures & Workshops">Lectures &amp; Workshops</option>
+      <option value="Literature">Literature</option>
+      <option value="Live Music">Live Music</option>
+      <option value="Movies">Movies</option>
+      <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
+      <option value="Sports & Fitness">Sports &amp; Fitness</option>
+      <option value="Theater & Performance">Theater &amp; Performance</option>
+    </select>
+  </div>
 
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA6u8cQEcT8e94ZGBdbdWkC17aUP1etCos"></script>
   <script src="map.js"></script>

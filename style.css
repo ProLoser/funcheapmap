@@ -4,3 +4,15 @@ html, body, #map-canvas {
   padding: 0;
   width: 100%;
 }
+
+#controls {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  background: rgba(255,253,255,.6);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

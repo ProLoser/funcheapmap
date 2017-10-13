@@ -18,7 +18,7 @@ function initialize() {
   window.events.load()
     .then(events => {
       events.forEach(event => {
-        new google.maps.Marker({
+        event.marker = new google.maps.Marker({
           map: window.map,
           position: event.location,
           title: event.title,
@@ -28,6 +28,44 @@ function initialize() {
     });
 
 }
+
+let options = {};
+
+/**
+ * Callback for datepicker, filters all visible events to specified date
+ * @param {object} filters
+ * @param {string} [filters.date]
+ * @param {string} [filters.category]
+ */
+window.filter = function(filters) {
+  Object.assign(options, filters);
+
+  let date;
+  if (options.date) {
+    date = options.date.replace(/-/gi, '/');
+    date = new Date(date);
+  }
+    
+  window.events.get().forEach(event => {
+    event.visible = true;
+
+    // check date
+    if (date) {
+      let eventDate = new Date(event.date);
+      if (date.getFullYear() !== eventDate.getFullYear() ||
+        date.getMonth() !== eventDate.getMonth() ||
+        date.getDate() !== eventDate.getDate()
+      )
+        event.visible = false;
+    }
+    // check category
+    if (options.category && !~event.categories.indexOf(options.category)) {
+      event.visible = false;
+    }
+
+    event.marker.setVisible(event.visible);
+  });
+};
 
 class Events {
   /**
