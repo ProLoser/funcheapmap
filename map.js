@@ -1,60 +1,127 @@
-// https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false
 /* global google */
-
-function initialize() {
-
-  // Create the map
-  const map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 11,
-    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743)
-  });
-
-  window.map = map;
-
-  const geocoder = new google.maps.Geocoder();
-
-  let markers = 30;
-
-  console.log('Loading Events...');
-
-  fetch(new Request('https://api.apify.com/v1/execs/vq85wTaPKxsoGpYYz/results?format=json'))
-    .then(response => response.json())
-    .then(json => {
-
-      console.log('Events loaded', json);
-
-      (function addMarker(index) {
-        let event = json[index];
-
-        if (event.pageFunctionResult) {
-          console.log(`Adding Event ${index}...`, event);
-          geocoder.geocode({ address: event.pageFunctionResult.address }, (results, status) => {
-
-            if (status != 'OK') {
-              console.error(status, event);
-              return;
-            }
-
-            new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location,
-              title: event.pageFunctionResult.title,
-              animation: google.maps.Animation.DROP
-            });
-
-            if (index < markers)
-              addMarker(++index);  
-          });
-        } else {
-          addMarker(++index);
-        }
-        
-      })(0);
-
-    });
-
-}
 
 // Initialize the map
 google.maps.event.addDomListener(window, 'load', initialize);
 
+function initialize() {
+
+  // Create address to latlng utility
+  const geocoder = new google.maps.Geocoder();
+
+  // Create the map
+  window.map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 11,
+    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743)
+  });
+  
+  // Create the datastore
+  window.events = new Events();
+
+  console.log('Loading Events...');
+  window.events.load()
+    .then(events => {
+      // Recursive function
+      (function addMarker(index) {
+        let event = events[index];
+
+        console.log(`Adding Event ${index}...`, event);
+        geocoder.geocode({ address: event.address }, (results, status) => {
+
+          if (status != 'OK') {
+            console.error(status, event);
+            return;
+          }
+
+          new google.maps.Marker({
+            map: window.map,
+            position: results[0].geometry.location,
+            title: event.title,
+            animation: google.maps.Animation.DROP
+          });
+
+          addMarker(index + 1);
+
+        });
+
+      })(0);
+    });
+
+}
+
+class Events {
+  /**
+   * Loads event data from cache
+   * 
+   * @returns {object[]} events
+   */
+  get() {
+    if (this.cache)
+      return this.cache;
+    
+    this.cache = window.localStorage.getItem('events');
+
+    if (this.cache)
+      this.cache = JSON.parse(this.cache);
+    
+    return this.cache;
+  }
+
+  /**
+   * Stores the event data to cache and adds a timestamp
+   * 
+   * @param {object[]} events 
+   * @returns {object[]} events
+   */
+  set(events) {
+    window.localStorage.setItem('events', JSON.stringify(events));
+    window.localStorage.setItem('events_age', Date.now());
+    this.cache = events;
+    return this.cache;
+  }
+
+  /**
+   * Returns the age of the cache
+   * 
+   * @returns {number} events_age - Timestamp
+   */
+  age() {
+    return window.localStorage.getItem('events_age');
+  }
+
+  /**
+   * Specifies if the age of the cache is old. Defaults to 24 hours
+   * 
+   * @param {number} [old=86400] - How long ago is considered old. Default: 24 hours
+   * @returns {boolean} 
+   */
+  isFresh(old = 86400) {
+    let age = this.age();
+    return age && age > (Date.now() - old);
+  }
+
+  /**
+   * Checks if the cache is old and updates it
+   * 
+   * @returns {Promise}
+   */
+  load() {
+    if (this.isFresh()) {
+      return Promise.resolve(this.get());
+    } else {
+      return this.query()
+        .then(this.set.bind(this));
+    }
+  }
+
+  /**
+   * Queries the crawler API
+   *
+   * @returns {Promise}
+   */
+  query() {
+    return fetch(new Request(Events.API))
+      .then(response => response.json());
+  }
+}
+
+Events.API = 'https://api.apify.com/v1/5ruPS4AXbEd9crJk7/crawlers/A8kHv2Fcvtqdeu8pv/lastExec/results?token=tKFdZqEmnys6ogqYmCu8vRkZJ&status=SUCCEEDED&simplified=1&skipFailedPages=1';
