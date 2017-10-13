@@ -5,9 +5,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 function initialize() {
 
-  // Create address to latlng utility
-  const geocoder = new google.maps.Geocoder();
-
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 11,
@@ -20,30 +17,14 @@ function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
-      // Recursive function
-      (function addMarker(index) {
-        let event = events[index];
-
-        console.log(`Adding Event ${index}...`, event);
-        geocoder.geocode({ address: event.address }, (results, status) => {
-
-          if (status != 'OK') {
-            console.error(status, event);
-            return;
-          }
-
-          new google.maps.Marker({
-            map: window.map,
-            position: results[0].geometry.location,
-            title: event.title,
-            animation: google.maps.Animation.DROP
-          });
-
-          addMarker(index + 1);
-
+      events.forEach(event => {
+        new google.maps.Marker({
+          map: window.map,
+          position: event.location,
+          title: event.title,
+          animation: google.maps.Animation.DROP
         });
-
-      })(0);
+      });
     });
 
 }
