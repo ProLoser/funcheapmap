@@ -92,12 +92,17 @@ class Events {
 
     if (event)
       this.cachedInfoWindow.setContent(`
-        <h2><a href="${event.details}" target="_new">${event.title}</a></h2>
-        <p>
-          <strong>${event.date_text}</strong> - <strong>${event.time}</strong> at <strong>${event.venue}</strong> for <strong>${event.cost}</strong>
-          <br><small>${event.cost_details}</small>
-          <br>Categories: ${event.categories.join(', ')}
-        </p>
+        <div class="info-header">
+          <h2><a href="${event.details}" target="_new">${event.title}</a></h2>
+          <p>
+            <strong>${event.date_text}</strong>
+            - <strong>${event.time}</strong>
+            at <strong>${event.venue}</strong>
+            for <strong>${event.cost}</strong>
+          </p>
+          <p><small>${event.cost_details}</small></p>
+          <p>Categories: ${event.categories.join(', ')}</p>
+        </div>
         ${event.description||''}
         ${event.event_series||''}
       `);
