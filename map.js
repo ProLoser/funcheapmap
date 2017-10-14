@@ -24,6 +24,9 @@ function initialize() {
           title: event.title,
           animation: google.maps.Animation.DROP
         });
+        event.marker.addListener('click', function () {
+          Events.infoWindow(event).open(window.map, event.marker);
+        });
       });
     });
 
@@ -67,7 +70,41 @@ window.filter = function(filters) {
   });
 };
 
+window.addEventListener('keyup', event => {
+  switch (event.keyCode) {
+    case 27: // esc
+      Events.infoWindow().close();  
+      break;  
+  }
+});
+
 class Events {
+
+  /**
+   * Generates and returns a google maps info window
+   * 
+   * @param {object} [event] - If passed, sets the content
+   * @returns {google.maps.InfoWindow}
+   */
+  static infoWindow(event) {
+    if (!this.cachedInfoWindow)
+      this.cachedInfoWindow = new google.maps.InfoWindow({});
+
+    if (event)
+      this.cachedInfoWindow.setContent(`
+        <h2><a href="${event.details}" target="_new">${event.title}</a></h2>
+        <p>
+          <strong>${event.date_text}</strong> - <strong>${event.time}</strong> at <strong>${event.venue}</strong> for <strong>${event.cost}</strong>
+          <br><small>${event.cost_details}</small>
+          <br>Categories: ${event.categories.join(', ')}
+        </p>
+        ${event.description||''}
+        ${event.event_series||''}
+      `);
+
+    return this.cachedInfoWindow;
+  }
+
   /**
    * Loads event data from cache
    * 
