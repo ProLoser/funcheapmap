@@ -24,9 +24,32 @@ html, body, #map-canvas {
 .info-header p {
   margin: 0;
 }
-.alignright {
+.info-header a[onclick] {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.info-body > * {
+  display: none;
+}
+.info-body > label {
+  display: inline-block;
+  padding: 10px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.info-body > input:checked ~ div {
+  display: block;
+}
+.info-body > input:checked ~ label {
+  display: none;
+}
+
+.info-body .alignright {
   float: right;
 }
-.alignleft {
+.info-body .alignleft {
   float: left;
 }

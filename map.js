@@ -14,6 +14,8 @@ function initialize() {
   // Create the datastore
   window.events = new Events();
 
+  
+
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
@@ -28,6 +30,16 @@ function initialize() {
           Events.infoWindow(event).open(window.map, event.marker);
         });
       });
+
+      // Apply preloaded filters
+      if (document.location.search) {
+        let filters = {};
+        document.location.search.substr(1).split('&').forEach(param => {
+          param = param.split('=');
+          filters[param[0]] = decodeURIComponent(param[1]);
+        });
+        window.filter(filters);
+      }
     });
 
 }
@@ -40,8 +52,18 @@ let options = {};
  * @param {string} [filters.date]
  * @param {string} [filters.category]
  */
-window.filter = function(filters) {
+window.filter = function (filters = {}) {
   Object.assign(options, filters);
+
+  // Apply filters to DOM and URL
+  let query = [];
+  for (let option in options) {
+    let element = document.getElementById(option);
+    if (element)
+      element.value = options[option];
+    query.push(option + '=' + options[option]);
+  }
+  window.history.replaceState({}, '', '?' + query.join('&'));
 
   let date;
   if (options.date) {
@@ -101,10 +123,16 @@ class Events {
             for <strong>${event.cost}</strong>
           </p>
           <p><small>${event.cost_details}</small></p>
-          <p>Categories: ${event.categories.join(', ')}</p>
+          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
         </div>
-        ${event.description||''}
-        ${event.event_series||''}
+        <div class="info-body">
+          <input id="moreInfo" type="checkbox">
+          <label for="moreInfo">More Info</label>
+          <div>
+            ${event.description||''}
+            ${event.event_series || ''}
+          </div>
+        </div>
       `);
 
     return this.cachedInfoWindow;
