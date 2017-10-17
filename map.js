@@ -36,7 +36,7 @@ function initialize() {
         let filters = {};
         document.location.search.substr(1).split('&').forEach(param => {
           param = param.split('=');
-          filters[param[0]] = decodeURIComponent(param[1]);
+          filters[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
         });
         window.filter(filters);
       }
@@ -61,7 +61,7 @@ window.filter = function (filters = {}) {
     let element = document.getElementById(option);
     if (element)
       element.value = options[option];
-    query.push(option + '=' + options[option]);
+    query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
   }
   window.history.replaceState({}, '', '?' + query.join('&'));
 
