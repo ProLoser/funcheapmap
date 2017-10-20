@@ -19,6 +19,21 @@ html, body, #map-canvas {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 }
 
+#controls label {
+  color: rgb(86, 86, 86);
+  display: inline-block;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+#controls h3 {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+#controls input, #controls select {
+  font-family: Roboto, Arial, sans-serif;
+}
+
 /* google.maps.InfoWindow */
 .info-header {
   text-align: center;
