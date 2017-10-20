@@ -28,7 +28,6 @@ html, body, #map-canvas {
 
 #controls h3 {
   margin: 0 0 10px;
-  font-weight: bold;
 }
 #controls input, #controls select {
   font-family: Roboto, Arial, sans-serif;
