@@ -15,17 +15,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
-<body>
-
-
+<body ng-controller="controller">
   <div id="map-canvas"></div>
 
   <div id="controls">
-    <label>Date:</label> <input id="date" type="date" onchange="filter({ date: this.value })">
     <h3>Filter Events</h3>
+    <label>Date:</label> <input id="date" type="date" ng-change="filter()" ng-model="filters.date">
     <br>
     <label>Category:</label>
-    <select id="category" onchange="filter({ category: this.value })">
+    <select id="category" ng-change="filter()" ng-model="filters.category">
       <option value="">All</option>
       <option value="**Annual Event**">Annual Event</option>
       <option value="*Top Pick*">Top Pick</option>
@@ -48,10 +46,16 @@
       <option value="Theater & Performance">Theater &amp; Performance</option>
     </select>
     <br>
+    <button onclick="exportVisible()" ng-disabled="!events.get().filter(filters).length">Export Visible</button>
+    <button onclick="exportBookmarked()" ng-disabled="!events.get().filter({bookmarked:true}).length">Export Saved</button>
+    <br>
     <a href="https://github.com/ProLoser/funcheapmap/issues/new" target="_new">Suggestions / Feedback</a>
   </div>
 
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA6u8cQEcT8e94ZGBdbdWkC17aUP1etCos"></script>
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/ics.js/ics.deps.min.js"></script>
+  <script src="node_modules/ics.js/ics.min.js"></script>
   <script src="map.js"></script>
 
 </body>

@@ -1,4 +1,4 @@
-/* global google */
+/* global google ics angular */
 
 // Initialize the map
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -43,6 +43,30 @@ function initialize() {
     });
 
 }
+
+
+angular.module('funcheapsf', [])
+  .config(function ($locationProvider) {
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+  })
+  .controller('controller', function ($scope, $location, $filter) {
+    $scope.filters = {};
+    $scope.events = window.events;
+    $scope.filter = function () {
+      let filters = angular.copy($scope.filters);
+      if (filters.date)
+        filters.date = $filter('date')(filters.date, 'shortDate');
+      $location.search(filters);
+      $location.replace();
+      window.events.filter($scope.filters).forEach(event => {
+        event.marker.setVisible(event.visible);
+      });
+    };
+  });
+
 
 let options = {};
 
@@ -100,7 +124,37 @@ window.addEventListener('keyup', event => {
   }
 });
 
+window.bookmark = function (url) {
+  let event = window.events.get().find(event => event.url === url);
+  event.bookmarked = !event.bookmarked;
+};
+
+window.exportBookmarked = function () {
+  let events = window.events.filter({ bookmarked: true });
+  let cal = Events.calendarize(events);
+  cal.download('FunCheapSF Bookmarked');
+};
+
+window.exportVisible = function () {
+  let date;
+  if (options.date) {
+    date = options.date.replace(/-/gi, '/');
+    date = new Date(date);
+  }
+  let events = window.events.filter({ date: date, category: options.category });
+  let cal = Events.calendarize(events);
+  cal.download('FunCheapSF Visible');
+};
+
 class Events {
+
+  static calendarize(events) {
+    let cal = ics();
+    events.forEach(event => {
+      cal.addEvent(event.title, event.summary, event.address, event.date, event.date);
+    });
+    return cal; // cal.download('filename');
+  }
 
   /**
    * Generates and returns a google maps info window
@@ -121,6 +175,7 @@ class Events {
             - <strong>${event.time}</strong>
             at <strong>${event.venue}</strong>
             for <strong>${event.cost}</strong>
+            <a onclick="bookmark('${event.url}')">[SAVE]</a>
           </p>
           <p><small>${event.cost_details}</small></p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
@@ -152,7 +207,7 @@ class Events {
     if (this.cache)
       this.cache = JSON.parse(this.cache);
     
-    return this.cache;
+    return this.cache || [];
   }
 
   /**
@@ -210,6 +265,32 @@ class Events {
   query() {
     return fetch(new Request(Events.API))
       .then(response => response.json());
+  }
+
+  filter(filters = {}) {
+    return this.get().filter(event => {
+      let matches = true;
+
+      // check date
+      if (filters.date) {
+        let date = new Date(event.date);
+        if (filters.date.getFullYear() !== date.getFullYear() ||
+          filters.date.getMonth() !== date.getMonth() ||
+          filters.date.getDate() !== date.getDate()
+        )
+          matches = false;
+      }
+
+      // check category
+      if (filters.category && !~event.categories.indexOf(filters.category))
+        matches = false;
+      
+      // check bookmarked
+      if (filters.bookmarked && !event.bookmarked)
+        matches = false;
+      
+      return matches;
+    });
   }
 }
 
