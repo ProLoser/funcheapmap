@@ -21,10 +21,10 @@
   <div id="map-canvas"></div>
 
   <div id="controls">
-    Date: <input id="date" type="date" onchange="filter({ date: this.value })">
+    <label>Date:</label> <input id="date" type="date" onchange="filter({ date: this.value })">
     <h3>Filter Events</h3>
     <br>
-    Category:
+    <label>Category:</label>
     <select id="category" onchange="filter({ category: this.value })">
       <option value="">All</option>
       <option value="**Annual Event**">Annual Event</option>
