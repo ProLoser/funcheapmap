@@ -129,7 +129,7 @@ window.bookmark = function (url) {
   event.bookmarked = !event.bookmarked;
 };
 
-window.exportBookmarked = function () {
+window.exportEvent = function () {
   let events = window.events.get().filter(event => event.url === url);
   let cal = Events.calendarize(events);
   cal.download('FunCheapSF Event');
