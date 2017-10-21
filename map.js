@@ -130,6 +130,12 @@ window.bookmark = function (url) {
 };
 
 window.exportBookmarked = function () {
+  let events = window.events.get().filter(event => event.url === url);
+  let cal = Events.calendarize(events);
+  cal.download('FunCheapSF Event');
+};
+
+window.exportBookmarked = function () {
   let events = window.events.filter({ bookmarked: true });
   let cal = Events.calendarize(events);
   cal.download('FunCheapSF Bookmarked');
@@ -175,7 +181,8 @@ class Events {
             - <strong>${event.time}</strong>
             at <strong>${event.venue}</strong>
             for <strong>${event.cost}</strong>
-            <a onclick="bookmark('${event.url}')">[SAVE]</a>
+            <a onclick="bookmark('${event.url}')">[BOOKMARK]</a>
+            <a onclick="exportEvent('${event.url}')">[EXPORT]</a>
           </p>
           <p><small>${event.cost_details}</small></p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
