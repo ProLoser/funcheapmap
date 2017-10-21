@@ -8,7 +8,9 @@ function initialize() {
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 11,
-    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743)
+    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
+    disableDefaultUI: true,
+    zoomControl: true
   });
   
   // Create the datastore
