@@ -34,14 +34,18 @@ function initialize() {
       });
 
       // Apply preloaded filters
+      let filters = {};
       if (document.location.search) {
-        let filters = {};
         document.location.search.substr(1).split('&').forEach(param => {
           param = param.split('=');
           filters[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
         });
-        window.filter(filters);
       }
+      if (!filters.date) {
+        let date = new Date();
+        filters.date = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;  
+      }
+      window.filter(filters);
     });
 
 }
