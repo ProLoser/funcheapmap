@@ -77,7 +77,7 @@ window.filter = function (filters = {}) {
     date = new Date(date);
   }
     
-  window.events.get().forEach(event => {
+  let count = window.events.get().filter(event => {
     event.visible = true;
 
     // check date
@@ -95,7 +95,11 @@ window.filter = function (filters = {}) {
     }
 
     event.marker.setVisible(event.visible);
+    
+    return event.visible;
   });
+  
+  document.getElementById('count').innerText = count;
 };
 
 window.addEventListener('keyup', event => {
