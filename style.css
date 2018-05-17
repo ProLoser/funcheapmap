@@ -36,6 +36,7 @@ html, body, #map-canvas {
 /* google.maps.InfoWindow */
 .info-header {
   text-align: center;
+  width: 80vw;
 }
 .info-header p {
   margin: 0;
@@ -45,7 +46,10 @@ html, body, #map-canvas {
   text-decoration: underline;
   cursor: pointer;
 }
-
+.info-body {
+  width: 80vw;
+  height: 50vh;
+}
 .info-body > * {
   display: none;
 }
