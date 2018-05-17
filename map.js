@@ -43,7 +43,9 @@ function initialize() {
       }
       if (!filters.date) {
         let date = new Date();
-        filters.date = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;  
+        var mm = date.getMonth() + 1;
+        var dd = date.getDate();
+        filters.date = `${this.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
       }
       window.filter(filters);
     });
