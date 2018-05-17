@@ -45,7 +45,7 @@ function initialize() {
         let date = new Date();
         var mm = date.getMonth() + 1;
         var dd = date.getDate();
-        filters.date = `${this.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
+        filters.date = `${date.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
       }
       window.filter(filters);
     });
