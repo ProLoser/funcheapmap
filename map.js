@@ -97,7 +97,7 @@ window.filter = function (filters = {}) {
     event.marker.setVisible(event.visible);
     
     return event.visible;
-  });
+  }).length;
   
   document.getElementById('count').innerText = count;
 };
