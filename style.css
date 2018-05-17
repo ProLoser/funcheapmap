@@ -48,7 +48,7 @@ html, body, #map-canvas {
 }
 .info-body {
   max-width: 80vw;
-  max-height: 50vh;
+  max-height: 40vh;
 }
 .info-body > * {
   display: none;
