@@ -73,3 +73,7 @@ html, body, #map-canvas {
 .info-body .alignleft {
   float: left;
 }
+.info-body img {
+    max-width: 100%;
+    height: auto;
+}
