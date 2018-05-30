@@ -114,10 +114,10 @@ window.addEventListener('keyup', event => {
       Events.infoWindow().close();  
       break;  
   }
-});
-google.maps.event.addListener(window.map, 'click', function(event) {
-    Events.infoWindow().close();
-});
+// });
+// google.maps.event.addListener(window.map, 'click', function(event) {
+//     Events.infoWindow().close();
+// });
 
 /**
  * Utility class for managing event data
