@@ -112,6 +112,10 @@ window.addEventListener('keyup', event => {
   }
 });
 
+google.maps.event.addListener(window.map, "click", function(event) {
+    Events.infoWindow.close();
+});
+
 class Events {
 
   /**
