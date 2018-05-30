@@ -33,7 +33,7 @@ function initialize() {
         });
       });
 
-      // Apply preloaded filters
+      // Apply URL filters
       let filters = {};
       if (document.location.search) {
         document.location.search.substr(1).split('&').forEach(param => {
@@ -41,6 +41,8 @@ function initialize() {
           filters[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
         });
       }
+    
+      // Default to today's date
       if (!filters.date) {
         let date = new Date();
         var mm = date.getMonth() + 1;
@@ -55,7 +57,7 @@ function initialize() {
 let options = {};
 
 /**
- * Callback for datepicker, filters all visible events to specified date
+ * Callback for datepicker, filters all visible events to specified date and category
  * @param {object} filters
  * @param {string} [filters.date]
  * @param {string} [filters.category]
@@ -79,6 +81,7 @@ window.filter = function (filters = {}) {
     date = new Date(date);
   }
     
+  // Filter events
   let count = window.events.get().filter(event => {
     event.visible = true;
 
@@ -104,6 +107,7 @@ window.filter = function (filters = {}) {
   document.getElementById('count').innerText = count;
 };
 
+// Bind infoWindow.close() shortcuts
 window.addEventListener('keyup', event => {
   switch (event.keyCode) {
     case 27: // esc
@@ -111,11 +115,13 @@ window.addEventListener('keyup', event => {
       break;  
   }
 });
-
-google.maps.event.addListener(window.map, "click", function(event) {
-    Events.infoWindow.close();
+google.maps.event.addListener(window.map, 'click', function(event) {
+    Events.infoWindow().close();
 });
 
+/**
+ * Utility class for managing event data
+ */
 class Events {
 
   /**
