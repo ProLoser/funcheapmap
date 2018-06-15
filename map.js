@@ -15,8 +15,18 @@ function initialize() {
   
   // Create the datastore
   window.events = new Events();
-
   
+  // Bind infoWindow.close() shortcuts
+  window.addEventListener('keyup', event => {
+    switch (event.keyCode) {
+      case 27: // esc
+        Events.infoWindow().close();  
+        break;  
+    }
+  });
+  google.maps.event.addListener(window.map, 'click', function(event) {
+      Events.infoWindow().close();
+  });
 
   console.log('Loading Events...');
   window.events.load()
@@ -107,17 +117,6 @@ window.filter = function (filters = {}) {
   document.getElementById('count').innerText = count;
 };
 
-// Bind infoWindow.close() shortcuts
-window.addEventListener('keyup', event => {
-  switch (event.keyCode) {
-    case 27: // esc
-      Events.infoWindow().close();  
-      break;  
-  }
-// });
-// google.maps.event.addListener(window.map, 'click', function(event) {
-//     Events.infoWindow().close();
-// });
 
 /**
  * Utility class for managing event data
