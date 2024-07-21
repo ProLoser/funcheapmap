@@ -234,4 +234,4 @@ class Events {
   }
 }
 
-Events.API = 'https://api.apify.com/v1/5ruPS4AXbEd9crJk7/crawlers/A8kHv2Fcvtqdeu8pv/lastExec/results?token=tKFdZqEmnys6ogqYmCu8vRkZJ&status=SUCCEEDED&simplified=1&skipFailedPages=1';
+Events.API = 'https://api.apify.com/v2/datasets/cr7NMRsw3tQJ7VsmE/items?clean=true&format=json';
