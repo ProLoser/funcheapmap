@@ -32,9 +32,10 @@ function initialize() {
   window.events.load()
     .then(events => {
       events.forEach(event => {
+        if (!event.title) return; // skip empty events just in case
         event.marker = new google.maps.Marker({
           map: window.map,
-          position: event.location,
+          position: event.geometry,
           title: event.title,
           animation: google.maps.Animation.DROP
         });
@@ -234,4 +235,4 @@ class Events {
   }
 }
 
-Events.API = 'https://api.apify.com/v2/datasets/PfjXGYV7pcFSF32NK/items';
+Events.API = 'https://api.apify.com/v2/acts/apify~web-scraper/runs/last/dataset/items?token=apify_api_1U4gg8GRgTkFBjyfEkxKNtS9n4gUUw3wUjUV';
