@@ -138,7 +138,7 @@ class Events {
     if (event)
       this.cachedInfoWindow.setContent(`
         <div class="info-header">
-          <h2><a href="${event.details}" target="_new">${event.title}</a></h2>
+          <h2><a href="${event.eventUrl}" target="_new">${event.title}</a></h2>
           <p>
             <strong>${event.date_text}</strong>
             - <strong>${event.time}</strong>
@@ -152,8 +152,8 @@ class Events {
           <input id="moreInfo" type="checkbox">
           <label for="moreInfo">More Info</label>
           <div>
-            ${event.description||''}
-            ${event.event_series || ''}
+            <!-- event_series: ${event.event_series || ''} -->
+            ${event.details||''}
           </div>
         </div>
       `);
