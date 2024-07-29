@@ -12,7 +12,6 @@ html, body, #map-canvas {
   background: white;
   padding: 0 11px;
   bottom: 14px;
-  border-radius: 2px;
   margin: 10px;
   font-size: 11px;
   font-family: Roboto, Arial, sans-serif;
@@ -31,7 +30,24 @@ html, body, #map-canvas {
     font-family: Roboto, Arial, sans-serif;
   }
 }
-
+#feedback {
+  position: absolute;
+  right: 50px;
+  text-align: center;
+  background: white;
+  padding: 11px;
+  bottom: 14px;
+  margin: 10px;
+  font-size: 11px;
+  font-family: Roboto, Arial, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  color: #666;
+  fill: #666;
+  &:hover {
+    color: #000;
+    fill: #000;
+  }
+}
 
 /* google.maps.InfoWindow Header */
 .gm-style-iw-ch {
