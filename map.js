@@ -136,6 +136,8 @@ class Events {
       this.cachedInfoWindow = new google.maps.InfoWindow({});
 
     if (event) {
+      const date = new Date(event.date_text)
+      const time = event.time.split(' to ')
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
@@ -156,6 +158,18 @@ class Events {
             ${event.cost_details}
           </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
+          <add-to-calendar-button
+            name="${event.title}"
+            description="${event.eventUrl}"
+            startDate="${data.toISOString().substr(0,10)}"
+            startTime="${time[0]}"
+            location="${event.venue}"
+            options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
+            trigger="click"
+            inline
+            listStyle="modal"
+            iCalFileName="FunCheapSF-Event"
+          />
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
