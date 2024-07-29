@@ -140,8 +140,10 @@ class Events {
       headerContent.innerHTML = `
         <h2>${event.title}</h2>
         <h3>
-          <a href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
+          <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
           |
+          <strong>${event.cost}</strong>
+          <br>
           <span>${event.date_text}</span>
           |
           <span>${event.time}</span>
@@ -151,10 +153,7 @@ class Events {
       this.cachedInfoWindow.setContent(`
         <div class="info-header">
           <p>
-            <strong>${event.cost}</strong>
             ${event.cost_details}
-            <a href="${event.eventUrl}" target="_new">Event Page</a>
-            <a href="${event.url}" target="_new">FunCheap Page</a>
           </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
