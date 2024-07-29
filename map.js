@@ -164,7 +164,6 @@ class Events {
             startDate="${date.toISOString().substr(0,10)}"
             startTime="${time[0].substr(0,5)}"
             location="${event.venue}"
-            options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
             trigger="click"
             status="TENTATIVE"
             timeZone="America/Los_Angeles"
