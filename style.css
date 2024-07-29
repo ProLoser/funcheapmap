@@ -63,6 +63,9 @@ html, body, #map-canvas {
   text-decoration: underline;
   cursor: pointer;
 }
+.info-header .atcb-initialized {
+  margin: 10px auto;
+}
 .info-body {
   max-width: 80vw;
   max-height: 40vh;
