@@ -35,13 +35,18 @@ html, body, #map-canvas {
 
 /* google.maps.InfoWindow Header */
 .gm-style-iw-ch {
-  text-align: center;
+  overflow: visible !important;
   h2 {
     margin: 0;
+    text-align: center;
   }
   h3 {
     margin-top: 0;
     font-weight: normal;
+  }
+  add-to-calendar-button {
+    float: right;
+    margin: -8px -41px 0 0;
   }
 }
 /* google.maps.InfoWindow Body */
