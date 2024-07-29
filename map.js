@@ -168,8 +168,7 @@ class Events {
             listStyle="modal"
             hideTextLabelButton
             hideCheckmark
-            debug
-          />
+        ></add-to-calendar-button>
         <h3>
           <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}" title="Venue Details on Google Maps">${event.venue}</a>
           |
@@ -203,7 +202,7 @@ class Events {
               buttonStyle="text"
               hideCheckmark
               debug
-            />
+            ></add-to-calendar-button>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
