@@ -138,11 +138,11 @@ class Events {
     if (event) {
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
-        <h2>${event.title}</h2>
+        <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
         <h3>
-          <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
+          <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}" title="Venue Details on Google Maps">${event.venue}</a>
           |
-          <strong>${event.cost}</strong>
+          <a target="_blank" href="${event.eventUrl}" title="Event Page">${event.cost}</strong>
           <br>
           <span>${event.date_text}</span>
           |
