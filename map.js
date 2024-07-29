@@ -138,7 +138,7 @@ class Events {
     if (event) {
       const time = event.time.split(' to ')
       const start = new Date(`${event.date_text} ${time[0]}`)
-      const startDate = start.toISOString().substr(0,10)
+      const startDate = start.toLocaleDateString('sv-SE') // outputs yyyy-mm-dd
       let endToken
       if (time[1]) {
         if (time[1] > time[0]) { // same day
@@ -146,7 +146,7 @@ class Events {
         } else { // overnight
           let endDate = new Date(start)
           endDate.setDate(endDate.getDate() + 1)
-          endToken = `${endDate.toISOString().substr(0,10)} ${time[1]}`
+          endToken = `${endDate.toLocaleDateString('sv-SE')} ${time[1]}`
         }
       } else { // default 1 hour duration
         endToken = start.getTime() + 60*60*1000
@@ -177,7 +177,7 @@ class Events {
             description="${event.eventUrl}"
             startDate="${startDate}"
             startTime="${start.toTimeString().substr(0,5)}"
-            endDate="${end.toISOString().substr(0,10)}"
+            endDate="${end.toLocaleDateString('sv-SE')}"
             endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
             timeZone="America/Los_Angeles"
