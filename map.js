@@ -135,7 +135,7 @@ class Events {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
 
-    if (event)
+    if (event) {
       this.cachedInfoWindow.setHeaderContent(`
         <h1>${event.title}</h1>
         <p>
@@ -163,6 +163,7 @@ class Events {
           </div>
         </div>
       `);
+    }
 
     return this.cachedInfoWindow;
   }
