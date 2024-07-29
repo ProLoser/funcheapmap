@@ -168,6 +168,7 @@ class Events {
             status="TENTATIVE"
             timeZone="America/Los_Angeles"
             buttonStyle="date"
+            size="6"
             listStyle="modal"
             iCalFileName="FunCheapSF-Event"
           />
