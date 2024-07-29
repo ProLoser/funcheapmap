@@ -140,7 +140,7 @@ class Events {
       headerContent.innerHTML = `
         <h2>${event.title}</h2>
         <h3>
-          <a href="https://maps.google.com/?q=${event.venue}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
+          <a href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
           |
           <span>${event.time}</span>
         </h3>
