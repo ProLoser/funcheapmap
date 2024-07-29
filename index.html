@@ -20,8 +20,16 @@
 
   <div id="map-canvas"></div>
 
+  <a id="feedback" target="_blank" href="https://github.com/ProLoser/funcheapmap/issues/new">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"></path>
+      <path d="M11 5h2v6h-2zm0 8h2v2h-2z"></path>
+    </svg>
+    Feedback
+  </a>
+  
   <div id="controls">
-    <h3>Showing <span id="count">0</span> Events</h3>
+    <h2>Showing <span id="count">0</span> Events</h2>
     <p>
       <label>Date:</label>
       <input id="date" type="date" onchange="filter({ date: this.value })">
@@ -53,9 +61,6 @@
         <option value="Sports & Fitness">Sports &amp; Fitness</option>
         <option value="Theater & Performance">Theater &amp; Performance</option>
       </select>
-    </p>
-    <p>
-      <a href="https://github.com/ProLoser/funcheapmap/issues/new" target="_new">Feedback</a>
     </p>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
