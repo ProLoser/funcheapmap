@@ -180,11 +180,8 @@ class Events {
             endDate="${end.toISOString().substr(0,10)}"
             endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
-            trigger="click"
             timeZone="America/Los_Angeles"
-            buttonStyle="date"
             listStyle="modal"
-            iCalFileName="FunCheapSF Event"
             debug
           />
         </div>
