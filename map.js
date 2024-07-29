@@ -159,16 +159,18 @@ class Events {
             name="${event.title.replaceAll('"',"'")}"
             description="${event.eventUrl}"
             startDate="${startDate}"
-            options="'Google','Apple','Outlook.com','iCal'"
+            options="'Apple','Google','iCal','Outlook.com'"
             startTime="${start.toTimeString().substr(0,5)}"
             endDate="${end.toLocaleDateString('sv-SE')}"
             endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
             listStyle="modal"
             buttonStyle="default"
+            timeZone="America/Los_Angeles"
             size="4"
             hideTextLabelButton
             hideCheckmark
+            debug
         ></add-to-calendar-button>
         <h3>
           <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}" title="Venue Details on Google Maps">${event.venue}</a>
