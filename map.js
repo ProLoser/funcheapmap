@@ -166,7 +166,7 @@ class Events {
             location="${event.venue}"
             options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
             trigger="click"
-            inline
+            status="TENTATIVE"
             listStyle="modal"
             iCalFileName="FunCheapSF-Event"
           />
