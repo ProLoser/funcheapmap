@@ -22,33 +22,41 @@
 
   <div id="controls">
     <h3>Showing <span id="count">0</span> Events</h3>
-    <label>Date:</label> <input id="date" type="date" onchange="filter({ date: this.value })">
-    <br>
-    <label>Category:</label>
-    <select id="category" onchange="filter({ category: this.value })">
-      <option value="">All</option>
-      <option value="**Annual Event**">Annual Event</option>
-      <option value="*Top Pick*">Top Pick</option>
-      <option value="Art & Museums">Art &amp; Museums</option>
-      <option value="Charity & Volunteering">Charity &amp; Volunteering</option>
-      <option value="Club / DJ">Club / DJ</option>
-      <option value="Comedy">Comedy</option>
-      <option value="Eating & Drinking">Eating &amp; Drinking</option>
-      <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
-      <option value="Free Stuff">Free Stuff</option>
-      <option value="Fun & Games">Fun &amp; Games</option>
-      <option value="Geek Event">Geek Event</option>
-      <option value="Kids & Families">Kids &amp; Families</option>
-      <option value="Lectures & Workshops">Lectures &amp; Workshops</option>
-      <option value="Literature">Literature</option>
-      <option value="Live Music">Live Music</option>
-      <option value="Movies">Movies</option>
-      <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
-      <option value="Sports & Fitness">Sports &amp; Fitness</option>
-      <option value="Theater & Performance">Theater &amp; Performance</option>
-    </select>
-    <br>
-    <a href="https://github.com/ProLoser/funcheapmap/issues/new" target="_new">Feedback</a>
+    <p>
+      <label>Date:</label>
+      <input id="date" type="date" onchange="filter({ date: this.value })">
+    </p>
+    <p>
+      <label>Category:</label>
+      <select id="category" onchange="filter({ category: this.value })">
+        <option value="">All</option>
+        <option value="**Annual Event**">Annual Event</option>
+        <option value="*Top Pick*">Top Pick</option>
+        <option value="Art & Museums">Art &amp; Museums</option>
+        <option value="Charity & Volunteering">Charity &amp; Volunteering</option>
+        <option value="Cheap Drinks">Cheap Drinks</option>
+        <option value="Club / DJ">Club / DJ</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Eating & Drinking">Eating &amp; Drinking</option>
+        <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
+        <option value="Free Stuff">Free Stuff</option>
+        <option value="Fun & Games">Fun &amp; Games</option>
+        <option value="Geek Event">Geek Event</option>
+        <option value="In Person">In Person</option>
+        <option value="Kids & Families">Kids &amp; Families</option>
+        <option value="Lectures & Workshops">Lectures &amp; Workshops</option>
+        <option value="Literature">Literature</option>
+        <option value="Live Music">Live Music</option>
+        <option value="Movies">Movies</option>
+        <option value="Rainy Day Fun">Rainy Day Fun</option>
+        <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
+        <option value="Sports & Fitness">Sports &amp; Fitness</option>
+        <option value="Theater & Performance">Theater &amp; Performance</option>
+      </select>
+    </p>
+    <p>
+      <a href="https://github.com/ProLoser/funcheapmap/issues/new" target="_new">Feedback</a>
+    </p>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA6u8cQEcT8e94ZGBdbdWkC17aUP1etCos"></script>
