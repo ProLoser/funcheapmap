@@ -139,9 +139,19 @@ class Events {
       const time = event.time.split(' to ')
       const start = new Date(`${event.date_text} ${time[0]}`)
       const startDate = start.toISOString().substr(0,10)
-      const startTime = start.toTimeString().substr(0,5)
-      // Defaults to 1 hour if no end time specified
-      const endTime = (new Date(time[1] ? `${startDate} ${time[1]}` : start.getTime() + 60*60*1000)).toTimeString().substr(0,5)
+      let endToken
+      if (time[1]) {
+        if (time[1] > time[0]) { // same day
+          endToken = `${startDate} ${time[1]}`
+        } else { // overnight
+          let endDate = new Date(start)
+          endDate.setDate(endDate.getDate() + 1)
+          endToken = `${endDate.toISOString().substr(0,10)} ${time[1]}`
+        }
+      } else { // default 1 hour duration
+        endToken = start.getTime() + 60*60*1000
+      }
+      const end = new Date(endToken)
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
@@ -163,19 +173,18 @@ class Events {
           </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
           <add-to-calendar-button
-            name="${encodeURIComponent(event.title)}"
+            name="${event.title.replaceAll('"',"'")}"
             description="${event.eventUrl}"
             startDate="${startDate}"
-            startTime="${startTime}"
-            endTime="${endTime}"
+            startTime="${start.toTimeString().substr(0,5)}"
+            endDate="${end.toISOString().substr(0,10)}"
+            endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
             trigger="click"
-            status="TENTATIVE"
             timeZone="America/Los_Angeles"
             buttonStyle="date"
-            size="6"
             listStyle="modal"
-            iCalFileName="FunCheapSF-Event"
+            iCalFileName="FunCheapSF Event"
             debug
           />
         </div>
