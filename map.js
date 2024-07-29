@@ -159,7 +159,7 @@ class Events {
           </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
           <add-to-calendar-button
-            name="${event.title}"
+            name="${encodeURIComponent(event.title)}"
             description="${event.eventUrl}"
             startDate="${date.toISOString().substr(0,10)}"
             startTime="${time[0]}"
