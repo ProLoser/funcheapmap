@@ -33,8 +33,9 @@ html, body, #map-canvas {
   font-family: Roboto, Arial, sans-serif;
 }
 
-/* google.maps.InfoWindow */
+/* google.maps.InfoWindow Header */
 .gm-style-iw-ch {
+  text-align: center;
   h2 {
     margin: 0;
   }
@@ -42,6 +43,9 @@ html, body, #map-canvas {
     margin-top: 0;
     font-weight: normal;
   }
+}
+/* google.maps.InfoWindow Body */
+.gm-style-iw-d {
 }
 .info-header {
   max-width: 80vw;
