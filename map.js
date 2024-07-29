@@ -142,7 +142,7 @@ class Events {
         <h3>
           <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(event.venue)}&amp;ll=${event.geometry.lat},${event.geometry.lng}" title="Venue Details on Google Maps">${event.venue}</a>
           |
-          <a target="_blank" href="${event.eventUrl}" title="Event Page">${event.cost}</strong>
+          <a target="_blank" href="${event.eventUrl}" title="Event Page">${event.cost}</a>
           <br>
           <span>${event.date_text}</span>
           |
