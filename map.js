@@ -154,7 +154,7 @@ class Events {
             <a href="${event.eventUrl}" target="_new">Event Page</a>
             <a href="${event.url}" target="_new">FunCheap Page</a>
           </p>
-          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`)}</p>
+          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
