@@ -34,12 +34,25 @@ html, body, #map-canvas {
 }
 
 /* google.maps.InfoWindow */
+.gm-style-iw-ch {
+  h2 {
+    margin: 0;
+  }
+  h3 {
+    margin-top: 0;
+    font-weight: normal;
+  }
+}
 .info-header {
-  text-align: center;
   max-width: 80vw;
 }
 .info-header p {
   margin: 0;
+  overflow: hidden;
+}
+.info-header a {
+  float: right;
+  margin: 0 0 0 5px;
 }
 .info-header a[onclick] {
   color: blue;
