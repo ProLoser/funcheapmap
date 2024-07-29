@@ -136,8 +136,12 @@ class Events {
       this.cachedInfoWindow = new google.maps.InfoWindow({});
 
     if (event) {
-      const date = new Date(event.date_text)
       const time = event.time.split(' to ')
+      const start = new Date(`${event.date_text} ${time[0]}`)
+      const startDate = start.toISOString().substr(0,10)
+      const startTime = start.toTimeString().substr(0,5)
+      // Defaults to 1 hour if no end time specified
+      const endTime = (new Date(time[1] ? `${startDate} ${time[1]}` : start.getTime() + 60*60*1000)).toTimeString().substr(0,5)
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
@@ -161,8 +165,9 @@ class Events {
           <add-to-calendar-button
             name="${encodeURIComponent(event.title)}"
             description="${event.eventUrl}"
-            startDate="${date.toISOString().substr(0,10)}"
-            startTime="${time[0].substr(0,5)}"
+            startDate="${startDate}"
+            startTime="${startTime}"
+            endTime="${endTime}"
             location="${event.venue}"
             trigger="click"
             status="TENTATIVE"
@@ -171,6 +176,7 @@ class Events {
             size="6"
             listStyle="modal"
             iCalFileName="FunCheapSF-Event"
+            debug
           />
         </div>
         <div class="info-body">
