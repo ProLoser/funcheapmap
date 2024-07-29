@@ -140,24 +140,21 @@ class Events {
       headerContent.innerHTML = `
         <h2>${event.title}</h2>
         <h3>
-          <span>${event.date_text}</span>
-          |
-          <span>${event.time}</span>
-          |
           <a href="https://maps.google.com/?q=${event.venue}&amp;ll=${event.geometry.lat},${event.geometry.lng}">${event.venue}</a>
           |
-          <span>${event.cost}</span>
+          <span>${event.time}</span>
         </h3>
       `
       this.cachedInfoWindow.setHeaderContent(headerContent)
       this.cachedInfoWindow.setContent(`
         <div class="info-header">
-          <p style="overflow:hidden">
+          <p>
+            <strong>${event.cost}</strong>
             ${event.cost_details}
-            <a style="float:right" href="${event.eventUrl}" target="_new">Event Page</a>
-            <a style="float:right" href="${event.url}" target="_new">FunCheap Page</a>
+            <a href="${event.eventUrl}" target="_new">Event Page</a>
+            <a href="${event.url}" target="_new">FunCheap Page</a>
           </p>
-          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
+          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`)}</p>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
