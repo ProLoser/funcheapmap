@@ -161,7 +161,7 @@ class Events {
           <add-to-calendar-button
             name="${event.title}"
             description="${event.eventUrl}"
-            startDate="${data.toISOString().substr(0,10)}"
+            startDate="${date.toISOString().substr(0,10)}"
             startTime="${time[0]}"
             location="${event.venue}"
             options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
