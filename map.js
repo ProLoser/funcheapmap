@@ -164,8 +164,9 @@ class Events {
             endDate="${end.toLocaleDateString('sv-SE')}"
             endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
-            timeZone="America/Los_Angeles"
-            listStyle="modal"
+            listStyle="dropdown"
+            buttonStyle="round"
+            size="5"
             hideTextLabelButton
             hideCheckmark
         ></add-to-calendar-button>
@@ -186,23 +187,6 @@ class Events {
             ${event.cost_details}
           </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
-            <add-to-calendar-button
-              name="${event.title.replaceAll('"',"'")}"
-              description="${event.eventUrl}"
-              startDate="${startDate}"
-              options="'Google','Apple','Outlook.com','iCal'"
-              startTime="${start.toTimeString().substr(0,5)}"
-              endDate="${end.toLocaleDateString('sv-SE')}"
-              endTime="${end.toTimeString().substr(0,5)}"
-              location="${event.venue}"
-              timeZone="America/Los_Angeles"
-              listStyle="modal"
-              hideTextLabelButton
-              buttonsList
-              buttonStyle="text"
-              hideCheckmark
-              debug
-            ></add-to-calendar-button>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
