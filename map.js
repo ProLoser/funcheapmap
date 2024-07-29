@@ -164,9 +164,9 @@ class Events {
             endDate="${end.toLocaleDateString('sv-SE')}"
             endTime="${end.toTimeString().substr(0,5)}"
             location="${event.venue}"
-            listStyle="dropdown"
-            buttonStyle="round"
-            size="5"
+            listStyle="modal"
+            buttonStyle="default"
+            size="4"
             hideTextLabelButton
             hideCheckmark
         ></add-to-calendar-button>
