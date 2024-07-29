@@ -136,21 +136,27 @@ class Events {
       this.cachedInfoWindow = new google.maps.InfoWindow({});
 
     if (event)
+      this.cachedInfoWindow.setHeaderContent(`
+        <h1>${event.title}</h1>
+        <p>
+          <strong>${event.date_text}</strong>
+          - <strong>${event.time}</strong>
+          at <strong>${event.venue}</strong>
+          for <strong>${event.cost}</strong>
+        </p>
+      `)
       this.cachedInfoWindow.setContent(`
         <div class="info-header">
-          <h2><a href="${event.eventUrl}" target="_new">${event.title}</a></h2>
-          <p>
-            <strong>${event.date_text}</strong>
-            - <strong>${event.time}</strong>
-            at <strong>${event.venue}</strong>
-            for <strong>${event.cost}</strong>
-          </p>
           <p><small>${event.cost_details}</small></p>
+          <p>
+            <a href="${event.eventUrl}" target="_new">Event Page</a>
+            <a href="${event.eventUrl}" target="_new">FunCheap Page</a>
+          </p>
           <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
-          <label for="moreInfo">More Info</label>
+          <label for="moreInfo">+ Expand Details +</label>
           <div>
             <!-- event_series: ${event.event_series || ''} -->
             ${event.details||''}
