@@ -141,12 +141,13 @@ class Events {
       const startDate = start.toLocaleDateString('sv-SE') // outputs yyyy-mm-dd
       let endToken
       if (time[1]) {
-        if (time[1] > time[0]) { // same day
-          endToken = `${startDate} ${time[1]}`
-        } else { // overnight
+        // Is event overnight?
+        if (time[1].substr(-2) == 'am' && time[0].substr(-2) == 'pm') {
           let endDate = new Date(start)
           endDate.setDate(endDate.getDate() + 1)
           endToken = `${endDate.toLocaleDateString('sv-SE')} ${time[1]}`
+        } else { // same day
+          endToken = `${startDate} ${time[1]}`
         }
       } else { // default 1 hour duration
         endToken = start.getTime() + 60*60*1000
