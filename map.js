@@ -145,14 +145,14 @@ class Events {
         if (time[1].substr(-2) == 'am' && time[0].substr(-2) == 'pm') {
           let endDate = new Date(start)
           endDate.setDate(endDate.getDate() + 1)
-          endToken = `${endDate.toLocaleDateString('sv-SE')} ${time[1]}`
+          endToken = `${endDate.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${time[1]}`
         } else { // same day
-          endToken = `${startDate} ${time[1]}`
+          endToken = `${startDate.replace(/-/gi, '/')} ${time[1]}`
         }
       } else { // default 1 hour duration
         endToken = start.getTime() + 60*60*1000
       }
-      const end = new Date(endToken.split('-').join('/'))
+      const end = new Date(endToken)
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
