@@ -152,7 +152,7 @@ class Events {
       } else { // default 1 hour duration
         endToken = start.getTime() + 60*60*1000
       }
-      const end = new Date(endToken)
+      const end = new Date(endToken.split('-').join('/'))
       const headerContent = document.createElement('div')
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="FunCheapSF Page">${event.title}</a></h2>
