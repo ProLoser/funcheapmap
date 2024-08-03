@@ -229,8 +229,13 @@ class Events {
    * @returns {object[]} events
    */
   set(events) {
-    window.localStorage.setItem('events', JSON.stringify(events));
-    window.localStorage.setItem('events_age', Date.now());
+    try {
+      // Known to throw QuotaExceededException on Safari
+      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events_age', Date.now());
+    catch (e) {
+      console.error(e)
+    }
     this.cache = events;
     return this.cache;
   }
