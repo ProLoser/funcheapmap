@@ -233,7 +233,7 @@ class Events {
       // Known to throw QuotaExceededException on Safari
       window.localStorage.setItem('events', JSON.stringify(events));
       window.localStorage.setItem('events_age', Date.now());
-    catch (e) {
+    } catch (e) {
       console.error(e)
     }
     this.cache = events;
