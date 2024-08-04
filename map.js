@@ -135,11 +135,12 @@ window.filter = function (filters = {}) {
       event.visible = false;
     }
 
-    if (event.visible) {
-      event.marker.classList.add('drop')
-    } else {
-      event.marker.style.opacity = '0';
-    }
+    event.marker.style.opacity = event.visible ? 1 : 0;
+    // if (event.visible) {
+    //   event.marker.classList.add('drop')
+    // } else {
+    //   event.marker.style.opacity = '0';
+    // }
     // event.marker.style.display = event.visible ? 'block' : 'none';
     
     return event.visible;
