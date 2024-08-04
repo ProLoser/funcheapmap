@@ -111,7 +111,7 @@ window.filter = function (filters = {}) {
       event.visible = false;
     }
 
-    event.marker.setVisible(event.visible);
+    event.marker.style.display = event.visible ? 'block' : 'none';
     
     return event.visible;
   }).length;
