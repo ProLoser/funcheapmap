@@ -38,7 +38,6 @@ function initialize() {
           map: window.map,
           position: event.geometry,
           title: event.title,
-          animation: google.maps.Animation.DROP
         });
         event.marker.addListener('click', function () {
           Events.infoWindow(event).open(window.map, event.marker);
