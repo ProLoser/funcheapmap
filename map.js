@@ -1,13 +1,13 @@
 /* global google */
 
-const intersectionObserver = new IntersectionObserver((entries) => {
-  for (const entry of entries) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("drop");
-      intersectionObserver.unobserve(entry.target);
-    }
-  }
-});
+// const intersectionObserver = new IntersectionObserver((entries) => {
+//   for (const entry of entries) {
+//     if (entry.isIntersecting) {
+//       entry.target.classList.add("drop");
+//       intersectionObserver.unobserve(entry.target);
+//     }
+//   }
+// });
 
 // Initialize the map
 window.addEventListener('load', initialize)
@@ -55,18 +55,18 @@ async function initialize() {
         });
 
         // Add drop animation
-        const content = event.marker.content
+        // const content = event.marker.content
         
-        content.style.opacity = "0";
-        content.addEventListener("animationend", (event) => {
-          content.classList.remove("drop");
-          content.style.opacity = "1";
-        });
+        // content.style.opacity = "0";
+        // content.addEventListener("animationend", (event) => {
+        //   content.classList.remove("drop");
+        //   content.style.opacity = "1";
+        // });
       
-        const time = 2 + Math.random(); // 2s delay for easy to see the animation
+        // const time = 2 + Math.random(); // 2s delay for easy to see the animation
       
-        content.style.setProperty("--delay-time", time + "s");
-        intersectionObserver.observe(content);
+        // content.style.setProperty("--delay-time", time + "s");
+        // intersectionObserver.observe(content);
       });
 
       // Apply URL filters
@@ -135,13 +135,12 @@ window.filter = function (filters = {}) {
       event.visible = false;
     }
 
-    // event.marker.content.style.opacity = event.visible ? 1 : 0;
-    if (event.visible) {
-      event.marker.content.classList.add('drop')
-    } else {
-      event.marker.content.style.opacity = '0';
-    }
-    // event.marker.style.display = event.visible ? 'block' : 'none';
+    // if (event.visible) {
+    //   event.marker.content.classList.add('drop')
+    // } else {
+    //   event.marker.content.style.opacity = '0';
+    // }
+    event.marker.content.style.display = event.visible ? 'block' : 'none';
     
     return event.visible;
   }).length;
