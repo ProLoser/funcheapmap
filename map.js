@@ -10,7 +10,8 @@ function initialize() {
     zoom: 11,
     center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
     disableDefaultUI: true,
-    zoomControl: true
+    zoomControl: true,
+    mapId: 'c46bf4bc0e87c92b'
   });
   
   // Create the datastore
@@ -33,7 +34,7 @@ function initialize() {
     .then(events => {
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
-        event.marker = new google.maps.Marker({
+        event.marker = new google.maps.marker.AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
           title: event.title,
