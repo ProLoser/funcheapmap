@@ -135,7 +135,11 @@ window.filter = function (filters = {}) {
       event.visible = false;
     }
 
-    event.marker.classList.toggle('drop', event.visible)
+    if (event.visible) {
+      event.marker.classList.add('drop')
+    } else {
+      event.marker.style.opacity = '0';
+    }
     // event.marker.style.display = event.visible ? 'block' : 'none';
     
     return event.visible;
