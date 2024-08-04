@@ -1,10 +1,21 @@
 /* global google */
 
+const intersectionObserver = new IntersectionObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("drop");
+      intersectionObserver.unobserve(entry.target);
+    }
+  }
+});
+
 // Initialize the map
 window.addEventListener('load', initialize)
 
-function initialize() {
-
+async function initialize() {
+  // Request needed libraries.
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 11,
@@ -42,6 +53,20 @@ function initialize() {
         event.marker.addListener('click', function () {
           Events.infoWindow(event).open(window.map, event.marker);
         });
+
+        // Add drop animation
+        const content = event.marker.content;
+      
+        content.style.opacity = "0";
+        content.addEventListener("animationend", (event) => {
+          content.classList.remove("drop");
+          content.style.opacity = "1";
+        });
+      
+        const time = 2 + Math.random(); // 2s delay for easy to see the animation
+      
+        content.style.setProperty("--delay-time", time + "s");
+        intersectionObserver.observe(content);
       });
 
       // Apply URL filters
@@ -62,7 +87,6 @@ function initialize() {
       }
       window.filter(filters);
     });
-
 }
 
 let options = {};
