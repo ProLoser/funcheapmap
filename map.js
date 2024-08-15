@@ -314,4 +314,4 @@ class Events {
   }
 }
 
-Events.API = 'https://api.apify.com/v2/acts/apify~web-scraper/runs/last/dataset/items?token=apify_api_1U4gg8GRgTkFBjyfEkxKNtS9n4gUUw3wUjUV';
+Events.API = 'https://api.apify.com/v2/acts/apify~cheerio-scraper/runs/last/dataset/items?token=apify_api_1U4gg8GRgTkFBjyfEkxKNtS9n4gUUw3wUjUV';
