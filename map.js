@@ -100,16 +100,6 @@ let options = {};
 window.filter = function (filters = {}) {
   Object.assign(options, filters);
 
-  // Apply filters to DOM and URL
-  let query = [];
-  for (let option in options) {
-    let element = document.getElementById(option);
-    if (element)
-      element.value = options[option];
-    query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
-  }
-  window.history.replaceState({}, '', '?' + query.join('&'));
-
   let date;
   if (options.date) {
     date = options.date.replace(/-/gi, '/');
@@ -145,6 +135,23 @@ window.filter = function (filters = {}) {
     return event.visible;
   }).length;
   
+  // Apply filters to DOM and URL
+  let query = [];
+  for (let option in options) {
+    let element = document.getElementById(option);
+    if (element) {
+      if (element.type === 'select-multiple') {
+        const selected = options[option].split(',');
+        for (const option of element.options) {
+          option.selected = !!~selected.indexOf(option.value)
+        } 
+      } else {
+        element.value = options[option];
+      }
+    }
+    query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
+  }
+  window.history.replaceState({}, '', '?' + query.join('&'));
   document.getElementById('count').innerText = count;
 };
 
