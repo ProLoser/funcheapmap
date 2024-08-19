@@ -28,7 +28,7 @@
     </p>
     <p>
       <label>Category:</label>
-      <select id="category" onchange="filter({ category: this.value })">
+      <select id="category" onchange="filter({ category: this.selectedOptions ? Array.from(this.selectedOptions).map(o => o.value).join(',') : this.value })" multiple>
         <option value="">All</option>
         <option value="**Annual Event**">Annual Event</option>
         <option value="*Top Pick*">Top Pick</option>
