@@ -105,6 +105,11 @@ window.filter = function (filters = {}) {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
+
+  let categories = [];
+  if (options.category) {
+    categories = options.category.split(',')
+  }
     
   // Filter events
   let count = window.events.get().filter(event => {
@@ -121,7 +126,7 @@ window.filter = function (filters = {}) {
         event.visible = false;
     }
     // check category
-    if (options.category && !~event.categories.indexOf(options.category)) {
+    if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
 
@@ -143,13 +148,14 @@ window.filter = function (filters = {}) {
       if (element.type === 'select-multiple') {
         const selected = options[option].split(',');
         for (const option of element.options) {
-          option.selected = !!~selected.indexOf(option.value)
-        } 
+          option.selected = selected.includes(option.value)
+        }
+        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
       } else {
         element.value = options[option];
+        query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
       }
     }
-    query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
   }
   window.history.replaceState({}, '', '?' + query.join('&'));
   document.getElementById('count').innerText = count;
