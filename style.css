@@ -66,9 +66,6 @@ html, body, #map-canvas {
     margin: -8px -41px 0 0;
   }
 }
-/* google.maps.InfoWindow Body */
-.gm-style-iw-d {
-}
 .info-header {
   max-width: 80vw;
   p {
@@ -89,6 +86,21 @@ html, body, #map-canvas {
   }
 }
 
+/* google.maps.InfoWindow Body */
+.gm-style-iw-d {
+}
+#details {
+  iframe {
+    width: 100%;
+    aspect-ratio: .5;
+    border: none;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .media-credit-container {
+    max-width: none !important;
+  }
+}
 .info-body {
   max-width: 80vw;
   max-height: 40vh;
