@@ -231,14 +231,13 @@ class Events {
           <p>
             ${event.cost_details}
           </p>
-          <p>Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
+          <p class="categories">Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
         <div class="info-body">
           <input id="moreInfo" type="checkbox">
           <label for="moreInfo">+ Expand Details +</label>
           <div id="details">
-            ${event.event_series || ''}
-            ${event.details||''}
+            ${event.details}
           </div>
         </div>
       `);
