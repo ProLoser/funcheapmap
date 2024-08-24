@@ -18,7 +18,7 @@ async function initialize() {
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 11,
+    zoom: 12,
     center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
     disableDefaultUI: true,
     zoomControl: true,
