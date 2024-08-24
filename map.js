@@ -237,8 +237,8 @@ class Events {
           <input id="moreInfo" type="checkbox">
           <label for="moreInfo">+ Expand Details +</label>
           <div>
-            <!-- event_series: ${event.event_series || ''} -->
             ${event.details||''}
+            ${event.event_series || ''}
           </div>
         </div>
       `);
