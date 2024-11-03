@@ -45,6 +45,7 @@ async function initialize() {
     .then(events => {
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
+        if (!event.geometry) return console.error('Event Geometry Missing', { event });
         event.marker = new google.maps.marker.AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
