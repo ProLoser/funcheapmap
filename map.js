@@ -44,9 +44,6 @@ async function initialize() {
   window.events.load()
     .then(events => {
       events.forEach(event => {
-        if (!event.title) return; // skip empty events just in case
-        if (!event.geometry) console.error('Event Geometry Missing', { event });
-        if (new Date(event.end_time) < new Date()) return; // skip events that have ended
         event.marker = new google.maps.marker.AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
@@ -129,11 +126,6 @@ window.filter = function (filters = {}) {
     }
     // check category
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
-      event.visible = false;
-    }
-
-    // check if event has ended
-    if (new Date(event.end_time) < new Date()) {
       event.visible = false;
     }
 
@@ -264,7 +256,7 @@ class Events {
     
     this.cache = window.localStorage.getItem('events');
 
-    if (this.cache)
+    if (this.cache && typeof this.cache === 'string')
       this.cache = JSON.parse(this.cache);
     
     return this.cache;
@@ -277,14 +269,23 @@ class Events {
    * @returns {object[]} events
    */
   set(events) {
+    const now = new Date()
+    // if (!event.title) return; // skip empty events just in case
+    // if (!event.geometry) console.error('Event Geometry Missing', { event });
+    // if (new Date(event.end_time) < new Date()) return; // skip events that have ended
+    const data = events.filter(event => 
+      event.title && 
+      event.geometry && 
+      (!event.end_time || new Date(event.end_time) > now)
+    );
     try {
       // Known to throw QuotaExceededException on Safari
-      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events', JSON.stringify(data));
       window.localStorage.setItem('events_age', Date.now());
     } catch (e) {
       console.error(e)
     }
-    this.cache = events;
+    this.cache = data;
     return this.cache;
   }
 
@@ -330,17 +331,6 @@ class Events {
   query() {
     return fetch(new Request(Events.API))
       .then(response => response.json());
-  }
-
-  /**
-   * Filters out past events based on their end time
-   * 
-   * @param {object[]} events
-   * @returns {object[]} filtered events
-   */
-  filterPastEvents(events) {
-    const now = new Date();
-    return events.filter(event => new Date(event.end_time) >= now);
   }
 }
 
