@@ -46,6 +46,7 @@ async function initialize() {
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
         if (!event.geometry) console.error('Event Geometry Missing', { event });
+        if (new Date(event.end_time) < new Date()) return; // skip events that have ended
         event.marker = new google.maps.marker.AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
@@ -128,6 +129,11 @@ window.filter = function (filters = {}) {
     }
     // check category
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
+      event.visible = false;
+    }
+
+    // check if event has ended
+    if (new Date(event.end_time) < new Date()) {
       event.visible = false;
     }
 
@@ -324,6 +330,17 @@ class Events {
   query() {
     return fetch(new Request(Events.API))
       .then(response => response.json());
+  }
+
+  /**
+   * Filters out past events based on their end time
+   * 
+   * @param {object[]} events
+   * @returns {object[]} filtered events
+   */
+  filterPastEvents(events) {
+    const now = new Date();
+    return events.filter(event => new Date(event.end_time) >= now);
   }
 }
 
