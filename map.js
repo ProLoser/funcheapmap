@@ -43,7 +43,9 @@ async function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
+      const now = new Date();
       events.forEach(event => {
+        if (new Date(event.end_time) < now) return; // skip events that have ended
         event.marker = new google.maps.marker.AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
@@ -109,6 +111,8 @@ window.filter = function (filters = {}) {
   if (options.category) {
     categories = options.category.split(',')
   }
+
+  const now = new Date();
     
   // Filter events
   let count = window.events.get().filter(event => {
@@ -124,11 +128,17 @@ window.filter = function (filters = {}) {
       )
         event.visible = false;
     }
+    
     // check category
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
 
+    // check if event has ended
+    if (new Date(event.end_time) < now) {
+      event.visible = false;
+    }
+    
     // if (event.visible) {
     //   event.marker.content.classList.add('drop')
     // } else {
