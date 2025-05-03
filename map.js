@@ -230,7 +230,9 @@ class Events {
         </h3>
       `
       this.cachedInfoWindow.setHeaderContent(headerContent)
-      this.cachedInfoWindow.setContent(`
+
+      const content = document.createElement('div')
+      content.innerHTML = `
         <div class="info-header">
           <p>
             ${event.cost_details}
@@ -238,13 +240,18 @@ class Events {
           <p class="categories">Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
         <div class="info-body">
-          <input id="moreInfo" type="checkbox">
+          <input id="moreInfo" type="checkbox" onchange=>
           <label for="moreInfo">+ Expand Details +</label>
           <div id="details">
             ${event.details}
           </div>
         </div>
-      `);
+      `
+      // Reposition after expanding
+      content.querySelector('input').addEventListener('change', () => {
+        this.cachedInfoWindow.open(window.map, event.marker);
+      })
+      this.cachedInfoWindow.setContent(content);
     }
 
     return this.cachedInfoWindow;
