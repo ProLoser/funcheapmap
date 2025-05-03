@@ -28,7 +28,7 @@
     </p>
     <p>
       <label>Category:</label>
-      <select id="category" onchange="filter({ category: this.selectedOptions ? Array.from(this.selectedOptions).map(o => o.value).join(',') : this.value })" multiple>
+      <select id="category" onchange="filter({ category: this.selectedOptions ? Array.from(this.selectedOptions).map(o => o.value).join(',') : this.value }); this.querySelector('option:checked')?.scrollIntoView()" multiple>
         <option value="*Top Pick*">Top Pick</option>
         <option value="**Annual Event**">Annual Event</option>
         <option value="Top Annual Event">Top Annual Event</option>
@@ -51,6 +51,7 @@
         <option value="Live Music">Live Music</option>
         <option value="Movies">Movies</option>
         <option value="Outdoors">Outdoors</option>
+        <option value="Other">Other</option>
         <option value="Rainy Day Fun">Rainy Day Fun</option>
         <option value="San FranFREEsco">San FranFREEsco</option>
         <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
