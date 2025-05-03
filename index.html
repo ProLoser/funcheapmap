@@ -28,7 +28,7 @@
     </p>
     <p>
       <label>Category:</label>
-      <select id="category" onchange="filter({ category: this.selectedOptions ? Array.from(this.selectedOptions).map(o => o.value).join(',') : this.value }); this.querySelector('option:checked')?.scrollIntoView()" multiple>
+      <select id="category" onchange="filter({ category: this.selectedOptions ? Array.from(this.selectedOptions).map(o => o.value).join(',') : this.value })" multiple>
         <option value="*Top Pick*">Top Pick</option>
         <option value="**Annual Event**">Annual Event</option>
         <option value="Top Annual Event">Top Annual Event</option>
@@ -38,6 +38,7 @@
         <option value="Cheap Drinks">Cheap Drinks</option>
         <option value="Club / DJ">Club / DJ</option>
         <option value="Comedy">Comedy</option>
+        <option value="Discount Tix / Promo Codes">Discount Tix / Promo Codes</option>
         <option value="Eating & Drinking">Eating &amp; Drinking</option>
         <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
         <option value="Free Food">Free Food</option>
@@ -47,6 +48,7 @@
         <option value="In Person">In Person</option>
         <option value="Kids & Families">Kids &amp; Families</option>
         <option value="Lectures & Workshops">Lectures &amp; Workshops</option>
+        <option value="LGBTQ+">LGBTQ+</option>
         <option value="Literature">Literature</option>
         <option value="Live Music">Live Music</option>
         <option value="Movies">Movies</option>
@@ -55,6 +57,7 @@
         <option value="Rainy Day Fun">Rainy Day Fun</option>
         <option value="San FranFREEsco">San FranFREEsco</option>
         <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
+        <option value="Sponsored">Sponsored</option>
         <option value="Sports & Wellness">Sports &amp; Wellness</option>
         <option value="Theater & Performance">Theater &amp; Performance</option>
       </select>
