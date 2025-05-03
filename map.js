@@ -150,10 +150,8 @@ window.filter = function (filters = {}) {
         const selected = options[option].split(',');
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
-          if (option.selected) {
-            option.scrollIntoView();
-          }
         }
+        element.querySelector('option:checked')?.scrollIntoView();
         query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
       } else {
         element.value = options[option];
