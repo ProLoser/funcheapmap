@@ -151,7 +151,9 @@ window.filter = function (filters = {}) {
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
         }
-        element.querySelector('option:checked')?.scrollIntoView();
+        setTimeout(() => {
+          element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 200);
         query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
       } else {
         element.value = options[option];
