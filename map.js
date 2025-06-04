@@ -71,16 +71,22 @@ async function initialize() {
       });
 
       const categorySelect = document.getElementById('category');
-      // Directly append all categories from events, preserving existing HTML options
+
+      // Collect, deduplicate, and sort categories from event data only
+      const uniqueEventCategoriesSet = new Set();
       events.forEach(event => {
         if (event.categories) { // Ensure event.categories exists
-          event.categories.forEach(categoryName => {
-            const option = document.createElement('option');
-            option.value = categoryName;
-            option.textContent = categoryName;
-            categorySelect.appendChild(option);
-          });
+          event.categories.forEach(categoryName => uniqueEventCategoriesSet.add(categoryName));
         }
+      });
+      const sortedUniqueEventCategories = Array.from(uniqueEventCategoriesSet).sort();
+
+      // Append these dynamic categories directly
+      sortedUniqueEventCategories.forEach(categoryName => {
+        const option = document.createElement('option');
+        option.value = categoryName;
+        option.textContent = categoryName;
+        categorySelect.appendChild(option);
       });
 
       // Apply URL filters
