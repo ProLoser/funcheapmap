@@ -70,12 +70,35 @@ async function initialize() {
         });
       });
 
+      const categorySelect = document.getElementById('category');
+      // Directly append all categories from events, preserving existing HTML options
+      events.forEach(event => {
+        if (event.categories) { // Ensure event.categories exists
+          event.categories.forEach(categoryName => {
+            const option = document.createElement('option');
+            option.value = categoryName;
+            option.textContent = categoryName;
+            categorySelect.appendChild(option);
+          });
+        }
+      });
+
       // Apply URL filters
       let filters = {};
       if (document.location.search) {
         document.location.search.substr(1).split('&').forEach(param => {
           param = param.split('=');
           filters[decodeURIComponent(param[0])] = decodeURIComponent(param[1]);
+        });
+      }
+
+      // After populating, if filters.category exists from URL, apply selections
+      if (filters.category) {
+        const selectedCatsFromURL = filters.category.split(',');
+        Array.from(categorySelect.options).forEach(opt => {
+          if (selectedCatsFromURL.includes(opt.value)) {
+            opt.selected = true;
+          }
         });
       }
     
@@ -139,28 +162,43 @@ window.filter = function (filters = {}) {
     
     return event.visible;
   }).length;
-  
+
   // Apply filters to DOM and URL
+  // The 'categories' array used for filtering events is already up-to-date from options.category
   let query = [];
-  for (let option in options) {
-    let element = document.getElementById(option);
+  for (let domOptionKey in options) { // Renamed 'option' to 'domOptionKey' to avoid conflict with option elements
+    let element = document.getElementById(domOptionKey);
     if (element) {
-      if (element.type === 'select-multiple') {
-        const selected = options[option].split(',');
-        for (const option of element.options) {
-          option.selected = selected.includes(option.value)
+      if (element.type === 'select-multiple') { // This is the category select
+        if (options[domOptionKey]) { // options.category might be undefined or empty
+          const selectedValues = options[domOptionKey].split(',');
+          for (const opt of element.options) {
+            opt.selected = selectedValues.includes(opt.value);
+          }
+        } else { // No categories selected, so deselect all
+          for (const opt of element.options) {
+            opt.selected = false;
+          }
         }
         setTimeout(() => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200);
-        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
-      } else {
-        element.value = options[option];
-        query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
+        // Use options[domOptionKey] for query string, which reflects actual selections
+        const queryValue = options[domOptionKey] ? options[domOptionKey].split(',').map(c => encodeURIComponent(c)).join(',') : '';
+        if (queryValue) { // Only add to query if there are selected categories
+            query.push(encodeURIComponent(domOptionKey) + '=' + queryValue);
+        } else if (Object.prototype.hasOwnProperty.call(options, domOptionKey) && query.find(q => q.startsWith(encodeURIComponent(domOptionKey) + '=')) === undefined) {
+          // If options.category is explicitly empty string or undefined but was a parameter, ensure it's removed or set to empty
+           query.push(encodeURIComponent(domOptionKey) + '=');
+        }
+
+      } else { // This is the date input
+        element.value = options[domOptionKey];
+        query.push(encodeURIComponent(domOptionKey) + '=' + encodeURIComponent(options[domOptionKey]));
       }
     }
   }
-  window.history.replaceState({}, '', '?' + query.join('&'));
+  window.history.replaceState({}, '', '?' + query.filter(p => p !== 'category=').join('&')); // Filter out empty category params
   document.getElementById('count').innerText = count;
 };
 
