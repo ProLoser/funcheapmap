@@ -43,9 +43,22 @@ async function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
+      let minDate, maxDate;
+
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
         if (!event.geometry) console.error('Event Geometry Missing', { event });
+
+        // Calculate min/max date
+        if (event.date) {
+          const eventDate = new Date(event.date);
+          if (!minDate || eventDate < minDate) {
+            minDate = eventDate;
+          }
+          if (!maxDate || eventDate > maxDate) {
+            maxDate = eventDate;
+          }
+        }
 
         const pinElement = new PinElement();
         const content = pinElement.element;
@@ -69,6 +82,13 @@ async function initialize() {
           Events.infoWindow(event).open(window.map, event.marker);
         });
       });
+
+      // Update the date picker
+      if (minDate && maxDate) {
+        const dateInput = document.getElementById('date');
+        dateInput.min = minDate.toLocaleDateString('fr-ca');
+        dateInput.max = maxDate.toLocaleDateString('fr-ca');
+      }
 
       // Apply URL filters
       let filters = {};
