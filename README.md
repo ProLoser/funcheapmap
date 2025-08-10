@@ -1,7 +1,7 @@
 # [FunCheapSF Mapper](https://proloser.github.io/funcheapmap/)
 A map of FunCheapSF events
 
-Data is refreshed once a week by Apify crawler.
+Data is refreshed every other day by Apify crawler.
 
 [![Screenshot](https://proloser.github.io/funcheapmap/screenshot.png)](https://proloser.github.io/funcheapmap/)
 
