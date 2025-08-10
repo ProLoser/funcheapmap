@@ -29,6 +29,7 @@ async function initialize() {
   window.events = new Events();
   
   // Bind infoWindow.close() shortcuts
+  document.getElementById('user-location-button').addEventListener('click', showUserLocation)
   window.addEventListener('keyup', event => {
     switch (event.keyCode) {
       case 27: // esc
@@ -183,6 +184,38 @@ window.filter = function (filters = {}) {
   window.history.replaceState({}, '', '?' + query.join('&'));
   document.getElementById('count').innerText = count;
 };
+
+/**
+ * Gets the user's location and displays it on the map
+ */
+function showUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        map.setCenter(pos);
+        map.setZoom(15);
+
+        new google.maps.Marker({
+          position: pos,
+          map: window.map,
+          title: "Your Location",
+          icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+        });
+      },
+      () => {
+        alert('Error: The Geolocation service failed.');
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    alert("Error: Your browser doesn't support geolocation.");
+  }
+}
 
 
 /**
