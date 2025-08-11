@@ -41,6 +41,7 @@ async function initialize() {
       Events.infoWindow().close();
   });
 
+if (navigator.geolocation) {
   const locationButton = document.createElement("button");
   locationButton.classList.add("ui-button");
   locationButton.title = "My Location";
@@ -49,6 +50,7 @@ async function initialize() {
   </svg>`;
   locationButton.addEventListener("click", showUserLocation);
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(locationButton);
+}
 
   console.log('Loading Events...');
   window.events.load()
