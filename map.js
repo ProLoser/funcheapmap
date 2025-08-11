@@ -384,9 +384,18 @@ class Events {
     if (this.cache)
       return this.cache;
     
-    this.cache = window.localStorage.getItem('events');
-    if (this.cache)
-      this.cache = JSON.parse(this.cache);
+    const raw = window.localStorage.getItem('events');
+    if (!raw) return null;
+
+    try {
+      // first try to decompress
+      const compressed = JSON.parse(raw);
+      this.cache = JSON.parse(pako.inflate(new Uint8Array(compressed), { to: 'string' }));
+    } catch (e) {
+      // if that fails, assume it's old uncompressed data
+      console.warn('Failed to decompress, falling back to uncompressed parse');
+      this.cache = JSON.parse(raw);
+    }
     
     return this.cache;
   }
@@ -398,8 +407,9 @@ class Events {
    */
   set(events) {
     try {
+      const compressed = pako.deflate(JSON.stringify(events));
       // Known to throw QuotaExceededException on Safari
-      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events', JSON.stringify(Array.from(compressed)));
       window.localStorage.setItem('events_age', Date.now());
     } catch (e) {
       console.error(e)
