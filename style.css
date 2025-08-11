@@ -44,11 +44,6 @@ html, body, #map-canvas {
   text-decoration: none;
   color: #666;
   fill: #666;
-  svg {
-    display: block;
-    height: 24px;
-    width: 24px;
-  }
   &:hover {
     background: rgb(235, 235, 235);
     color: #000;
@@ -56,13 +51,19 @@ html, body, #map-canvas {
   }
 }
 
-
 #feedback {
   position: absolute;
   right: 50px;
   bottom: 24px;
   padding: 8px;
   font-size: 11px;
+}
+#myLocation {
+  svg {
+    display: block;
+    height: 22px;
+    width: 22px;
+  }
 }
 
 /* google.maps.InfoWindow Header */
