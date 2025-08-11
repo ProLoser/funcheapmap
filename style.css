@@ -30,10 +30,37 @@ html, body, #map-canvas {
     font-family: Roboto, Arial, sans-serif;
   }
 }
+
+.ui-button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 0 10px;
+  padding: 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  color: #666;
+  fill: #666;
+  svg {
+    display: block;
+    height: 24px;
+    width: 24px;
+  }
+  &:hover {
+    background: rgb(235, 235, 235);
+    color: #000;
+    fill: #000;
+  }
+}
+
+
 #feedback {
   position: absolute;
   right: 50px;
-  bottom: 14px;
+  bottom: 24px;
   padding: 8px;
   font-size: 11px;
 }
@@ -160,26 +187,4 @@ html, body, #map-canvas {
 .drop {
   opacity: 0;
   animation: drop 0.3s linear forwards var(--delay-time);
-}
-
-.ui-button {
-  background-color: #fff;
-  border: 0;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  margin: 10px;
-  padding: 0 0.5em;
-  font: 400 18px Roboto, Arial, sans-serif;
-  overflow: hidden;
-  height: 40px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #666;
-  fill: #666;
-}
-
-.ui-button:hover {
-  background: rgb(235, 235, 235);
-  color: #000;
-  fill: #000;
 }
