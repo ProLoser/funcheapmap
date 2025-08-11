@@ -14,9 +14,25 @@ let userLocationMarker = null;
 // Initialize the map
 window.addEventListener('load', initialize)
 async function initialize() {
-  // Request needed libraries.
-  const { Map } = await google.maps.importLibrary("maps");
-  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+  // Check if we're using the new API loading method
+  let AdvancedMarkerElement, PinElement;
+  
+  if (google.maps.importLibrary) {
+    // New API loading method
+    const { Map } = await google.maps.importLibrary("maps");
+    const markerLibrary = await google.maps.importLibrary("marker");
+    AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
+    PinElement = markerLibrary.PinElement;
+  } else {
+    // Legacy API - AdvancedMarkerElement should be available globally
+    AdvancedMarkerElement = google.maps.marker?.AdvancedMarkerElement || google.maps.AdvancedMarkerElement;
+    PinElement = google.maps.marker?.PinElement || google.maps.PinElement;
+    
+    // Fallback to regular Marker if AdvancedMarkerElement is not available
+    if (!AdvancedMarkerElement) {
+      console.warn('AdvancedMarkerElement not available, falling back to legacy Marker');
+    }
+  }
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 12,
@@ -71,25 +87,46 @@ if (navigator.geolocation) {
             maxDate = eventDate;
           }
         }
-        const pinElement = new PinElement();
-        const content = pinElement.element;
-        event.marker = new AdvancedMarkerElement({
-          map: window.map,
-          position: event.geometry,
-          title: event.title,
-          content: content,
-        });
-        content.style.opacity = '0';
-        content.addEventListener('animationend', (event) => {
-          content.classList.remove('drop');
-          content.style.opacity = '1';
-        });
-        const time = Math.random(); // Random delay up to 1 second
-        content.style.setProperty('--delay-time', time + 's');
-        intersectionObserver.observe(content);
-        event.marker.addListener('gmp-click', function () {
-          Events.infoWindow(event).open(window.map, event.marker);
-        });
+        // Create marker - use AdvancedMarkerElement if available, otherwise fall back to legacy Marker
+        if (AdvancedMarkerElement && PinElement) {
+          const pinElement = new PinElement();
+          const content = pinElement.element;
+          event.marker = new AdvancedMarkerElement({
+            map: window.map,
+            position: event.geometry,
+            title: event.title,
+            content: content,
+          });
+        } else {
+          // Fallback to legacy Marker
+          event.marker = new google.maps.Marker({
+            map: window.map,
+            position: event.geometry,
+            title: event.title,
+          });
+        }
+        // Animation setup (only for AdvancedMarkerElement)
+        if (AdvancedMarkerElement && PinElement) {
+          const content = event.marker.content;
+          content.style.opacity = '0';
+          content.addEventListener('animationend', (event) => {
+            content.classList.remove('drop');
+            content.style.opacity = '1';
+          });
+          const time = Math.random(); // Random delay up to 1 second
+          content.style.setProperty('--delay-time', time + 's');
+          intersectionObserver.observe(content);
+        }
+        // Add click listener
+        if (AdvancedMarkerElement && PinElement) {
+          event.marker.addListener('gmp-click', function () {
+            Events.infoWindow(event).open(window.map, event.marker);
+          });
+        } else {
+          event.marker.addListener('click', function () {
+            Events.infoWindow(event).open(window.map, event.marker);
+          });
+        }
       });
       // Update the date picker
       if (minDate && maxDate) {
@@ -191,8 +228,19 @@ window.filter = function (filters = {}) {
  */
 window.showUserLocation = async function () {
   if (navigator.geolocation) {
-    // Import marker library if not already imported
-    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    // Check if we need to import libraries or if they're globally available
+    let AdvancedMarkerElement, PinElement;
+    
+    if (google.maps.importLibrary) {
+      // New API loading method
+      const markerLibrary = await google.maps.importLibrary("marker");
+      AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
+      PinElement = markerLibrary.PinElement;
+    } else {
+      // Legacy API
+      AdvancedMarkerElement = google.maps.marker?.AdvancedMarkerElement || google.maps.AdvancedMarkerElement;
+      PinElement = google.maps.marker?.PinElement || google.maps.PinElement;
+    }
     
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -203,22 +251,32 @@ window.showUserLocation = async function () {
         map.setCenter(pos);
         map.setZoom(15);
         
+        // Create user location marker
         if (!userLocationMarker) {
-          // Create a blue pin for user location
-          const userPinElement = new PinElement({
-            background: "#4285F4",
-            borderColor: "#ffffff",
-            glyphColor: "#ffffff",
-            scale: 1.2
-          });
-          
-          // Create new user location marker
-          userLocationMarker = new AdvancedMarkerElement({
-            map: window.map,
-            position: pos,
-            title: "Your Location",
-            content: userPinElement.element,
-          });
+          if (AdvancedMarkerElement && PinElement) {
+            // Use AdvancedMarkerElement with custom blue pin
+            const userPinElement = new PinElement({
+              background: "#4285F4",
+              borderColor: "#ffffff",
+              glyphColor: "#ffffff",
+              scale: 1.2
+            });
+            
+            userLocationMarker = new AdvancedMarkerElement({
+              map: window.map,
+              position: pos,
+              title: "Your Location",
+              content: userPinElement.element,
+            });
+          } else {
+            // Fallback to legacy Marker
+            userLocationMarker = new google.maps.Marker({
+              position: pos,
+              map: window.map,
+              title: "Your Location",
+              icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            });
+          }
         }
       },
       () => {
