@@ -1,5 +1,4 @@
 /* global google */
-
 const intersectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
@@ -9,9 +8,11 @@ const intersectionObserver = new IntersectionObserver((entries) => {
   }
 });
 
+// Global variable to track user location marker
+let userLocationMarker = null;
+
 // Initialize the map
 window.addEventListener('load', initialize)
-
 async function initialize() {
   // Request needed libraries.
   const { Map } = await google.maps.importLibrary("maps");
@@ -44,6 +45,7 @@ async function initialize() {
 if (navigator.geolocation) {
   const locationButton = document.createElement("button");
   locationButton.classList.add("ui-button");
+  locationButton.id = "myLocation";
   locationButton.title = "My Location";
   locationButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"></path>
@@ -56,11 +58,9 @@ if (navigator.geolocation) {
   window.events.load()
     .then(events => {
       let minDate, maxDate;
-
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
         if (!event.geometry) console.error('Event Geometry Missing', { event });
-
         // Calculate min/max date
         if (event.date) {
           const eventDate = new Date(event.date);
@@ -71,7 +71,6 @@ if (navigator.geolocation) {
             maxDate = eventDate;
           }
         }
-
         const pinElement = new PinElement();
         const content = pinElement.element;
         event.marker = new AdvancedMarkerElement({
@@ -80,7 +79,6 @@ if (navigator.geolocation) {
           title: event.title,
           content: content,
         });
-
         content.style.opacity = '0';
         content.addEventListener('animationend', (event) => {
           content.classList.remove('drop');
@@ -89,19 +87,16 @@ if (navigator.geolocation) {
         const time = Math.random(); // Random delay up to 1 second
         content.style.setProperty('--delay-time', time + 's');
         intersectionObserver.observe(content);
-
         event.marker.addListener('gmp-click', function () {
           Events.infoWindow(event).open(window.map, event.marker);
         });
       });
-
       // Update the date picker
       if (minDate && maxDate) {
         const dateInput = document.getElementById('date');
         dateInput.min = minDate.toLocaleDateString('fr-ca');
         dateInput.max = maxDate.toLocaleDateString('fr-ca');
       }
-
       // Apply URL filters
       let filters = {};
       if (document.location.search) {
@@ -123,7 +118,6 @@ if (navigator.geolocation) {
 }
 
 let options = {};
-
 /**
  * Callback for datepicker, filters all visible events to specified date and category
  * @param {object} filters
@@ -132,13 +126,11 @@ let options = {};
  */
 window.filter = function (filters = {}) {
   Object.assign(options, filters);
-
   let date;
   if (options.date) {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
-
   let categories = [];
   if (options.category) {
     categories = options.category.split(',')
@@ -148,7 +140,6 @@ window.filter = function (filters = {}) {
   let count = window.events.get().filter(event => {
     if (!event.title) return; // skip empty events
     event.visible = true;
-
     // check date
     if (date) {
       let eventDate = new Date(event.date);
@@ -162,7 +153,6 @@ window.filter = function (filters = {}) {
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
-
     if (!event.visible) {
       intersectionObserver.observe(event.marker.content);
       event.marker.content.style.opacity = '0';
@@ -199,24 +189,37 @@ window.filter = function (filters = {}) {
 /**
  * Gets the user's location and displays it on the map
  */
-window.showUserLocation = function () {
+window.showUserLocation = async function () {
   if (navigator.geolocation) {
+    // Import marker library if not already imported
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-
         map.setCenter(pos);
         map.setZoom(15);
-
-        new google.maps.Marker({
-          position: pos,
-          map: window.map,
-          title: "Your Location",
-          icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-        });
+        
+        if (!userLocationMarker) {
+          // Create a blue pin for user location
+          const userPinElement = new PinElement({
+            background: "#4285F4",
+            borderColor: "#ffffff",
+            glyphColor: "#ffffff",
+            scale: 1.2
+          });
+          
+          // Create new user location marker
+          userLocationMarker = new AdvancedMarkerElement({
+            map: window.map,
+            position: pos,
+            title: "Your Location",
+            content: userPinElement.element,
+          });
+        }
       },
       () => {
         alert('Error: The Geolocation service failed.');
@@ -228,12 +231,10 @@ window.showUserLocation = function () {
   }
 }
 
-
 /**
  * Utility class for managing event data
  */
 class Events {
-
   /**
    * Generates and returns a google maps info window
    * 
@@ -243,7 +244,6 @@ class Events {
   static infoWindow(event) {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
-
     if (event) {
       const time = event.time.split(' to ')
       const start = new Date(`${event.date_text} ${time[0]}`)
@@ -293,7 +293,6 @@ class Events {
         </h3>
       `
       this.cachedInfoWindow.setHeaderContent(headerContent)
-
       const content = document.createElement('div')
       content.innerHTML = `
         <div class="info-header">
@@ -316,10 +315,8 @@ class Events {
       })
       this.cachedInfoWindow.setContent(content);
     }
-
     return this.cachedInfoWindow;
   }
-
   /**
    * Loads event data from cache
    * 
@@ -330,13 +327,11 @@ class Events {
       return this.cache;
     
     this.cache = window.localStorage.getItem('events');
-
     if (this.cache)
       this.cache = JSON.parse(this.cache);
     
     return this.cache;
   }
-
   /**
    * Stores the event data to cache and adds a timestamp
    * 
@@ -354,7 +349,6 @@ class Events {
     this.cache = events;
     return this.cache;
   }
-
   /**
    * Returns the age of the cache
    * 
@@ -363,7 +357,6 @@ class Events {
   age() {
     return window.localStorage.getItem('events_age');
   }
-
   /**
    * Specifies if the age of the cache is old. Defaults to 24 hours
    * 
@@ -374,7 +367,6 @@ class Events {
     let age = this.age();
     return age && age > (Date.now() - old);
   }
-
   /**
    * Checks if the cache is old and updates it
    * 
@@ -388,7 +380,6 @@ class Events {
         .then(this.set.bind(this));
     }
   }
-
   /**
    * Queries the crawler API
    *
@@ -399,5 +390,4 @@ class Events {
       .then(response => response.json());
   }
 }
-
 Events.API = 'https://api.apify.com/v2/acts/apify~cheerio-scraper/runs/last/dataset/items?token=apify_api_1U4gg8GRgTkFBjyfEkxKNtS9n4gUUw3wUjUV';
