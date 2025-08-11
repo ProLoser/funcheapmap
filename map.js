@@ -174,7 +174,7 @@ window.filter = function (filters = {}) {
   }
     
   // Filter events
-  let count = window.events.get().filter(event => {
+  let count = window.events.get()?.filter(event => {
     if (!event.title) return; // skip empty events
     event.visible = true;
     // check date
