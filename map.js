@@ -12,7 +12,7 @@ const intersectionObserver = new IntersectionObserver((entries) => {
 let userLocationMarker = null;
 
 // Initialize the map
-window.addEventListener('load', initialize)
+// window.addEventListener('load', initialize)
 async function initialize() {
   // Check if we're using the new API loading method
   let AdvancedMarkerElement, PinElement;
