@@ -73,10 +73,14 @@ if (navigator.geolocation) {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
-      let minDate, maxDate;
+      let minDate, maxDate, categories = new Set();
       events.forEach(event => {
         if (!event.title) return; // skip empty events just in case
-        if (!event.geometry) console.error('Event Geometry Missing', { event });
+        if (!event.geometry) return console.error('Event Geometry Missing', { event });
+        // Add categories to the set
+        if (event.categories) {
+          event.categories.forEach(category => !category.includes('Weekend Events Guide') && categories.add(category));
+        }
         // Calculate min/max date
         if (event.date) {
           const eventDate = new Date(event.date);
@@ -134,6 +138,10 @@ if (navigator.geolocation) {
         dateInput.min = minDate.toLocaleDateString('fr-ca');
         dateInput.max = maxDate.toLocaleDateString('fr-ca');
       }
+      // Update the category select
+      document.getElementById('category').innerHTML = Array.from(categories).sort().map(category => 
+        `<option value="${category}">${category.replace(/\*/g,'')}</option>`
+      ).join('');
       // Apply URL filters
       let filters = {};
       if (document.location.search) {

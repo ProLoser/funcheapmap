@@ -27,12 +27,16 @@
       <input name="date" id="date" type="date" onchange="filter({ date: this.value })">
     </p>
     <p>
-      <label for="category">Category:</label>
-
+      <label for="category">Categories:</label>
+    </p>
+    <p>
       <!-- <select id="category" onchange="filter({ category: this.value })"> -->
       <select name="category" id="category" onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join(',') })" multiple>
-        <option value="*Top Pick*">Top Pick</option>
+        <!-- These are programmatically replaced after data loads -->
         <option value="**Annual Event**">Annual Event</option>
+        <option value="*Top Pick*">Top Pick</option>
+        <option value="420">420</option>
+        <option value="4th of July">4th of July</option>
         <option value="Top Annual Event">Top Annual Event</option>
         <option value="Adults Only">Adults Only</option>
         <option value="Art & Museums">Art &amp; Museums</option>
@@ -44,7 +48,6 @@
         <option value="Eating & Drinking">Eating &amp; Drinking</option>
         <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
         <option value="Free Food">Free Food</option>
-        <option value="Free Stuff">Free Stuff</option>
         <option value="Fun & Games">Fun &amp; Games</option>
         <option value="Geek Event">Geek Event</option>
         <option value="In Person">In Person</option>
