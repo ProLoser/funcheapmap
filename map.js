@@ -132,14 +132,14 @@ if (navigator.geolocation) {
           });
         }
       });
+      const form = document.getElementById('controls');
       // Update the date picker
       if (minDate && maxDate) {
-        const dateInput = document.getElementById('date');
-        dateInput.min = minDate.toLocaleDateString('fr-ca');
-        dateInput.max = maxDate.toLocaleDateString('fr-ca');
+        form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
+        form.elements['date'].max = maxDate.toLocaleDateString('fr-ca');
       }
       // Update the category select
-      document.getElementById('category').innerHTML = Array.from(categories).sort().map(category => 
+      form.elements['category'].innerHTML = Array.from(categories).sort().map(category => 
         `<option value="${category}">${category.replace(/\*/g,'')}</option>`
       ).join('');
       // Apply URL filters
@@ -208,18 +208,20 @@ window.filter = function (filters = {}) {
   }).length;
   
   // Apply filters to DOM and URL
-  let query = [];
+  const query = [], 
+    form = document.getElementById('controls');
+
   for (let option in options) {
-    let element = document.getElementById(option);
+    let element = form.elements[option];
     if (element) {
       if (element.type === 'select-multiple') {
         const selected = options[option].split(',');
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
         }
-        setTimeout(() => {
+        setTimeout(element => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 200);
+        }, 200, element);
         query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
       } else {
         element.value = options[option];
@@ -228,7 +230,8 @@ window.filter = function (filters = {}) {
     }
   }
   window.history.replaceState({}, '', '?' + query.join('&'));
-  document.getElementById('count').innerText = count;
+  form.elements['countEvents'].innerText = count;
+  form.elements['countCategories'].innerText = categories.length || 'All';
 };
 
 /**
