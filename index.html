@@ -20,18 +20,19 @@
     Feedback
   </a>
   
-  <form id="controls">
+  <form id="controls" onreset="filter({ date: '', category: '' })">
     <h2>Showing <output name="countEvents" for="date">0</output> Events</h2>
     <p>
       <label for="date">Date:</label>
-      <input name="date" type="date" onchange="filter({ date: this.value })">
+      <input id="date" name="date" type="date" onchange="filter({ date: this.value })">
+      <button type="reset">Clear</button>
     </p>
     <p>
       <label for="category">Categories: <output name="countCategories" for="category">All</output></label>
     </p>
     <p>
       <!-- <select id="category" onchange="filter({ category: this.value })"> -->
-      <select name="category" multiple onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join(',') })">
+      <select id="category" name="category" multiple onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join(',') })">
         <!-- These are programmatically replaced after data loads -->
         <option value="**Annual Event**">Annual Event</option>
         <option value="*Top Pick*">Top Pick</option>
