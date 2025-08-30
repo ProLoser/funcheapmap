@@ -76,7 +76,7 @@ async function initialize() {
     .then(events => {
       let minDate, maxDate, categories = new Set();
       events.forEach(event => {
-        if (!event.title) return; // skip empty events just in case
+        if (!event.title) return console.error('Event Title Missing', { event });
         if (!event.geometry) return console.error('Event Geometry Missing', { event });
         // Add categories to the set
         if (event.categories) {
@@ -121,9 +121,6 @@ async function initialize() {
           const time = Math.random(); // Random delay up to 1 second
           content.style.setProperty('--delay-time', time + 's');
           intersectionObserver.observe(content);
-        }
-        // Add click listener
-        if (AdvancedMarkerElement && PinElement) {
           event.marker.addListener('gmp-click', function () {
             Events.infoWindow(event).open(window.map, event.marker);
           });
@@ -187,7 +184,7 @@ window.filter = function (filters = {}) {
     
   // Filter events
   let count = window.events.get()?.filter(event => {
-    if (!event.title) return; // skip empty events
+    if (!event.title || !event.geometry) return; // skip corrupt events
     event.visible = true;
     // check date
     if (date) {
