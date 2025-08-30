@@ -76,8 +76,6 @@ async function initialize() {
     .then(events => {
       let minDate, maxDate, categories = new Set();
       events.forEach(event => {
-        if (!event.title) return; // skip empty events just in case
-        if (!event.geometry) return console.error('Event Geometry Missing', { event });
         // Add categories to the set
         if (event.categories) {
           event.categories.forEach(category => !category.includes('Weekend Events Guide') && categories.add(category));
@@ -187,7 +185,7 @@ window.filter = function (filters = {}) {
     
   // Filter events
   let count = window.events.get()?.filter(event => {
-    if (!event.title) return; // skip empty events
+    if (!event.title || !event.geometry || !event.marker) return false; // skip invalid events
     event.visible = true;
     // check date
     if (date) {
@@ -202,11 +200,13 @@ window.filter = function (filters = {}) {
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
-    if (!event.visible) {
+    if (!event.visible && event.marker.content) {
       intersectionObserver.observe(event.marker.content);
       event.marker.content.style.opacity = '0';
     }
-    event.marker.content.style.display = event.visible ? 'block' : 'none';
+    if (event.marker.content) {
+      event.marker.content.style.display = event.visible ? 'block' : 'none';
+    }
     
     return event.visible;
   }).length;
@@ -412,14 +412,27 @@ class Events {
    * @returns {object[]} events
    */
   set(events) {
+    // Filter out events with missing title or geometry before caching
+    const validEvents = events.filter(event => {
+      if (!event.title) {
+        console.warn('Event missing title, skipping:', event);
+        return false;
+      }
+      if (!event.geometry) {
+        console.warn('Event missing geometry, skipping:', event);
+        return false;
+      }
+      return true;
+    });
+    
     try {
       // Known to throw QuotaExceededException on Safari
-      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events', JSON.stringify(validEvents));
       window.localStorage.setItem('events_age', Date.now());
     } catch (e) {
       console.error(e)
     }
-    this.cache = events;
+    this.cache = validEvents;
     return this.cache;
   }
   /**
