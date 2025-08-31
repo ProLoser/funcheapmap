@@ -76,8 +76,8 @@ async function initialize() {
     .then(events => {
       let minDate, maxDate, categories = new Set();
       events.forEach(event => {
-        if (!event.title) return console.error('Event Title Missing', { event });
-        if (!event.geometry) return console.error('Event Geometry Missing', { event });
+        if (!event.title) return console.warn('Event Title Missing', { event });
+        if (!event.geometry) return console.warn('Event Geometry Missing', { event });
         // Add categories to the set
         if (event.categories) {
           event.categories.forEach(category => !category.includes('Weekend Events Guide') && categories.add(category));
