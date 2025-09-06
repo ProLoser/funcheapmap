@@ -350,6 +350,7 @@ class Events {
             size="4"
             hideTextLabelButton
             hideCheckmark
+            forceOverlay
             debug
         ></add-to-calendar-button>
         <h3>
