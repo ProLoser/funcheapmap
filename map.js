@@ -114,7 +114,7 @@ async function initialize() {
         if (AdvancedMarkerElement && PinElement) {
           const content = event.marker.content;
           content.style.opacity = '0';
-          const time = Math.random(); // Random delay up to 1 second
+          const time = Math.random(); // Random delay between 0 and 1 second
           content.style.setProperty('--delay-time', time + 's');
           intersectionObserver.observe(content);
           event.marker.addListener('gmp-click', function () {
