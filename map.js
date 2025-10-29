@@ -74,6 +74,10 @@ async function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
+      if (!events || !Array.isArray(events)) {
+        console.error('No events loaded!');
+        return;
+      }
       let minDate, maxDate, categories = new Set();
       events.forEach(event => {
         if (!event.title) return console.warn('Event Title Missing', { event });
@@ -461,7 +465,12 @@ class Events {
       return Promise.resolve(this.get());
     } else {
       return this.query()
-        .then(this.set.bind(this));
+        .then(this.set.bind(this))
+        .catch(error => {
+          console.error('Failed to fetch events from API, using cached version:', error);
+          // Fallback to cached version if API fails
+          return this.get();
+        });
     }
   }
   /**
