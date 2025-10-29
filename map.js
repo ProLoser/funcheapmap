@@ -155,6 +155,7 @@ async function initialize() {
         var dd = date.getDate();
         filters.date = `${date.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
       }
+      console.log('Applying initial filters:', filters);
       window.filter(filters);
     });
 }
@@ -179,35 +180,44 @@ window.filter = function (filters = {}) {
   }
     
   // Filter events
-  let count = window.events.get()?.filter(event => {
-    if (!event.title || !event.geometry) return; // skip corrupt events
-    event.visible = true;
-    // check date
-    if (date) {
-      let eventDate = new Date(event.date);
-      if (date.getFullYear() !== eventDate.getFullYear() ||
-        date.getMonth() !== eventDate.getMonth() ||
-        date.getDate() !== eventDate.getDate()
-      )
-        event.visible = false;
-    }
-    // check category
-    if (categories.length && !event.categories.some(category => categories.includes(category))) {
-      event.visible = false;
-    }
-    if (event.marker.content) {
-      if (!event.visible) {
-        intersectionObserver.observe(event.marker.content);
-        event.marker.content.style.opacity = '0';
+  if (!window.events) {
+    console.error('window.events is not initialized!');
+    return;
+  }
+  const events = window.events.get();
+  console.log('Filtering events:', { eventsCount: events?.length, date, categories });
+  let count = 0;
+  if (events) {
+    count = events.filter(event => {
+      if (!event.title || !event.geometry) return; // skip corrupt events
+      event.visible = true;
+      // check date
+      if (date) {
+        let eventDate = new Date(event.date);
+        if (date.getFullYear() !== eventDate.getFullYear() ||
+          date.getMonth() !== eventDate.getMonth() ||
+          date.getDate() !== eventDate.getDate()
+        )
+          event.visible = false;
       }
-      event.marker.content.style.display = event.visible ? 'block' : 'none';
-    } else {
-      // Legacy marker - use setVisible method
-      event.marker.setVisible(event.visible);
-    }
-    
-    return event.visible;
-  }).length;
+      // check category
+      if (categories.length && !event.categories.some(category => categories.includes(category))) {
+        event.visible = false;
+      }
+      if (event.marker.content) {
+        if (!event.visible) {
+          intersectionObserver.observe(event.marker.content);
+          event.marker.content.style.opacity = '0';
+        }
+        event.marker.content.style.display = event.visible ? 'block' : 'none';
+      } else {
+        // Legacy marker - use setVisible method
+        event.marker.setVisible(event.visible);
+      }
+      
+      return event.visible;
+    }).length;
+  }
   
   // Apply filters to DOM and URL
   const query = [], 
@@ -395,6 +405,7 @@ class Events {
    * @returns {object[]} events
    */
   get() {
+    console.log('Events.get() called, this.cache:', this.cache ? `array of ${this.cache.length} items` : this.cache);
     if (this.cache)
       return this.cache;
     
@@ -402,6 +413,7 @@ class Events {
     if (this.cache)
       this.cache = JSON.parse(this.cache);
     
+    console.log('Events.get() returning from localStorage:', this.cache ? `array of ${this.cache.length} items` : this.cache);
     return this.cache;
   }
   /**
@@ -432,10 +444,10 @@ class Events {
   /**
    * Specifies if the age of the cache is old. Defaults to 24 hours
    * 
-   * @param {number} [old=86400] - How long ago is considered old. Default: 24 hours
+   * @param {number} [old=86400000] - How long ago is considered old in milliseconds. Default: 24 hours
    * @returns {boolean} 
    */
-  isFresh(old = 86400) {
+  isFresh(old = 86400000) {
     let age = this.age();
     return age && age > (Date.now() - old);
   }
