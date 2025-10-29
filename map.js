@@ -114,11 +114,7 @@ async function initialize() {
         if (AdvancedMarkerElement && PinElement) {
           const content = event.marker.content;
           content.style.opacity = '0';
-          content.addEventListener('animationend', (event) => {
-            content.classList.remove('drop');
-            content.style.opacity = '1';
-          });
-          const time = Math.random(); // Random delay up to 1 second
+          const time = Math.random(); // Random delay between 0 and 1 second
           content.style.setProperty('--delay-time', time + 's');
           intersectionObserver.observe(content);
           event.marker.addListener('gmp-click', function () {
@@ -199,11 +195,16 @@ window.filter = function (filters = {}) {
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
-    if (!event.visible) {
-      intersectionObserver.observe(event.marker.content);
-      event.marker.content.style.opacity = '0';
+    if (event.marker.content) {
+      if (!event.visible) {
+        intersectionObserver.observe(event.marker.content);
+        event.marker.content.style.opacity = '0';
+      }
+      event.marker.content.style.display = event.visible ? 'block' : 'none';
+    } else {
+      // Legacy marker - use setVisible method
+      event.marker.setVisible(event.visible);
     }
-    event.marker.content.style.display = event.visible ? 'block' : 'none';
     
     return event.visible;
   }).length;
