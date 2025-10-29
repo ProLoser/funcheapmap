@@ -159,7 +159,6 @@ async function initialize() {
         var dd = date.getDate();
         filters.date = `${date.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
       }
-      console.log('Applying initial filters:', filters);
       window.filter(filters);
     });
 }
@@ -189,7 +188,6 @@ window.filter = function (filters = {}) {
     return;
   }
   const events = window.events.get();
-  console.log('Filtering events:', { eventsCount: events?.length, date, categories });
   let count = 0;
   if (events) {
     count = events.filter(event => {
@@ -409,7 +407,6 @@ class Events {
    * @returns {object[]} events
    */
   get() {
-    console.log('Events.get() called, this.cache:', this.cache ? `array of ${this.cache.length} items` : this.cache);
     if (this.cache)
       return this.cache;
     
@@ -417,7 +414,6 @@ class Events {
     if (this.cache)
       this.cache = JSON.parse(this.cache);
     
-    console.log('Events.get() returning from localStorage:', this.cache ? `array of ${this.cache.length} items` : this.cache);
     return this.cache;
   }
   /**
