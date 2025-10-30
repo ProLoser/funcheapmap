@@ -169,7 +169,7 @@ let options = {};
 window.filter = function (filters = {}) {
   Object.assign(options, filters);
   let date;
-  if (options.date) {
+  if (options.date && options.date !== '') {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
@@ -184,26 +184,40 @@ window.filter = function (filters = {}) {
     event.visible = true;
     // check date
     if (date) {
-      let eventDate = new Date(event.date);
-      if (date.getFullYear() !== eventDate.getFullYear() ||
-        date.getMonth() !== eventDate.getMonth() ||
-        date.getDate() !== eventDate.getDate()
-      )
+      if (!event.date) {
+        // If filtering by date but event has no date, hide it
         event.visible = false;
+      } else {
+        let eventDate = new Date(event.date);
+        // Make sure the date is valid
+        if (isNaN(eventDate.getTime())) {
+          event.visible = false;
+        } else if (date.getFullYear() !== eventDate.getFullYear() ||
+          date.getMonth() !== eventDate.getMonth() ||
+          date.getDate() !== eventDate.getDate()
+        ) {
+          event.visible = false;
+        }
+      }
     }
     // check category
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
       event.visible = false;
     }
-    if (event.marker.content) {
-      if (!event.visible) {
-        intersectionObserver.observe(event.marker.content);
-        event.marker.content.style.opacity = '0';
+    
+    // Update marker visibility
+    if (event.marker) {
+      if (event.marker.content) {
+        // AdvancedMarkerElement - use map property to show/hide
+        event.marker.map = event.visible ? window.map : null;
+        // Reset animation for visible markers
+        if (event.visible && event.marker.content.style.opacity === '0') {
+          intersectionObserver.observe(event.marker.content);
+        }
+      } else {
+        // Legacy marker - use setVisible method
+        event.marker.setVisible(event.visible);
       }
-      event.marker.content.style.display = event.visible ? 'block' : 'none';
-    } else {
-      // Legacy marker - use setVisible method
-      event.marker.setVisible(event.visible);
     }
     
     return event.visible;
