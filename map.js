@@ -320,6 +320,8 @@ window.showUserLocation = async function () {
  * Utility class for managing event data
  */
 class Events {
+  static API_TOKEN = '__APIFY_TOKEN__';
+  static API = `https://api.apify.com/v2/acts/apify~cheerio-scraper/runs/last/dataset/items?clean=true&token=${Events.API_TOKEN}`;
   /**
    * Generates and returns a google maps info window
    * 
@@ -473,7 +475,13 @@ class Events {
    */
   query() {
     return fetch(new Request(Events.API))
-      .then(response => response.json());
+      .then(response => {
+        if (!response.ok) {
+          const error = new Error(`Events Query Failed! ${response.status}`);
+          error.response = response;
+          throw error;
+        }
+        return response.json();
+      });
   }
 }
-Events.API = 'https://api.apify.com/v2/acts/apify~cheerio-scraper/runs/last/dataset/items?clean=true&token=apify_api_1U4gg8GRgTkFBjyfEkxKNtS9n4gUUw3wUjUV';
