@@ -11,28 +11,17 @@ const intersectionObserver = new IntersectionObserver((entries) => {
 // Global variable to track user location marker
 let userLocationMarker = null;
 
+// Global variable to track cluster markers
+let clusterMarkers = [];
+
 // Initialize the map
 // window.addEventListener('load', initialize)
 async function initialize() {
-  // Check if we're using the new API loading method
-  let AdvancedMarkerElement, PinElement;
-  
-  if (google.maps.importLibrary) {
-    // New API loading method
-    const { Map } = await google.maps.importLibrary("maps");
-    const markerLibrary = await google.maps.importLibrary("marker");
-    AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
-    PinElement = markerLibrary.PinElement;
-  } else {
-    // Legacy API - AdvancedMarkerElement should be available globally
-    AdvancedMarkerElement = google.maps.marker?.AdvancedMarkerElement || google.maps.AdvancedMarkerElement;
-    PinElement = google.maps.marker?.PinElement || google.maps.PinElement;
-    
-    // Fallback to regular Marker if AdvancedMarkerElement is not available
-    if (!AdvancedMarkerElement) {
-      console.warn('AdvancedMarkerElement not available, falling back to legacy Marker');
-    }
-  }
+  // Load required libraries
+  const { Map } = await google.maps.importLibrary("maps");
+  const markerLibrary = await google.maps.importLibrary("marker");
+  const AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
+  const PinElement = markerLibrary.PinElement;
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 12,
@@ -92,39 +81,24 @@ async function initialize() {
             maxDate = eventDate;
           }
         }
-        // Create marker - use AdvancedMarkerElement if available, otherwise fall back to legacy Marker
-        if (AdvancedMarkerElement && PinElement) {
-          const pinElement = new PinElement();
-          const content = pinElement.element;
-          event.marker = new AdvancedMarkerElement({
-            map: window.map,
-            position: event.geometry,
-            title: event.title,
-            content: content,
-          });
-        } else {
-          // Fallback to legacy Marker
-          event.marker = new google.maps.Marker({
-            map: window.map,
-            position: event.geometry,
-            title: event.title,
-          });
-        }
-        // Animation setup (only for AdvancedMarkerElement)
-        if (AdvancedMarkerElement && PinElement) {
-          const content = event.marker.content;
-          content.style.opacity = '0';
-          const time = Math.random(); // Random delay between 0 and 1 second
-          content.style.setProperty('--delay-time', time + 's');
-          intersectionObserver.observe(content);
-          event.marker.addListener('gmp-click', function () {
-            Events.infoWindow(event).open(window.map, event.marker);
-          });
-        } else {
-          event.marker.addListener('click', function () {
-            Events.infoWindow(event).open(window.map, event.marker);
-          });
-        }
+        // Create marker
+        const pinElement = new PinElement();
+        const content = pinElement.element;
+        event.marker = new AdvancedMarkerElement({
+          map: window.map,
+          position: event.geometry,
+          title: event.title,
+          content: content,
+        });
+        
+        // Animation setup
+        content.style.opacity = '0';
+        const time = Math.random(); // Random delay between 0 and 1 second
+        content.style.setProperty('--delay-time', time + 's');
+        intersectionObserver.observe(content);
+        event.marker.addListener('gmp-click', function () {
+          Events.infoWindow(event).open(window.map, event.marker);
+        });
       });
       const form = document.getElementById('controls');
       form.addEventListener('reset', window.filter);
@@ -166,7 +140,7 @@ let options = {};
  * @param {string} [filters.date]
  * @param {string} [filters.category]
  */
-window.filter = function (filters = {}) {
+window.filter = async function (filters = {}) {
   Object.assign(options, filters);
   let date;
   if (options.date && options.date !== '') {
@@ -177,6 +151,12 @@ window.filter = function (filters = {}) {
   if (options.category) {
     categories = options.category.split(',')
   }
+    
+  // Clear existing cluster markers
+  clusterMarkers.forEach(marker => {
+    marker.map = null;
+  });
+  clusterMarkers = [];
     
   // Filter events
   let count = window.events.get()?.filter(event => {
@@ -205,23 +185,85 @@ window.filter = function (filters = {}) {
       event.visible = false;
     }
     
-    // Update marker visibility
-    if (event.marker) {
-      if (event.marker.content) {
-        // AdvancedMarkerElement - use map property to show/hide
-        event.marker.map = event.visible ? window.map : null;
-        // Reset animation for visible markers
-        if (event.visible && event.marker.content.style.opacity === '0') {
-          intersectionObserver.observe(event.marker.content);
-        }
-      } else {
-        // Legacy marker - use setVisible method
-        event.marker.setVisible(event.visible);
-      }
-    }
-    
     return event.visible;
   }).length;
+  
+  // Group visible events by location for clustering
+  // First, hide all markers
+  window.events.get()?.forEach(event => {
+    if (!event.title || !event.geometry) return;
+    if (event.marker) {
+      event.marker.map = null;
+    }
+  });
+  
+  // Group visible events by location
+  const locationGroups = new Map();
+  
+  window.events.get()?.forEach(event => {
+    if (!event.title || !event.geometry || !event.visible) return;
+    
+    // Create location key with rounded coordinates (to handle minor differences)
+    const locationKey = `${event.geometry.lat.toFixed(6)},${event.geometry.lng.toFixed(6)}`;
+    
+    if (!locationGroups.has(locationKey)) {
+      locationGroups.set(locationKey, []);
+    }
+    locationGroups.get(locationKey).push(event);
+  });
+  
+  // Load marker library
+  const markerLibrary = await google.maps.importLibrary("marker");
+  const AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
+  const PinElement = markerLibrary.PinElement;
+  
+  // Create markers based on grouping
+  locationGroups.forEach((eventsAtLocation, locationKey) => {
+    if (eventsAtLocation.length === 1) {
+      // Single event - show normal marker
+      const event = eventsAtLocation[0];
+      if (event.marker) {
+        event.marker.map = window.map;
+        if (event.marker.content.style.opacity === '0') {
+          intersectionObserver.observe(event.marker.content);
+        }
+      }
+    } else {
+      // Multiple events at same location - create cluster marker
+      // Hide individual markers
+      eventsAtLocation.forEach(event => {
+        if (event.marker) {
+          event.marker.map = null;
+        }
+      });
+      
+      // Create cluster marker
+      const position = eventsAtLocation[0].geometry;
+      const clusterCount = eventsAtLocation.length;
+      
+      // Create custom cluster pin with count
+      const clusterPin = new PinElement({
+        background: "#EA4335",
+        borderColor: "#ffffff",
+        glyphColor: "#ffffff",
+        scale: 1.2,
+        glyph: clusterCount.toString()
+      });
+      
+      const clusterMarker = new AdvancedMarkerElement({
+        map: window.map,
+        position: position,
+        title: `${clusterCount} events at ${eventsAtLocation[0].venue}`,
+        content: clusterPin.element,
+      });
+      
+      clusterMarker.addListener('gmp-click', function () {
+        showClusterInfo(eventsAtLocation, clusterMarker);
+      });
+      
+      clusterMarkers.push(clusterMarker);
+    }
+  });
   
   // Apply filters to DOM and URL
   const query = [], 
@@ -251,23 +293,102 @@ window.filter = function (filters = {}) {
 };
 
 /**
+ * Shows info window with multiple events
+ * @param {Array} events - Array of events at the same location
+ * @param {object} marker - The cluster marker
+ */
+function showClusterInfo(events, marker) {
+  const infoWindow = Events.infoWindow();
+  
+  // Check if date filter is active
+  const dateSelected = options.date && options.date !== '';
+  
+  // Sort events by start time
+  const sortedEvents = [...events].sort((a, b) => {
+    // Extract start time from time string (e.g., "7:00 pm to 9:00 pm")
+    const getStartTime = (event) => {
+      const timeStr = event.time.split(' to ')[0];
+      const date = new Date(`${event.date_text} ${timeStr}`);
+      return date.getTime();
+    };
+    
+    return getStartTime(a) - getStartTime(b);
+  });
+  
+  // Create header
+  const headerContent = document.createElement('div');
+  const firstEvent = sortedEvents[0];
+  headerContent.innerHTML = `
+    <h2>${sortedEvents.length} Events at <a target="_blank" href="https://maps.google.com/?q=${encodeURIComponent(firstEvent.venue)}&ll=${firstEvent.geometry.lat},${firstEvent.geometry.lng}" title="Venue Details on Google Maps">${firstEvent.venue}</a></h2>
+  `;
+  infoWindow.setHeaderContent(headerContent);
+  
+  // Create content with list of events
+  const content = document.createElement('div');
+  content.className = 'cluster-info';
+  content.innerHTML = `
+    <div class="cluster-events">
+      ${sortedEvents.map((event, index) => `
+        <div class="cluster-event" data-event-index="${index}">
+          <h3>${event.title}</h3>
+          <p>
+            <strong>${!dateSelected ? event.date_text + ' | ' : ''}${event.time}</strong> | ${event.cost}
+          </p>
+        </div>
+      `).join('<hr>')}
+    </div>
+  `;
+  
+  // Add click listeners to each row
+  content.querySelectorAll('.cluster-event').forEach((row, index) => {
+    row.addEventListener('click', (e) => {
+      e.stopPropagation();
+      viewEventDetails(index, true);
+    });
+  });
+  
+  infoWindow.setContent(content);
+  infoWindow.open(window.map, marker);
+  
+  // Store sorted events for detail viewing
+  window.clusterEvents = sortedEvents;
+}
+
+/**
+ * Shows detailed info for a specific event from a cluster
+ * @param {number} eventIndex - Index of the event in the cluster
+ * @param {boolean} expandDetails - Whether to automatically expand details
+ */
+window.viewEventDetails = function(eventIndex, expandDetails = false) {
+  if (window.clusterEvents && window.clusterEvents[eventIndex]) {
+    const event = window.clusterEvents[eventIndex];
+    const infoWindow = Events.infoWindow(event, true);
+    infoWindow.open(window.map, event.marker);
+    
+    // Automatically expand details if requested
+    if (expandDetails) {
+      // Wait for the info window to render, then check the checkbox
+      setTimeout(() => {
+        const detailsCheckbox = document.getElementById('moreInfo');
+        if (detailsCheckbox && !detailsCheckbox.checked) {
+          detailsCheckbox.checked = true;
+          // Trigger the reposition
+          infoWindow.open(window.map, event.marker);
+        }
+      }, 100);
+    }
+  }
+};
+
+/**
  * Gets the user's location and displays it on the map
  */
 window.showUserLocation = async function () {
   if (navigator.geolocation) {
-    // Check if we need to import libraries or if they're globally available
-    let AdvancedMarkerElement, PinElement;
-    
-    if (google.maps.importLibrary) {
-      // New API loading method
-      const markerLibrary = await google.maps.importLibrary("marker");
-      AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
-      PinElement = markerLibrary.PinElement;
-    } else {
-      // Legacy API
-      AdvancedMarkerElement = google.maps.marker?.AdvancedMarkerElement || google.maps.AdvancedMarkerElement;
-      PinElement = google.maps.marker?.PinElement || google.maps.PinElement;
-    }
+    // Load marker library
+    const markerLibrary = await google.maps.importLibrary("marker");
+    const AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
+    const PinElement = markerLibrary.PinElement;
     
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -280,30 +401,20 @@ window.showUserLocation = async function () {
         
         // Create user location marker
         if (!userLocationMarker) {
-          if (AdvancedMarkerElement && PinElement) {
-            // Use AdvancedMarkerElement with custom blue pin
-            const userPinElement = new PinElement({
-              background: "#4285F4",
-              borderColor: "#ffffff",
-              glyphColor: "#ffffff",
-              scale: 1.2
-            });
-            
-            userLocationMarker = new AdvancedMarkerElement({
-              map: window.map,
-              position: pos,
-              title: "Your Location",
-              content: userPinElement.element,
-            });
-          } else {
-            // Fallback to legacy Marker
-            userLocationMarker = new google.maps.Marker({
-              position: pos,
-              map: window.map,
-              title: "Your Location",
-              icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-            });
-          }
+          // Use AdvancedMarkerElement with custom blue pin
+          const userPinElement = new PinElement({
+            background: "#4285F4",
+            borderColor: "#ffffff",
+            glyphColor: "#ffffff",
+            scale: 1.2
+          });
+          
+          userLocationMarker = new AdvancedMarkerElement({
+            map: window.map,
+            position: pos,
+            title: "Your Location",
+            content: userPinElement.element,
+          });
         }
       },
       () => {
@@ -326,9 +437,10 @@ class Events {
    * Generates and returns a google maps info window
    * 
    * @param {object} [event] - If passed, sets the content
+   * @param {boolean} [fromCluster] - If true, don't mutate the title
    * @returns {google.maps.InfoWindow}
    */
-  static infoWindow(event) {
+  static infoWindow(event, fromCluster = false) {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
     if (event) {
