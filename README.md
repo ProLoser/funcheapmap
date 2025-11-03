@@ -17,9 +17,10 @@ Latest version has a button to quickly add events to your calendar of choice
    cp .env.example .env
    ```
 
-2. Add your Apify API token to `.env`:
+2. Add your Apify API token and Google Maps API key to `.env`:
    ```
    APIFY_TOKEN=your_actual_apify_token_here
+   GOOGLE_TOKEN=your_actual_google_maps_api_key_here
    ```
 
 3. Open `index.html` in your browser directly, or use a local server:
@@ -33,15 +34,16 @@ Latest version has a button to quickly add events to your calendar of choice
 
 The site automatically deploys to GitHub Pages when you push to the `gh-pages` branch.
 
-**Required GitHub Secret:**
+**Required GitHub Secrets:**
 
-You need to add your Apify API token as a GitHub secret:
+You need to add your Apify API token and Google Maps API key as GitHub secrets:
 
 1. Go to your repository on GitHub
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
 3. Click **New repository secret**
-4. Name: `APIFY_TOKEN`
-5. Value: Your Apify API token
-6. Click **Add secret**
+4. Add the following secrets:
+   - Name: `APIFY_TOKEN`, Value: Your Apify API token
+   - Name: `GOOGLE_TOKEN`, Value: Your Google Maps API key
+5. Click **Add secret** for each
 
-The GitHub Actions workflow will automatically inject this token into the JavaScript file at build time.
+The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
