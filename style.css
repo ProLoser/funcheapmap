@@ -65,8 +65,13 @@ html, body, #map-canvas {
 }
 
 /* google.maps.InfoWindow Header */
+.gm-style-iw-c,
+.gm-style-iw-d,
 .gm-style-iw-ch {
   overflow: visible !important;
+}
+.gm-style-iw-ch {
+  position: relative;
   h2 {
     margin: 0;
     text-align: center;
@@ -76,8 +81,10 @@ html, body, #map-canvas {
     font-weight: normal;
   }
   add-to-calendar-button {
-    float: right;
-    margin: -8px -41px 0 0;
+    position: absolute;
+    top: 0;
+    right: -41px;
+    z-index: 1;
   }
 }
 .info-header {
