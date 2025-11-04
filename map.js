@@ -28,7 +28,7 @@ async function initialize() {
     center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
     disableDefaultUI: true,
     zoomControl: true,
-    fullscreenControl: true,
+    // fullscreenControl: true,
     mapId: 'c46bf4bc0e87c92b'
   });
   
@@ -103,7 +103,7 @@ async function initialize() {
       const form = document.getElementById('controls');
       form.addEventListener('reset', window.filter);
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(form);
-      map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('feedback'));
+      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('feedback'));
       // Update the date picker
       if (minDate && maxDate) {
         form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
