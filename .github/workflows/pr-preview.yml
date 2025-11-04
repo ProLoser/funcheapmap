@@ -34,7 +34,6 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
             const prNumber = context.payload.pull_request.number;
             const runId = context.runId;
             const repo = context.repo;
