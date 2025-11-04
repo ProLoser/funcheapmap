@@ -367,11 +367,11 @@ window.viewEventDetails = function(eventIndex, expandDetails = false) {
     
     // Automatically expand details if requested
     if (expandDetails) {
-      // Wait for the info window to render, then check the checkbox
+      // Wait for the info window to render, then open the details
       setTimeout(() => {
-        const detailsCheckbox = document.getElementById('moreInfo');
-        if (detailsCheckbox && !detailsCheckbox.checked) {
-          detailsCheckbox.checked = true;
+        const detailsElement = document.querySelector('.info-body details');
+        if (detailsElement && !detailsElement.open) {
+          detailsElement.open = true;
           // Trigger the reposition
           infoWindow.open(window.map, event.marker);
         }
