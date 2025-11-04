@@ -67,12 +67,13 @@ html, body, #map-canvas {
 /* google.maps.InfoWindow Header */
 /* Override Google Maps default overflow to prevent calendar button from being clipped */
 .gm-style-iw-c,
-.gm-style-iw-d,
-.gm-style-iw-ch {
+.gm-style-iw-d {
   overflow: visible !important;
 }
+
 .gm-style-iw-ch {
   position: relative;
+  overflow: visible !important;
   h2 {
     margin: 0;
     text-align: center;
