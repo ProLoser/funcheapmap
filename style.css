@@ -116,6 +116,9 @@ html, body, #map-canvas {
       &::-webkit-details-marker {
         display: none;
       }
+      &::-moz-list-bullet {
+        display: none;
+      }
     }
   }
 }
