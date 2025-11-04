@@ -21,13 +21,13 @@
   </a>
   
   <form id="controls" onreset="filter({ date: '', category: '' })">
-    <h2 id="filter-header" onclick="toggleFilters()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="filter-icon">
-        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-      </svg>
-      Showing <output name="countEvents" for="date">0</output> Events
-    </h2>
-    <div id="filter-content">
+    <details open>
+      <summary>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="filter-icon">
+          <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+        </svg>
+        Showing <output name="countEvents" for="date">0</output> Events
+      </summary>
       <p>
         <label for="date">Date:</label>
         <input id="date" name="date" type="date" onchange="filter({ date: this.value })">
@@ -75,7 +75,7 @@
         <option value="Walks & Tours">Walks &amp; Tours</option>
       </select>
     </p>
-    </div>
+    </details>
   </form>
   <script async defer src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2"></script>
   <script src="map.js"></script>

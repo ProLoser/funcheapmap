@@ -14,14 +14,6 @@ let userLocationMarker = null;
 // Global variable to track cluster markers
 let clusterMarkers = [];
 
-/**
- * Toggles the visibility of filter controls
- */
-window.toggleFilters = function() {
-  const controls = document.getElementById('controls');
-  controls.classList.toggle('collapsed');
-};
-
 // Initialize the map
 // window.addEventListener('load', initialize)
 async function initialize() {
