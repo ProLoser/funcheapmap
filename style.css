@@ -104,22 +104,22 @@ html, body, #map-canvas {
 .info-body {
   max-width: 80vw;
   max-height: 40vh;
-  & > * {
-    display: none;
-  }
-  & > label {
-    display: block;
-    text-align: center;
-    padding: 10px;
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  & > input:checked ~ div {
-    display: block;
-  }
-  & > input:checked ~ label {
-    display: none;
+  details {
+    summary {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+      list-style: none;
+      &::-webkit-details-marker {
+        display: none;
+      }
+      &::-moz-list-bullet {
+        display: none;
+      }
+    }
   }
 }
 /* HTML from FunCheapSF */

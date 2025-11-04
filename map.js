@@ -367,11 +367,11 @@ window.viewEventDetails = function(eventIndex, expandDetails = false) {
     
     // Automatically expand details if requested
     if (expandDetails) {
-      // Wait for the info window to render, then check the checkbox
+      // Wait for the info window to render, then open the details
       setTimeout(() => {
-        const detailsCheckbox = document.getElementById('moreInfo');
-        if (detailsCheckbox && !detailsCheckbox.checked) {
-          detailsCheckbox.checked = true;
+        const detailsElement = document.querySelector('.info-body details');
+        if (detailsElement && !detailsElement.open) {
+          detailsElement.open = true;
           // Trigger the reposition
           infoWindow.open(window.map, event.marker);
         }
@@ -502,15 +502,16 @@ class Events {
           <p class="categories">Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
         <div class="info-body">
-          <input id="moreInfo" type="checkbox" onchange=>
-          <label for="moreInfo">+ Expand Details +</label>
-          <div id="details">
-            ${event.details}
-          </div>
+          <details>
+            <summary>+ Expand Details +</summary>
+            <div id="details">
+              ${event.details}
+            </div>
+          </details>
         </div>
       `
       // Reposition after expanding
-      content.querySelector('input').addEventListener('change', () => {
+      content.querySelector('details').addEventListener('toggle', () => {
         this.cachedInfoWindow.open(window.map, event.marker);
       })
       this.cachedInfoWindow.setContent(content);
