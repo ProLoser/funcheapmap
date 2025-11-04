@@ -512,7 +512,8 @@ class Events {
       `
       // Reposition after expanding
       content.querySelector('details').addEventListener('toggle', () => {
-        this.cachedInfoWindow.open(window.map, event.marker);
+        // TODO: this is breaking calendar button
+        // this.cachedInfoWindow.open(window.map, event.marker);
       })
       this.cachedInfoWindow.setContent(content);
     }
