@@ -27,7 +27,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pr-preview-${{ github.event.pull_request.number }}
-          path: .
+          path: |
+            index.html
+            map.js
+            style.css
+            categories.json
+            favicon_fc.ico
+            screenshot.png
+            CNAME
           retention-days: 7
 
       - name: Comment on PR
