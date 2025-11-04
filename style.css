@@ -65,7 +65,14 @@ html, body, #map-canvas {
 }
 
 /* google.maps.InfoWindow Header */
+/* Override Google Maps default overflow to prevent calendar button from being clipped */
+.gm-style-iw-c,
+.gm-style-iw-d {
+  overflow: visible !important;
+}
+
 .gm-style-iw-ch {
+  position: relative;
   overflow: visible !important;
   h2 {
     margin: 0;
@@ -76,8 +83,10 @@ html, body, #map-canvas {
     font-weight: normal;
   }
   add-to-calendar-button {
-    float: right;
-    margin: -8px -41px 0 0;
+    position: absolute;
+    top: 0;
+    right: -41px; /* Position outside info window boundary to avoid overlap with close button */
+    z-index: 1;
   }
 }
 .info-header {
