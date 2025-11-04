@@ -47,3 +47,20 @@ You need to add your Apify API token and Google Maps API key as GitHub secrets:
 5. Click **Add secret** for each
 
 The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
+
+### Pull Request Previews
+
+When you open a pull request, a preview build is automatically created:
+
+1. The PR Preview workflow builds the site with injected tokens
+2. A comment is added to the PR with a download link
+3. Download the artifact from the workflow run
+4. Extract and test locally:
+   ```bash
+   python -m http.server 8000
+   # or
+   npx http-server -p 8000
+   ```
+5. Open http://localhost:8000 in your browser
+
+Preview artifacts are retained for 7 days.
