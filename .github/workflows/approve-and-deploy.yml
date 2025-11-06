@@ -61,7 +61,9 @@ jobs:
               ref: pr.head.ref,
               sha: pr.head.sha,
               repo_owner: pr.head.repo.owner.login,
-              repo_name: pr.head.repo.name
+              repo_name: pr.head.repo.name,
+              title: pr.title,
+              number: pr.number
             };
 
       - name: Add deployment started comment
@@ -113,7 +115,8 @@ jobs:
           
           # Add and commit
           git add .
-          git commit -m "Deploy from PR #${{ github.event.issue.number }}: ${{ github.event.pull_request.title }}" || true
+          PR_TITLE=$(echo '${{ fromJSON(steps.pr.outputs.result).title }}' | head -c 72)
+          git commit -m "Deploy from PR #${{ fromJSON(steps.pr.outputs.result).number }}: ${PR_TITLE}" || true
           
           # Push to gh-pages
           git push origin gh-pages
