@@ -503,7 +503,7 @@ class Events {
         </div>
         <div class="info-body">
           <details>
-            <summary>+ Expand Details +</summary>
+            <summary>Expand Details</summary>
             <div id="details">
               ${event.details}
             </div>
