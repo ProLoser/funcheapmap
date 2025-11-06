@@ -137,19 +137,19 @@ html, body, #map-canvas {
   max-height: 40vh;
   details {
     summary {
-      display: block;
       text-align: center;
       padding: 10px;
       color: blue;
-      text-decoration: underline;
       cursor: pointer;
-      list-style: none;
       &::-webkit-details-marker {
         display: none;
       }
       &::-moz-list-bullet {
         display: none;
       }
+    }
+    &[open] summary {
+      display: none;
     }
   }
 }
