@@ -1,0 +1,143 @@
+name: Approve and Deploy PR
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  deployments: write
+
+jobs:
+  approve-and-deploy:
+    # Only run on pull request comments that contain '/deploy'
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/deploy')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if commenter has write access
+        id: check-access
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: context.payload.comment.user.login
+              });
+              
+              const hasAccess = ['admin', 'write'].includes(permission.permission);
+              console.log(`User ${context.payload.comment.user.login} has permission: ${permission.permission}`);
+              
+              if (!hasAccess) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: '❌ You do not have permission to deploy. Only maintainers can deploy pull requests.'
+                });
+                core.setFailed('User does not have permission to deploy');
+                return false;
+              }
+              return true;
+            } catch (error) {
+              core.setFailed(`Error checking permissions: ${error.message}`);
+              return false;
+            }
+
+      - name: Get PR details
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            return {
+              ref: pr.head.ref,
+              sha: pr.head.sha,
+              repo_owner: pr.head.repo.owner.login,
+              repo_name: pr.head.repo.name
+            };
+
+      - name: Add deployment started comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '🚀 Deployment to gh-pages started...'
+            });
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ fromJSON(steps.pr.outputs.result).sha }}
+          fetch-depth: 0
+
+      - name: Inject tokens
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
+        run: |
+          sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js
+          sed -i "s/__GOOGLE_TOKEN__/${GOOGLE_TOKEN}/g" index.html
+
+      - name: Deploy to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create a temporary directory for the build
+          mkdir -p /tmp/deploy
+          
+          # Copy all files except .git to the temporary directory
+          rsync -av --exclude='.git' --exclude='/tmp' ./ /tmp/deploy/
+          
+          # Check out gh-pages branch
+          git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
+          git checkout gh-pages
+          
+          # Remove all files from gh-pages
+          git rm -rf . || true
+          
+          # Copy the built files from temp directory
+          cp -r /tmp/deploy/* .
+          cp -r /tmp/deploy/.github . 2>/dev/null || true
+          
+          # Add and commit
+          git add .
+          git commit -m "Deploy from PR #${{ github.event.issue.number }}: ${{ github.event.pull_request.title }}" || true
+          
+          # Push to gh-pages
+          git push origin gh-pages
+
+      - name: Add deployment success comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ Successfully deployed to gh-pages! The site will be updated in a few minutes.\n\nView at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/'
+            });
+
+      - name: Add deployment failure comment
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '❌ Deployment failed. Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.'
+            });

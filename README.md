@@ -47,3 +47,17 @@ You need to add your Apify API token and Google Maps API key as GitHub secrets:
 5. Click **Add secret** for each
 
 The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
+
+### Deploying Pull Requests
+
+Repository maintainers can deploy pull requests from contributors directly to GitHub Pages using the approve and deploy workflow:
+
+1. Review the pull request changes
+2. Comment on the pull request with `/deploy`
+3. The workflow will automatically:
+   - Verify you have maintainer permissions
+   - Deploy the PR branch to `gh-pages`
+   - Update the live site
+   - Add a status comment to the PR
+
+**Note:** Only users with `write` or `admin` permissions on the repository can deploy pull requests.
