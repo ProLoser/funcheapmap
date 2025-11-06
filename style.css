@@ -14,6 +14,33 @@ html, body, #map-canvas {
   font-family: Roboto, Arial, sans-serif;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
   
+  details {
+    summary {
+      margin: 10px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      list-style: none;
+      &::-webkit-details-marker {
+        display: none;
+      }
+      &::-moz-list-bullet {
+        display: none;
+      }
+      &:hover {
+        background: rgb(245, 245, 245);
+      }
+    }
+    &:not([open]) summary {
+      margin: 0;
+      padding: 10px;
+    }
+  }
   h3 {
     margin: 10px;
   }
@@ -25,6 +52,12 @@ html, body, #map-canvas {
   }
   input, select {
     font-family: Roboto, Arial, sans-serif;
+  }
+  
+  .filter-icon {
+    width: 20px;
+    height: 20px;
+    fill: #666;
   }
 }
 
