@@ -149,7 +149,7 @@ window.filter = async function (filters = {}) {
   }
   let categories = [];
   if (options.category) {
-    categories = options.category.split(',')
+    categories = options.category.split('|')
   }
     
   // Clear existing cluster markers
@@ -273,14 +273,14 @@ window.filter = async function (filters = {}) {
     let element = form.elements[option];
     if (element) {
       if (element.type === 'select-multiple') {
-        const selected = options[option].split(',');
+        const selected = options[option].split('|');
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
         }
         setTimeout(element => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200, element);
-        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(','));
+        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join('|'));
       } else {
         element.value = options[option];
         query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
