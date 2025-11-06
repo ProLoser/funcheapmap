@@ -280,7 +280,7 @@ window.filter = async function (filters = {}) {
         setTimeout(element => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200, element);
-        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join('|'));
+        query.push(encodeURIComponent(option) + '=' + selected.map(value => encodeURIComponent(value)).join('|'));
       } else {
         element.value = options[option];
         query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
