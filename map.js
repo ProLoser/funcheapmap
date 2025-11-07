@@ -1,4 +1,7 @@
 /* global google */
+// Delimiter for multiple category selections (must not appear in category names and not require URI encoding)
+const CATEGORY_DELIMITER = '~';
+
 const intersectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
@@ -149,7 +152,7 @@ window.filter = async function (filters = {}) {
   }
   let categories = [];
   if (options.category) {
-    categories = options.category.split('|')
+    categories = options.category.split(CATEGORY_DELIMITER)
   }
     
   // Clear existing cluster markers
@@ -273,14 +276,14 @@ window.filter = async function (filters = {}) {
     let element = form.elements[option];
     if (element) {
       if (element.type === 'select-multiple') {
-        const selected = options[option].split('|');
+        const selected = options[option].split(CATEGORY_DELIMITER);
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
         }
         setTimeout(element => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200, element);
-        query.push(encodeURIComponent(option) + '=' + selected.map(value => encodeURIComponent(value)).join('|'));
+        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(CATEGORY_DELIMITER));
       } else {
         element.value = options[option];
         query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));

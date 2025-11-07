@@ -38,7 +38,7 @@
       </p>
       <p>
       <!-- <select id="category" onchange="filter({ category: this.value })"> -->
-      <select id="category" name="category" multiple onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join('|') })">
+      <select id="category" name="category" multiple onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join('~') })">
         <!-- These are programmatically replaced after data loads -->
         <option value="**Annual Event**">Annual Event</option>
         <option value="*Top Pick*">Top Pick</option>
