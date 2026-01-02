@@ -346,7 +346,7 @@ function showClusterInfo(events, marker) {
   content.querySelectorAll('.cluster-event').forEach((row, index) => {
     row.addEventListener('click', (e) => {
       e.stopPropagation();
-      viewEventDetails(index, true);
+      viewEventDetails(index, true, marker);
     });
   });
   
@@ -361,12 +361,15 @@ function showClusterInfo(events, marker) {
  * Shows detailed info for a specific event from a cluster
  * @param {number} eventIndex - Index of the event in the cluster
  * @param {boolean} expandDetails - Whether to automatically expand details
+ * @param {object} marker - The marker to anchor the info window to (cluster marker)
  */
-window.viewEventDetails = function(eventIndex, expandDetails = false) {
+window.viewEventDetails = function(eventIndex, expandDetails = false, marker = null) {
   if (window.clusterEvents && window.clusterEvents[eventIndex]) {
     const event = window.clusterEvents[eventIndex];
     const infoWindow = Events.infoWindow(event, true);
-    infoWindow.open(window.map, event.marker);
+    // Use the provided marker (cluster marker) or fallback to event marker
+    const anchorMarker = marker || event.marker;
+    infoWindow.open(window.map, anchorMarker);
     
     // Automatically expand details if requested
     if (expandDetails) {
@@ -376,7 +379,7 @@ window.viewEventDetails = function(eventIndex, expandDetails = false) {
         if (detailsElement && !detailsElement.open) {
           detailsElement.open = true;
           // Trigger the reposition
-          infoWindow.open(window.map, event.marker);
+          infoWindow.open(window.map, anchorMarker);
         }
       }, 100);
     }
