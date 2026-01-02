@@ -369,7 +369,6 @@ window.viewEventDetails = function(eventIndex, expandDetails = false, marker = n
     const infoWindow = Events.infoWindow(event, true);
     // Use the provided marker (cluster marker) or fallback to event marker
     const anchorMarker = marker || event.marker;
-    infoWindow.open(window.map, anchorMarker);
     
     // Automatically expand details if requested
     if (expandDetails) {
@@ -382,6 +381,8 @@ window.viewEventDetails = function(eventIndex, expandDetails = false, marker = n
           infoWindow.open(window.map, anchorMarker);
         }
       }, 100);
+    } else {
+      infoWindow.open(window.map, anchorMarker);
     }
   }
 };
