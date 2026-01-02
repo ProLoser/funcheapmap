@@ -360,30 +360,10 @@ function showClusterInfo(events, marker) {
 /**
  * Shows detailed info for a specific event from a cluster
  * @param {number} eventIndex - Index of the event in the cluster
- * @param {boolean} expandDetails - Whether to automatically expand details
- * @param {object} marker - The marker to anchor the info window to (cluster marker)
  */
-window.viewEventDetails = function(eventIndex, expandDetails = false, marker = null) {
-  if (window.clusterEvents && window.clusterEvents[eventIndex]) {
-    const event = window.clusterEvents[eventIndex];
-    const infoWindow = Events.infoWindow(event, true);
-    // Use the provided marker (cluster marker) or fallback to event marker
-    const anchorMarker = marker || event.marker;
-    
-    // Automatically expand details if requested
-    if (expandDetails) {
-      // Wait for the info window to render, then open the details
-      setTimeout(() => {
-        const detailsElement = document.querySelector('.info-body details');
-        if (detailsElement && !detailsElement.open) {
-          detailsElement.open = true;
-          // Trigger the reposition
-          infoWindow.open(window.map, anchorMarker);
-        }
-      }, 100);
-    } else {
-      infoWindow.open(window.map, anchorMarker);
-    }
+window.viewEventDetails = function(eventIndex) {
+  if (window.clusterEvents?.[eventIndex]) {
+    Events.infoWindow(window.clusterEvents[eventIndex], true);
   }
 };
 
@@ -444,10 +424,10 @@ class Events {
    * Generates and returns a google maps info window
    * 
    * @param {object} [event] - If passed, sets the content
-   * @param {boolean} [fromCluster] - If true, don't mutate the title
+   * @param {boolean} [expanded]
    * @returns {google.maps.InfoWindow}
    */
-  static infoWindow(event, fromCluster = false) {
+  static infoWindow(event, expanded = false) {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
     if (event) {
@@ -509,7 +489,7 @@ class Events {
           <p class="categories">Categories: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join('')}</p>
         </div>
         <div class="info-body">
-          <details>
+          <details ${expanded ? 'open' : ''}>
             <summary>Expand Details</summary>
             <div id="details">
               ${event.details}
@@ -519,8 +499,8 @@ class Events {
       `
       // Reposition after expanding
       content.querySelector('details').addEventListener('toggle', () => {
-        // TODO: this is breaking calendar button
-        // this.cachedInfoWindow.open(window.map, event.marker);
+        const { lat, lng } = this.cachedInfoWindow.getPosition();
+        window.map.panTo({ lat: lat() + 0.05, lng: lng()});
       })
       this.cachedInfoWindow.setContent(content);
     }
