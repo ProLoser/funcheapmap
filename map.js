@@ -500,7 +500,7 @@ class Events {
       // Reposition after expanding
       content.querySelector('details').addEventListener('toggle', () => {
         const { lat, lng } = this.cachedInfoWindow.getPosition();
-        window.map.panTo({ lat: lat() + 0.05, lng: lng()});
+        window.map.panTo({ lat: lat() + 0.03, lng: lng()});
       })
       this.cachedInfoWindow.setContent(content);
     }
