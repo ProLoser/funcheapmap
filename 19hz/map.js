@@ -586,12 +586,20 @@ class Events {
       const costDetailsParts = event.cost_details.split(' | Artists: ');
       const ageInfo = costDetailsParts[0] || 'N/A';
       const artistsInfo = costDetailsParts[1] || 'TBA';
+      
+      // Convert artist names to Spotify search links
+      const artistLinks = artistsInfo === 'TBA' ? 'TBA' : 
+        artistsInfo.split(',').map(artist => {
+          const trimmedArtist = artist.trim();
+          const spotifySearchUrl = `https://open.spotify.com/search/${encodeURIComponent(trimmedArtist)}`;
+          return `<a href="${spotifySearchUrl}" target="_blank">${trimmedArtist}</a>`;
+        }).join(', ');
+      
       content.innerHTML = `
         <div class="info-header">
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
-          <p><strong>Artists:</strong> ${artistsInfo}</p>
+          <p><strong>Artists:</strong> ${artistLinks}</p>
           <p><strong>Age:</strong> ${ageInfo}</p>
-          ${event.url !== '#' ? `<p><a href="${event.url}" target="_blank">Event Link</a></p>` : ''}
         </div>
       `;
       this.cachedInfoWindow.setContent(content);
