@@ -771,11 +771,11 @@ class Events {
         time: row[4],
         cost: row[5],
         cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
-        categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)) : [],
+        categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
         details: `
-          <p><strong>Genres:</strong> ${row[2]}</p>
+          <p><strong>Genres:</strong> ${row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c).join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${row[7] || 'TBA'}</p>
           <p><strong>Age:</strong> ${row[6]}</p>
           <p><strong>Cost:</strong> ${row[5]}</p>
