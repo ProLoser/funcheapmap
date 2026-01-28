@@ -540,26 +540,46 @@ class Events {
   /**
    * Parses time in 12-hour format (e.g., "9:30pm") and converts to 24-hour format
    * @param {string} timeStr - Time string in 12-hour format (e.g., "9:30pm", "10am")
-   * @returns {object} Object with hours and minutes in 24-hour format
+   * @returns {{hours: number, minutes: number}} Object with hours (0-23) and minutes (0-59) in 24-hour format
    */
   static parseTime12Hour(timeStr) {
     const trimmed = timeStr.trim().toLowerCase();
     const isPM = trimmed.includes('pm');
     const isAM = trimmed.includes('am');
     
+    // Validate that time has am/pm indicator
+    if (!isPM && !isAM) {
+      console.warn(`Time string "${timeStr}" missing am/pm indicator, defaulting to PM`);
+    }
+    
     // Remove am/pm and any spaces
-    const timeOnly = trimmed.replace(/am|pm/gi, '').trim();
+    const timeOnly = trimmed.replace(/am|pm/g, '').trim();
     
     // Split hours and minutes
     const parts = timeOnly.split(':');
     let hours = parseInt(parts[0]);
     const minutes = parts[1] ? parseInt(parts[1]) : 0;
     
+    // Validate parsed values
+    if (isNaN(hours) || hours < 1 || hours > 12) {
+      console.error(`Invalid hours value in time string "${timeStr}"`);
+      hours = 12; // Default to noon/midnight
+    }
+    if (isNaN(minutes) || minutes < 0 || minutes > 59) {
+      console.error(`Invalid minutes value in time string "${timeStr}"`);
+      minutes = 0; // Default to :00
+    }
+    
     // Convert to 24-hour format
     if (isPM && hours !== 12) {
       hours += 12;
     } else if (isAM && hours === 12) {
       hours = 0;
+    } else if (!isPM && !isAM) {
+      // Default to PM if no indicator
+      if (hours !== 12) {
+        hours += 12;
+      }
     }
     
     return { hours, minutes };
@@ -591,7 +611,7 @@ class Events {
         end.setHours(endTime.hours, endTime.minutes, 0, 0);
         
         // Is event overnight? (end time is earlier than start time)
-        if (end <= start) {
+        if (end < start) {
           end.setDate(end.getDate() + 1);
         }
       } else { 
