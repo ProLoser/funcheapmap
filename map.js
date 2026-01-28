@@ -44,6 +44,15 @@ const VENUE_GEOCODING = {
 };
 
 /**
+ * Escape HTML special characters to prevent XSS
+ */
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+/**
  * Parse CSV text and return array of rows
  */
 function parseCSV(csvText) {
@@ -151,15 +160,15 @@ async function load19hzCSV(filename) {
         time: time,
         cost: cost,
         cost_details: cost,
-        categories: genre ? genre.split(',').map(g => g.trim()) : ['19hz'],
-        details: `<p><strong>Genre:</strong> ${genre || 'N/A'}</p>
-                  <p><strong>Age:</strong> ${ageRestriction || 'N/A'}</p>
-                  ${artists ? `<p><strong>Artists:</strong> ${artists}</p>` : ''}`,
+        categories: genre && genre.trim() ? genre.split(',').map(g => g.trim()).filter(g => g) : ['19hz'],
+        details: `<p><strong>Genre:</strong> ${escapeHtml(genre || 'N/A')}</p>
+                  <p><strong>Age:</strong> ${escapeHtml(ageRestriction || 'N/A')}</p>
+                  ${artists ? `<p><strong>Artists:</strong> ${escapeHtml(artists)}</p>` : ''}`,
         url: url,
         eventUrl: url,
         source: '19hz'
       };
-    }).filter(event => event !== null && event.title && event.geometry);
+    }).filter(event => event !== null && event.title && event.geometry && event.geometry.lat && event.geometry.lng);
   } catch (error) {
     console.error(`Error loading ${filename}:`, error);
     return [];
@@ -734,9 +743,9 @@ class Events {
     }
   }
   /**
-   * Queries the crawler API and loads 19hz CSV files
+   * Queries the FuncheapSF crawler API and loads 19hz CSV files
    *
-   * @returns {Promise}
+   * @returns {Promise<Array>} Promise that resolves to an array of event objects from both sources
    */
   async query() {
     // Load FuncheapSF events from API
