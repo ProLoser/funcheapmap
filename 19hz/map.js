@@ -713,7 +713,9 @@ class Events {
           ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
         </div>
-        ${spotifyPlayerHTML}
+        <div class="info-body">
+          ${spotifyPlayerHTML}
+        </div>
       `;
       
       this.cachedInfoWindow.setContent(content);
