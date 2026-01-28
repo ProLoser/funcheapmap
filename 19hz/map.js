@@ -610,6 +610,66 @@ class Events {
   }
   
   /**
+   * Extracts artist names from event title
+   * @param {string} title - Event title
+   * @returns {string} Comma-separated artist names or empty string
+   */
+  static extractArtistsFromTitle(title) {
+    if (!title) return '';
+    
+    // Remove common event keywords and patterns
+    let cleanedTitle = title
+      .replace(/\s*-\s*(tour|show|live|concert|presents?|feat(?:uring)?\.?|w\/|with)\s*/gi, ' - ')
+      .replace(/\s+Night$/i, '')
+      .replace(/^\d+s\s+Night:?\s*/i, '')
+      .replace(/^(Nightlife|Dance Party|Just Dance|Bad Bunny Night):?\s*/i, '')
+      .trim();
+    
+    // Handle different title formats
+    // Format: "Event Name: Artist1, Artist2"
+    if (cleanedTitle.includes(':')) {
+      const parts = cleanedTitle.split(':');
+      if (parts.length >= 2) {
+        cleanedTitle = parts.slice(1).join(':').trim();
+      }
+    }
+    
+    // Format: "Event Name - Artist1, Artist2" or "Artist1 - Event Name"
+    if (cleanedTitle.includes(' - ')) {
+      const parts = cleanedTitle.split(' - ');
+      // Take the first substantial part that looks like artists
+      const firstPart = parts[0].trim();
+      const secondPart = parts.length > 1 ? parts[1].trim() : '';
+      
+      // Prefer the part with commas (likely multiple artists)
+      if (secondPart && secondPart.includes(',')) {
+        cleanedTitle = secondPart;
+      } else if (firstPart && firstPart.includes(',')) {
+        cleanedTitle = firstPart;
+      } else if (secondPart) {
+        // Use second part if it exists (common format: "Event - Artists")
+        cleanedTitle = secondPart;
+      } else {
+        cleanedTitle = firstPart;
+      }
+    }
+    
+    // Remove phrases that indicate it's not an artist
+    cleanedTitle = cleanedTitle
+      .replace(/\s*(presents?|feat(?:uring)?\.?|w\/|with)\s+/gi, ', ')
+      .replace(/\s+(?:and|&)\s+/gi, ', ')
+      .replace(/\s+b2b\s+/gi, ', ')
+      .trim();
+    
+    // If the result is too short or looks like an event name, return empty
+    if (cleanedTitle.length < 2 || /^(free|party|night|event|show|live)$/i.test(cleanedTitle)) {
+      return '';
+    }
+    
+    return cleanedTitle;
+  }
+  
+  /**
    * Parses CSV date format "Tue: Jan 27" to ISO date
    * @param {string} dateStr - Date string from CSV
    * @returns {object} Object with iso (YYYY-MM-DD) and text (Jan 27, YYYY) formats
@@ -813,9 +873,8 @@ class Events {
       `;
       this.cachedInfoWindow.setHeaderContent(headerContent);
       const content = document.createElement('div');
-      const costDetailsParts = event.cost_details.split(' | Artists: ');
-      const ageInfo = costDetailsParts[0] || 'N/A';
-      const artistsInfo = costDetailsParts[1] || 'TBA';
+      const ageInfo = event.cost_details || 'N/A';
+      const artistsInfo = event.extractedArtists || 'TBA';
       
       // Check if artists are valid (not TBA, TBD, or empty)
       const hasValidArtists = artistsInfo && 
@@ -965,7 +1024,8 @@ class Events {
     allRows.forEach((row, index) => {
       // CSV structure:
       // 0: Date, 1: Title, 2: Genres, 3: Venue, 4: Time, 
-      // 5: Cost, 6: Age, 7: Artists, 8: URL1, 9: URL2, 10: Numeric
+      // 5: Cost, 6: Age, 7: Promoter, 8: URL1, 9: URL2, 10: Numeric
+      // Note: Artists are extracted from Title (column 1)
       
       if (row.length < 8) {
         console.warn(`Row ${index} has insufficient fields:`, row);
@@ -987,6 +1047,9 @@ class Events {
         return;
       }
       
+      // Extract artists from title instead of using promoter field
+      const extractedArtists = Events.extractArtistsFromTitle(row[1]) || 'TBA';
+      
       // Build event object
       const event = {
         title: row[1],
@@ -996,13 +1059,16 @@ class Events {
         date_text: parsedDate.text,
         time: row[4],
         cost: row[5],
-        cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
+        cost_details: row[6],
+        extractedArtists: extractedArtists,
         categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
+        promoter: row[7] || '',
         details: `
           <p><strong>Genres:</strong> ${row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c).join(', ') : 'N/A'}</p>
-          <p><strong>Artists:</strong> ${row[7] || 'TBA'}</p>
+          <p><strong>Artists:</strong> ${extractedArtists}</p>
+          ${row[7] ? `<p><strong>Promoter:</strong> ${row[7]}</p>` : ''}
           <p><strong>Age:</strong> ${row[6]}</p>
           <p><strong>Cost:</strong> ${row[5]}</p>
           ${row[8] ? `<p><a href="${row[8]}" target="_blank">Event Link</a></p>` : ''}
