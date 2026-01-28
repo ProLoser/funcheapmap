@@ -457,6 +457,18 @@ class Events {
   }
   
   /**
+   * Normalizes category names by removing trailing "music"
+   * @param {string} category - Category name to normalize
+   * @returns {string} Normalized category
+   */
+  static normalizeCategory(category) {
+    return category
+      .trim()
+      .replace(/\s+music$/i, '')
+      .trim();
+  }
+
+  /**
    * Normalizes venue name for matching
    * @param {string} venueName - Raw venue name from CSV
    * @returns {string} Normalized venue name
@@ -477,7 +489,7 @@ class Events {
   /**
    * Parses CSV date format "Tue: Jan 27" to ISO date
    * @param {string} dateStr - Date string from CSV
-   * @returns {string} ISO date string (YYYY-MM-DD)
+   * @returns {object} Object with iso (YYYY-MM-DD) and text (Jan 27, YYYY) formats
    */
   static parseCSVDate(dateStr) {
     // Extract month and day from "Tue: Jan 27" format
@@ -510,7 +522,10 @@ class Events {
     }
     
     const eventDate = new Date(year, month, day);
-    return eventDate.toISOString().split('T')[0];
+    return {
+      iso: eventDate.toISOString().split('T')[0],
+      text: `${monthStr} ${day}, ${year}`
+    };
   }
   
   /**
@@ -677,9 +692,9 @@ class Events {
       });
       
       // Add event delegation for artist selector clicks
-      const artistSelector = content.querySelector('.artist-selector');
-      if (artistSelector) {
-        artistSelector.addEventListener('click', (e) => {
+      const artistSelectorElement = content.querySelector('.artist-selector');
+      if (artistSelectorElement) {
+        artistSelectorElement.addEventListener('click', (e) => {
           const artistButton = e.target.closest('.artist-item');
           if (artistButton) {
             const artistName = artistButton.dataset.artist;
@@ -841,17 +856,17 @@ class Events {
         title: row[1],
         venue: venueData.name,
         geometry: venueData.geometry,
-        date: parsedDate,
-        date_text: row[0],
+        date: parsedDate.iso,
+                date_text: parsedDate.text,
         time: row[4],
         cost: row[5],
         cost_details: `${row[6]} | Artists: ${escapedArtists}`,
         artists: artists,
-        categories: row[2] ? row[2].split(',').map(g => g.trim()) : [],
+        categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
         details: `
-          <p><strong>Genres:</strong> ${row[2]}</p>
+          <p><strong>Genres:</strong> ${row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c).join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${escapedArtists}</p>
           <p><strong>Age:</strong> ${row[6]}</p>
           <p><strong>Cost:</strong> ${row[5]}</p>
