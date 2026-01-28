@@ -129,6 +129,17 @@ html, body, #map-canvas {
   .atcb-initialized {
     margin: 10px auto;
   }
+  .speaker-icon {
+    color: #1db954;
+    transition: color 0.2s, transform 0.1s;
+    &:hover {
+      color: #1ed760;
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 }
 
 /* google.maps.InfoWindow Body */

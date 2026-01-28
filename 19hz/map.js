@@ -366,6 +366,17 @@ window.viewEventDetails = function(eventIndex) {
 };
 
 /**
+ * Updates the Spotify player to search for a specific artist
+ * @param {string} artistName - The artist name to search for
+ */
+window.updateSpotifyPlayer = function(artistName) {
+  const spotifyPlayer = document.getElementById('spotify-player');
+  if (spotifyPlayer) {
+    spotifyPlayer.src = `https://open.spotify.com/embed/search/${encodeURIComponent(artistName)}`;
+  }
+};
+
+/**
  * Gets the user's location and displays it on the map
  */
 window.showUserLocation = async function () {
@@ -660,21 +671,51 @@ class Events {
       const ageInfo = costDetailsParts[0] || 'N/A';
       const artistsInfo = costDetailsParts[1] || 'TBA';
       
-      // Convert artist names to Spotify search links
-      const artistLinks = artistsInfo === 'TBA' ? 'TBA' : 
-        artistsInfo.split(',').map(artist => {
-          const trimmedArtist = artist.trim();
-          const spotifySearchUrl = `https://open.spotify.com/search/${encodeURIComponent(trimmedArtist)}`;
-          return `<a href="${spotifySearchUrl}" target="_blank">${trimmedArtist}</a>`;
+      // Check if artists are valid (not TBA, TBD, or empty)
+      const hasValidArtists = artistsInfo && 
+        artistsInfo.trim() !== '' && 
+        artistsInfo.toUpperCase() !== 'TBA' && 
+        artistsInfo.toUpperCase() !== 'TBD';
+      
+      let artistsHTML = '';
+      let spotifyPlayerHTML = '';
+      
+      if (hasValidArtists) {
+        const artists = artistsInfo.split(',').map(artist => artist.trim());
+        const firstArtist = artists[0];
+        
+        // Create artist links with speaker icons
+        artistsHTML = artists.map((artist, index) => {
+          const speakerIcon = `<svg class="speaker-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; cursor: pointer; margin-left: 4px;" onclick="event.preventDefault(); event.stopPropagation(); updateSpotifyPlayer('${artist.replace(/'/g, "\\'")}')">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>`;
+          return `<a href="https://open.spotify.com/search/${encodeURIComponent(artist)}" target="_blank">${artist}</a>${speakerIcon}`;
         }).join(', ');
+        
+        // Create Spotify embed player
+        spotifyPlayerHTML = `
+          <iframe id="spotify-player" 
+            style="border-radius: 12px; margin-top: 10px;" 
+            src="https://open.spotify.com/embed/search/${encodeURIComponent(firstArtist)}" 
+            width="100%" 
+            height="152" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+          </iframe>
+        `;
+      }
       
       content.innerHTML = `
         <div class="info-header">
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
-          <p><strong>Artists:</strong> ${artistLinks}</p>
+          ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
         </div>
+        ${spotifyPlayerHTML}
       `;
+      
       this.cachedInfoWindow.setContent(content);
     }
     return this.cachedInfoWindow;
