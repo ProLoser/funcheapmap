@@ -598,27 +598,25 @@ class Events {
       `;
       this.cachedInfoWindow.setHeaderContent(headerContent);
       const content = document.createElement('div');
+      const costDetailsParts = event.cost_details.split(' | Artists: ');
+      const ageInfo = costDetailsParts[0] || 'N/A';
+      const artistsInfo = costDetailsParts[1] || 'TBA';
+      
+      // Convert artist names to Spotify search links
+      const artistLinks = artistsInfo === 'TBA' ? 'TBA' : 
+        artistsInfo.split(',').map(artist => {
+          const trimmedArtist = artist.trim();
+          const spotifySearchUrl = `https://open.spotify.com/search/${encodeURIComponent(trimmedArtist)}`;
+          return `<a href="${spotifySearchUrl}" target="_blank">${trimmedArtist}</a>`;
+        }).join(', ');
+      
       content.innerHTML = `
         <div class="info-header">
-          <p>
-            ${event.cost_details}
-          </p>
-          <p class="categories">Genres: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
-        </div>
-        <div class="info-body">
-          <details ${expanded ? 'open' : ''}>
-            <summary>Expand Details</summary>
-            <div id="details">
-              ${event.details}
-            </div>
-          </details>
+          <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
+          <p><strong>Artists:</strong> ${artistLinks}</p>
+          <p><strong>Age:</strong> ${ageInfo}</p>
         </div>
       `;
-      // Reposition after expanding
-      content.querySelector('details').addEventListener('toggle', () => {
-        const { lat, lng } = this.cachedInfoWindow.getPosition();
-        window.map.panTo({ lat: lat() + 0.03, lng: lng()});
-      });
       this.cachedInfoWindow.setContent(content);
     }
     return this.cachedInfoWindow;
