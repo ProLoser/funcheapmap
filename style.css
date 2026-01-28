@@ -117,10 +117,6 @@ html, body, #map-canvas {
     margin: 0;
     overflow: hidden;
   }
-  a {
-    float: right;
-    margin: 0 0 0 5px;
-  }
   a[onclick] {
     color: blue;
     text-decoration: underline;
