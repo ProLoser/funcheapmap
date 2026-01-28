@@ -421,6 +421,18 @@ class Events {
   static VENUES_URL = 'venues.json';
   
   /**
+   * Escapes HTML special characters to prevent XSS
+   * @param {string} text - Text to escape
+   * @returns {string} Escaped text
+   */
+  static escapeHtml(text) {
+    return text.replace(/[&<>"']/g, char => {
+      const escapeChars = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+      return escapeChars[char];
+    });
+  }
+  
+  /**
    * Normalizes venue name for matching
    * @param {string} venueName - Raw venue name from CSV
    * @returns {string} Normalized venue name
@@ -589,9 +601,10 @@ class Events {
       if (event.artists && event.artists.length > 0) {
         const primaryArtist = event.artists[0];
         const searchQuery = encodeURIComponent(primaryArtist);
+        const escapedArtist = Events.escapeHtml(primaryArtist);
         spotifyEmbed = `
           <div class="spotify-player">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/${searchQuery}?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe src="https://open.spotify.com/embed/search/${searchQuery}?utm_source=generator" title="Spotify player for ${escapedArtist}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         `;
       }
@@ -766,6 +779,7 @@ class Events {
       // Build event object
       const artistsRaw = row[7] || '';
       const artists = artistsRaw.split(',').map(a => a.trim()).filter(a => a);
+      const escapedArtists = Events.escapeHtml(artistsRaw || 'TBA');
       const event = {
         title: row[1],
         venue: venueData.name,
@@ -774,14 +788,14 @@ class Events {
         date_text: row[0],
         time: row[4],
         cost: row[5],
-        cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
+        cost_details: `${row[6]} | Artists: ${escapedArtists}`,
         artists: artists,
         categories: row[2] ? row[2].split(',').map(g => g.trim()) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
         details: `
           <p><strong>Genres:</strong> ${row[2]}</p>
-          <p><strong>Artists:</strong> ${row[7] || 'TBA'}</p>
+          <p><strong>Artists:</strong> ${escapedArtists}</p>
           <p><strong>Age:</strong> ${row[6]}</p>
           <p><strong>Cost:</strong> ${row[5]}</p>
           ${row[8] ? `<p><a href="${row[8]}" target="_blank">Event Link</a></p>` : ''}
