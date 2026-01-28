@@ -492,8 +492,8 @@ window.updateSpotifyPlayer = async function(artistName) {
     }
     
     if (artistId) {
-      // Use the proper artist embed URL with the artist ID
-      spotifyPlayer.src = `https://open.spotify.com/embed/artist/${artistId}`;
+      // Use the proper artist embed URL with the artist ID and enable autoplay
+      spotifyPlayer.src = `https://open.spotify.com/embed/artist/${artistId}?autoplay=1`;
       spotifyPlayer.style.display = 'block';
     } else {
       console.warn(`Could not find Spotify artist ID for: ${artistName}`);
