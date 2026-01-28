@@ -2,6 +2,170 @@
 // Delimiter for multiple category selections (must not appear in category names and not require URI encoding)
 const CATEGORY_DELIMITER = '~';
 
+// Venue geocoding data - best guess coordinates for major cities and venues
+const VENUE_GEOCODING = {
+  'San Francisco': { lat: 37.7749, lng: -122.4194 },
+  'San Francisco, CA': { lat: 37.7749, lng: -122.4194 },
+  'Washington, DC': { lat: 38.9072, lng: -77.0369 },
+  'Fairfax, VA': { lat: 38.8462, lng: -77.3064 },
+  'Frederick, MD': { lat: 39.4143, lng: -77.4105 },
+  'Richmond, VA': { lat: 37.5407, lng: -77.4360 },
+  'Baltimore, MD': { lat: 39.2904, lng: -76.6122 },
+  'Los Angeles': { lat: 34.0522, lng: -118.2437 },
+  'Los Angeles, CA': { lat: 34.0522, lng: -118.2437 },
+  'Seattle, WA': { lat: 47.6062, lng: -122.3321 },
+  'Miami': { lat: 25.7617, lng: -80.1918 },
+  'Miami, FL': { lat: 25.7617, lng: -80.1918 },
+  'Hollywood, FL': { lat: 26.0112, lng: -80.1495 },
+  'Fort Lauderdale, FL': { lat: 26.1224, lng: -80.1373 },
+  'West Palm Beach, FL': { lat: 26.7153, lng: -80.0534 },
+  'Miami Beach, FL': { lat: 25.7907, lng: -80.1300 },
+  'Miami Beach': { lat: 25.7907, lng: -80.1300 },
+  'Oakland': { lat: 37.8044, lng: -122.2712 },
+  'Oakland, CA': { lat: 37.8044, lng: -122.2712 },
+  'Berkeley': { lat: 37.8715, lng: -122.2730 },
+  'Berkeley, CA': { lat: 37.8715, lng: -122.2730 },
+  'San Jose': { lat: 37.3382, lng: -121.8863 },
+  'San Jose, CA': { lat: 37.3382, lng: -121.8863 },
+  'Long Beach': { lat: 33.7701, lng: -118.1937 },
+  'Long Beach, CA': { lat: 33.7701, lng: -118.1937 },
+  'San Diego': { lat: 32.7157, lng: -117.1611 },
+  'San Diego, CA': { lat: 32.7157, lng: -117.1611 },
+  'Santa Ana': { lat: 33.7455, lng: -117.8677 },
+  'Santa Ana, CA': { lat: 33.7455, lng: -117.8677 },
+  'Van Nuys': { lat: 34.1900, lng: -118.4514 },
+  'Van Nuys, CA': { lat: 34.1900, lng: -118.4514 },
+  'Davis': { lat: 38.5449, lng: -121.7405 },
+  'Davis, CA': { lat: 38.5449, lng: -121.7405 },
+  'Santa Rosa': { lat: 38.4404, lng: -122.7141 },
+  'Santa Rosa, CA': { lat: 38.4404, lng: -122.7141 },
+  'El Centro': { lat: 32.7920, lng: -115.5630 },
+  'El Centro, CA': { lat: 32.7920, lng: -115.5630 }
+};
+
+/**
+ * Parse CSV text and return array of rows
+ */
+function parseCSV(csvText) {
+  const rows = [];
+  const lines = csvText.split('\n');
+  
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    
+    const values = [];
+    let currentValue = '';
+    let insideQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      const nextChar = line[i + 1];
+      
+      if (char === '"' && nextChar === '"') {
+        currentValue += '"';
+        i++; // Skip next quote
+      } else if (char === '"') {
+        insideQuotes = !insideQuotes;
+      } else if (char === ',' && !insideQuotes) {
+        values.push(currentValue);
+        currentValue = '';
+      } else {
+        currentValue += char;
+      }
+    }
+    values.push(currentValue); // Add last value
+    rows.push(values);
+  }
+  
+  return rows;
+}
+
+/**
+ * Extract city from venue string (e.g., "Venue Name (City, State)" -> "City, State")
+ */
+function extractCity(venueString) {
+  const match = venueString.match(/\(([^)]+)\)/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Get coordinates for a venue based on city
+ */
+function getVenueCoordinates(venueString) {
+  const city = extractCity(venueString);
+  if (!city) return null;
+  
+  // Try exact match first
+  if (VENUE_GEOCODING[city]) {
+    return VENUE_GEOCODING[city];
+  }
+  
+  // Try matching just the city name (before comma)
+  const cityName = city.split(',')[0].trim();
+  for (const [key, coords] of Object.entries(VENUE_GEOCODING)) {
+    if (key.startsWith(cityName)) {
+      return coords;
+    }
+  }
+  
+  // Default to San Francisco if no match found
+  console.warn(`No geocoding data for: ${city}, using default coordinates`);
+  return VENUE_GEOCODING['San Francisco'];
+}
+
+/**
+ * Convert Excel serial date to JavaScript Date
+ */
+function excelDateToJSDate(serialDate) {
+  const excelEpoch = new Date(1899, 11, 30);
+  const msPerDay = 86400000;
+  return new Date(excelEpoch.getTime() + serialDate * msPerDay);
+}
+
+/**
+ * Load and parse a CSV file from 19hz folder
+ */
+async function load19hzCSV(filename) {
+  try {
+    const response = await fetch(`19hz/${filename}`);
+    const csvText = await response.text();
+    const rows = parseCSV(csvText);
+    
+    return rows.map(row => {
+      if (row.length < 11) return null;
+      
+      const [dateText, title, genre, venue, time, cost, ageRestriction, artists, url, url2, serialDate] = row;
+      
+      // Parse the date
+      const date = serialDate ? excelDateToJSDate(parseFloat(serialDate)) : null;
+      
+      // Get coordinates
+      const geometry = getVenueCoordinates(venue);
+      
+      return {
+        title: title,
+        venue: venue,
+        geometry: geometry,
+        date: date ? date.toISOString().split('T')[0] : null,
+        date_text: dateText,
+        time: time,
+        cost: cost,
+        cost_details: cost,
+        categories: genre ? genre.split(',').map(g => g.trim()) : ['19hz'],
+        details: `<p><strong>Genre:</strong> ${genre || 'N/A'}</p>
+                  <p><strong>Age:</strong> ${ageRestriction || 'N/A'}</p>
+                  ${artists ? `<p><strong>Artists:</strong> ${artists}</p>` : ''}`,
+        url: url,
+        eventUrl: url,
+        source: '19hz'
+      };
+    }).filter(event => event !== null && event.title && event.geometry);
+  } catch (error) {
+    console.error(`Error loading ${filename}:`, error);
+    return [];
+  }
+}
+
 const intersectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
@@ -25,10 +189,10 @@ async function initialize() {
   const markerLibrary = await google.maps.importLibrary("marker");
   const AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
   const PinElement = markerLibrary.PinElement;
-  // Create the map
+  // Create the map - centered on North America
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 12,
-    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
+    zoom: 4,
+    center: new google.maps.LatLng(39.8283, -98.5795),
     disableDefaultUI: true,
     zoomControl: true,
     // fullscreenControl: true,
@@ -570,19 +734,38 @@ class Events {
     }
   }
   /**
-   * Queries the crawler API
+   * Queries the crawler API and loads 19hz CSV files
    *
    * @returns {Promise}
    */
-  query() {
-    return fetch(new Request(Events.API))
+  async query() {
+    // Load FuncheapSF events from API
+    const funcheapsfPromise = fetch(new Request(Events.API))
       .then(response => {
         if (!response.ok) {
-          const error = new Error(`Events Query Failed! ${response.status}`);
-          error.response = response;
-          throw error;
+          console.warn(`FuncheapSF Query Failed! ${response.status}`);
+          return [];
         }
         return response.json();
+      })
+      .catch(error => {
+        console.error('Error loading FuncheapSF events:', error);
+        return [];
       });
+    
+    // Load 19hz CSV files
+    const csvFiles = ['events_BayArea.csv', 'events_DC.csv', 'events_LosAngeles.csv', 'events_Miami.csv', 'events_Seattle.csv'];
+    const csvPromises = csvFiles.map(file => load19hzCSV(file));
+    
+    // Wait for all data to load
+    const [funcheapsfEvents, ...csvEventsArrays] = await Promise.all([funcheapsfPromise, ...csvPromises]);
+    
+    // Merge all events
+    const csvEvents = csvEventsArrays.flat();
+    const allEvents = [...funcheapsfEvents, ...csvEvents];
+    
+    console.log(`Loaded ${funcheapsfEvents.length} FuncheapSF events and ${csvEvents.length} 19hz events`);
+    
+    return allEvents;
   }
 }
