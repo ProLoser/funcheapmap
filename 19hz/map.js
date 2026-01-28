@@ -614,8 +614,7 @@ class Events {
       let end;
       if (time[1]) {
         const endTime = Events.parseTime12Hour(time[1]);
-        // Parse date string as local date to avoid timezone issues
-        const [year, month, day] = event.date.split('-').map(Number);
+        // Reuse parsed date components from start date
         end = new Date(year, month - 1, day);
         end.setHours(endTime.hours, endTime.minutes, 0, 0);
         
