@@ -628,71 +628,33 @@ class Events {
   }
   
   /**
-   * Loads event data from cache
+   * Loads event data from memory cache
    * 
    * @returns {object[]} events
    */
   get() {
-    if (this.cache)
-      return this.cache;
-    
-    this.cache = window.localStorage.getItem('events_19hz');
-    if (this.cache)
-      this.cache = JSON.parse(this.cache);
-    
     return this.cache;
   }
   
   /**
-   * Stores the event data to cache and adds a timestamp
+   * Stores the event data to memory cache
    * 
    * @param {object[]} events 
    * @returns {object[]} events
    */
   set(events) {
-    try {
-      // Known to throw QuotaExceededException on Safari
-      window.localStorage.setItem('events_19hz', JSON.stringify(events));
-      window.localStorage.setItem('events_19hz_age', Date.now());
-    } catch (e) {
-      console.error(e);
-    }
     this.cache = events;
     return this.cache;
   }
   
   /**
-   * Returns the age of the cache
-   * 
-   * @returns {number} events_age - Timestamp
-   */
-  age() {
-    return window.localStorage.getItem('events_19hz_age');
-  }
-  
-  /**
-   * Specifies if the age of the cache is old. Defaults to 24 hours
-   * 
-   * @param {number} [old=86400000] - How long ago is considered old. Default: 24 hours
-   * @returns {boolean} 
-   */
-  isFresh(old = 86400000) {
-    let age = this.age();
-    return age && age > (Date.now() - old);
-  }
-  
-  /**
-   * Checks if the cache is old and updates it
+   * Loads events by querying the CSV files
    * 
    * @returns {Promise}
    */
   load() {
-    if (this.isFresh()) {
-      return Promise.resolve(this.get());
-    } else {
-      return this.query()
-        .then(this.set.bind(this));
-    }
+    return this.query()
+      .then(this.set.bind(this));
   }
   
   /**
