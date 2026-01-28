@@ -611,7 +611,7 @@ class Events {
         }).join(', ');
       
       content.innerHTML = `
-        <div class="info-header">
+        <div class="info-body">
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
           <p><strong>Artists:</strong> ${artistLinks}</p>
           <p><strong>Age:</strong> ${ageInfo}</p>
