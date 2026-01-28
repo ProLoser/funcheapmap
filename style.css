@@ -190,6 +190,40 @@ html, body, #map-canvas {
   }
 }
 
+/* Artist Selector */
+.artist-selector {
+  margin: 10px 0;
+  p {
+    margin: 5px 0;
+  }
+}
+
+.artist-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  &.active {
+    background-color: #1DB954;
+    color: white;
+    .speaker-icon {
+      fill: white;
+    }
+  }
+}
+
+.speaker-icon {
+  fill: #1DB954;
+  vertical-align: middle;
+  transition: fill 0.2s;
+}
+
 /* set the default transition time */
 :root {
   --delay-time: .5s;

@@ -17,6 +17,27 @@ let userLocationMarker = null;
 // Global variable to track cluster markers
 let clusterMarkers = [];
 
+/**
+ * Updates the Spotify player to search for a different artist
+ * @param {string} artistName - URL-encoded artist name
+ * @param {string} displayName - HTML-escaped artist name for display
+ * @param {HTMLElement} element - The clicked artist element
+ */
+window.updateSpotifyPlayer = function(artistName, displayName, element) {
+  const iframe = document.getElementById('spotify-iframe');
+  if (iframe) {
+    iframe.src = `https://open.spotify.com/embed/search/${artistName}?utm_source=generator`;
+    iframe.title = `Spotify player for ${displayName}`;
+    
+    // Update active state
+    const container = element.parentElement.parentElement;
+    container.querySelectorAll('.artist-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    element.classList.add('active');
+  }
+};
+
 // Initialize the map
 async function initialize() {
   // Load required libraries
@@ -598,15 +619,34 @@ class Events {
       
       // Generate Spotify embed HTML if there are artists
       let spotifyEmbed = '';
+      let artistSelector = '';
       if (event.artists && event.artists.length > 0) {
         const primaryArtist = event.artists[0];
         const searchQuery = encodeURIComponent(primaryArtist);
         const escapedArtist = Events.escapeHtml(primaryArtist);
         spotifyEmbed = `
           <div class="spotify-player">
-            <iframe src="https://open.spotify.com/embed/search/${searchQuery}?utm_source=generator" title="Spotify player for ${escapedArtist}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe id="spotify-iframe" src="https://open.spotify.com/embed/search/${searchQuery}?utm_source=generator" title="Spotify player for ${escapedArtist}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         `;
+        
+        // Generate artist selector with speaker icons if multiple artists
+        if (event.artists.length > 1) {
+          artistSelector = `
+            <div class="artist-selector">
+              <p><strong>Artists:</strong> ${event.artists.map((artist, index) => {
+                const escapedArtist = Events.escapeHtml(artist);
+                const isActive = index === 0 ? ' active' : '';
+                return `<span class="artist-item${isActive}" data-artist="${Events.escapeHtml(artist)}" onclick="updateSpotifyPlayer('${encodeURIComponent(artist).replace(/'/g, "\\'")}', '${Events.escapeHtml(artist).replace(/'/g, "\\'")}', this)">
+                  <svg class="speaker-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                  ${escapedArtist}
+                </span>`;
+              }).join(', ')}</p>
+            </div>
+          `;
+        }
       }
       
       content.innerHTML = `
@@ -616,6 +656,7 @@ class Events {
           </p>
           <p class="categories">Genres: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
         </div>
+        ${artistSelector}
         ${spotifyEmbed}
         <div class="info-body">
           <details ${expanded ? 'open' : ''}>
