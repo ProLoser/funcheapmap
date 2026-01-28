@@ -52,7 +52,7 @@ async function processVenues() {
   console.log('Reading data file...');
   const rawData = fs.readFileSync(INPUT_FILE, 'utf8');
   // Remove control characters except newlines, tabs, and carriage returns
-  const data = JSON.parse(cleanedData);
+  const data = JSON.parse(rawData);
   
   const venuesWithoutGeometry = data.filter(venue => !venue.geometry);
   const venuesWithGeometry = data.filter(venue => venue.geometry);
@@ -90,7 +90,7 @@ async function processVenues() {
       
       // Save progress after each successful geocoding
       const updatedVenues = [...venuesWithGeometry, ...venuesWithoutGeometry];
-      fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ venues: updatedVenues }, null, 2));
+      fs.writeFileSync(OUTPUT_FILE, JSON.stringify(updatedVenues, null, 2));
       
       // Rate limiting - wait before next request
       if (i < venuesWithoutGeometry.length - 1) {

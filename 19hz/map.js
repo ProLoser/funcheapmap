@@ -26,8 +26,8 @@ async function initialize() {
   const PinElement = markerLibrary.PinElement;
   // Create the map
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 12,
-    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
+    zoom: 4,
+    center: new google.maps.LatLng(39, -100),
     disableDefaultUI: true,
     zoomControl: true,
     mapId: 'c46bf4bc0e87c92b'
@@ -416,8 +416,13 @@ window.showUserLocation = async function () {
  * Utility class for managing event data
  */
 class Events {
-  static CSV_URL = './events_BayArea.csv';
-//   static CSV_URL = 'https://19hz.info/events_BayArea.csv';
+  static CSV_URLS = [
+    './events_BayArea.csv',
+    './events_DC.csv',
+    './events_LosAngeles.csv',
+    './events_Miami.csv',
+    './events_Seattle.csv'
+  ];
   static VENUES_URL = 'venues.json';
   
   /**
@@ -696,19 +701,23 @@ class Events {
    * @returns {Promise}
    */
   async query() {
-    console.log('Fetching CSV from', Events.CSV_URL);
+    console.log('Fetching CSVs from', Events.CSV_URLS);
     console.log('Loading venues from', Events.VENUES_URL);
     
-    // Load both CSV and venues in parallel
-    const [csvResponse, venuesResponse] = await Promise.all([
-      fetch(new Request(Events.CSV_URL)),
-      fetch(new Request(Events.VENUES_URL))
-    ]);
+    // Load all CSVs and venues in parallel
+    const fetchPromises = Events.CSV_URLS.map(url => fetch(new Request(url)));
+    const responses = await Promise.all([...fetchPromises, fetch(new Request(Events.VENUES_URL))]);
     
-    if (!csvResponse.ok) {
-      const error = new Error(`CSV Fetch Failed! ${csvResponse.status}`);
-      error.response = csvResponse;
-      throw error;
+    const csvResponses = responses.slice(0, -1);
+    const venuesResponse = responses[responses.length - 1];
+    
+    // Check all CSV responses
+    for (let i = 0; i < csvResponses.length; i++) {
+      if (!csvResponses[i].ok) {
+        const error = new Error(`CSV Fetch Failed for ${Events.CSV_URLS[i]}: ${csvResponses[i].status}`);
+        error.response = csvResponses[i];
+        throw error;
+      }
     }
     
     if (!venuesResponse.ok) {
@@ -717,7 +726,8 @@ class Events {
       throw error;
     }
     
-    const csvText = await csvResponse.text();
+    // Get text from all CSV responses
+    const csvTexts = await Promise.all(csvResponses.map(r => r.text()));
     const venues = await venuesResponse.json();
     
     console.log(`Loaded ${venues.length} venues`);
@@ -729,15 +739,20 @@ class Events {
       venueMap.set(normalizedName, venue);
     });
     
-    // Parse CSV
-    const rows = Events.parseCSV(csvText);
-    console.log(`Parsed ${rows.length} CSV rows`);
+    // Parse all CSVs and merge rows
+    let allRows = [];
+    csvTexts.forEach((csvText, index) => {
+      const rows = Events.parseCSV(csvText);
+      console.log(`Parsed ${rows.length} rows from ${Events.CSV_URLS[index]}`);
+      allRows = allRows.concat(rows);
+    });
+    console.log(`Total rows from all CSVs: ${allRows.length}`);
     
     // Transform rows to events
     const events = [];
     const unmatchedVenues = new Set();
     
-    rows.forEach((row, index) => {
+    allRows.forEach((row, index) => {
       // CSV structure:
       // 0: Date, 1: Title, 2: Genres, 3: Venue, 4: Time, 
       // 5: Cost, 6: Age, 7: Artists, 8: URL1, 9: URL2, 10: Numeric

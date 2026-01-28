@@ -918,16 +918,6 @@
     }
   },
   {
-    "url": "http://www.monroesf.com/",
-    "name": "Monroe",
-    "address": "473 Broadway St, San Francisco"
-  },
-  {
-    "url": "https://www.facebook.com/SwitchLoungeNightclub/",
-    "name": "Switch Lounge and Nightclub",
-    "address": "5665 N. Blackstone Ave Suite 110, Fresno"
-  },
-  {
     "url": "http://www.theindependentsf.com/",
     "name": "The Independent",
     "address": "628 Divisadero St, San Francisco",
@@ -1132,6 +1122,2780 @@
     "geometry": {
       "lat": 37.787073,
       "lng": -122.3975019
+    }
+  },
+  {
+    "name": "100 Aquarium Way (Long Beach)",
+    "address": "Long Beach",
+    "geometry": {
+      "lat": 33.7690164,
+      "lng": -118.191604
+    }
+  },
+  {
+    "name": "1020 Ocean Dr (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "1060 Garnet Ave (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "1215 S Bailey St (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "15830 Stagg St (Van Nuys)",
+    "address": "Van Nuys",
+    "geometry": {
+      "lat": 34.1866193,
+      "lng": -118.4486675
+    }
+  },
+  {
+    "name": "1720 (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "2222 West 2Nd Street (Santa Ana)",
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7494951,
+      "lng": -117.873221
+    }
+  },
+  {
+    "name": "4877 Mercury St (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "526 E 12th St (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "541 Main St (El Centro)",
+    "address": "El Centro",
+    "geometry": {
+      "lat": 32.792,
+      "lng": -115.563051
+    }
+  },
+  {
+    "name": "624 S Anderson Street (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "630 S Anderson Street (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "6th St Bridge (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "777 Northeast 79th Street (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "9:30 Club (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "94th Aero Squadron (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "A.I Warehouse (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "A.I. Warehouse (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Academy (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Academy Nightclub (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Ace Mission Studios (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Agave 137 Tequila Bar & Kitchen (Frederick, MD)",
+    "address": "Frederick, MD",
+    "geometry": {
+      "lat": 39.415779,
+      "lng": -77.4127562
+    }
+  },
+  {
+    "name": "Agora Records (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "AI Warehouse (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Airport Tavern (Tacoma, WA)",
+    "address": "Tacoma, WA",
+    "geometry": {
+      "lat": 47.2455013,
+      "lng": -122.438329
+    }
+  },
+  {
+    "name": "Apotheke (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Arlo Wynwood (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Asian Garden Mall Rooftop (Westminster)",
+    "address": "Westminster",
+    "geometry": {
+      "lat": 51.5004439,
+      "lng": -0.1265398
+    }
+  },
+  {
+    "name": "Avalon Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Baba Yaga (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Bacara (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Backyard (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Backyard (Ft. Lauderdale)",
+    "address": "Ft. Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Baila Bar (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Banana Bay Restaurant (Rowland Heights)",
+    "address": "Rowland Heights",
+    "geometry": {
+      "lat": 33.9734043,
+      "lng": -117.8941305
+    }
+  },
+  {
+    "name": "Baoshi Food Hall + Bar (Pembroke Pines)",
+    "address": "Pembroke Pines",
+    "geometry": {
+      "lat": 26.0061943,
+      "lng": -80.2872086
+    }
+  },
+  {
+    "name": "Barboza (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Bardot Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Belltown Yacht Club (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Belly Up (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Berhta (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Black Cat (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Blind Barber (Highland Park)",
+    "address": "Highland Park",
+    "geometry": {
+      "lat": 42.1836719,
+      "lng": -87.7993245
+    }
+  },
+  {
+    "name": "Bloom (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Bloom Nightclub (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Blue Moon Tavern (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Boardner's By LA Belle (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Boho House (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Boomtown Brewery (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Break Point (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Break Point PB (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Breakpoint PB (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Camp Dankside (Slab City)",
+    "address": "Slab City",
+    "geometry": {
+      "lat": 33.2579507,
+      "lng": -115.462841
+    }
+  },
+  {
+    "name": "Casey's Bar & Grill (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Casita Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Catch One (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Catch One Jewel's Room (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Central Saloon (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Central Saloon, Baba Yaga (Seattle)",
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Chapel Performance Space (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Cherry (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Chop Shop (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Chop Suey (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Club 1722 (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Club Space (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Coaxial (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Coffee Republic (Arlington, VA)",
+    "address": "Arlington, VA",
+    "geometry": {
+      "lat": 38.8769326,
+      "lng": -77.0893094
+    }
+  },
+  {
+    "name": "Community Berlin (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Cowen Park (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Crossroads Community Center (Belleville)",
+    "address": "Belleville",
+    "geometry": {
+      "lat": 48.8176714,
+      "lng": 6.0982683
+    }
+  },
+  {
+    "name": "Crystal Lounge (Seattle)",
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Culture (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Culture (Wasington, DC)",
+    "address": "Wasington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Culture Room (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Daer Dayclub (Hollywood)",
+    "address": "Hollywood",
+    "geometry": {
+      "lat": 34.0980031,
+      "lng": -118.329523
+    }
+  },
+  {
+    "name": "Daer Nightclub (Hollywood)",
+    "address": "Hollywood",
+    "geometry": {
+      "lat": 34.0980031,
+      "lng": -118.329523
+    }
+  },
+  {
+    "name": "Dirt Dog Compound (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Do Not Sit On The Furniture (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "Do Not Sit On The Furniture (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Domicile (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Don Quixote (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Drachaus (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Dragonfly Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "E11even (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Eagle (Wilton Manors)",
+    "address": "Wilton Manors",
+    "geometry": {
+      "lat": 26.1603626,
+      "lng": -80.138934
+    }
+  },
+  {
+    "name": "Echoplex (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Echostage (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "EDEN Nightclub & Lounge (Bremerton, WA)",
+    "address": "Bremerton, WA",
+    "geometry": {
+      "lat": 47.5653663,
+      "lng": -122.6246836
+    }
+  },
+  {
+    "name": "El Cid (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "El Corazon (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "El Palenque (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "El Rey Theatre (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "El Secreto De Rosita (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Elizabeth Lake Rd (Lake Hughes)",
+    "address": "Lake Hughes",
+    "geometry": {
+      "lat": 34.6719533,
+      "lng": -118.4370715
+    }
+  },
+  {
+    "name": "Ember Music Hall (Richmond, VA)",
+    "address": "Richmond, VA",
+    "geometry": {
+      "lat": 37.5385087,
+      "lng": -77.43428
+    }
+  },
+  {
+    "name": "EOS Lounge (Santa Barbara)",
+    "address": "Santa Barbara",
+    "geometry": {
+      "lat": 34.4221319,
+      "lng": -119.702667
+    }
+  },
+  {
+    "name": "Eq (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "EQ (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Evolve (Seattle)",
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Exchange (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Exposition Park (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Factory Town (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Falcon North (Long Beach)",
+    "address": "Long Beach",
+    "geometry": {
+      "lat": 33.7690164,
+      "lng": -118.191604
+    }
+  },
+  {
+    "name": "Fields LA Rooftop BMO Stadium (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Fillmore Miami (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "Fit Social (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Flash (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Floyd (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Floyd Miami (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Fonda Theatre (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Freighthouse Square (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Gallagher Square (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Globe Theatre (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Goldline Bar (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Gorge Amphitheatre (George, WA)",
+    "address": "George, WA",
+    "geometry": {
+      "lat": 47.0807166,
+      "lng": -119.85709
+    }
+  },
+  {
+    "name": "Healing Force Of The Universe (Pasadena/Los Angeles)",
+    "address": "Pasadena/Los Angeles",
+    "geometry": {
+      "lat": 34.1476507,
+      "lng": -118.144155
+    }
+  },
+  {
+    "name": "Hidden Hall (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Historic Virginia Key Beach Park (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Hollywood Palladium (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Homage Brewing (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "House Of Blues (Anaheim)",
+    "address": "Anaheim",
+    "geometry": {
+      "lat": 33.8347516,
+      "lng": -117.911732
+    }
+  },
+  {
+    "name": "House Of Blues (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Howard Theatre (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Japanese American Cultural & Community Center (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Jimmy Valentine's Lonely Hearts Club (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Jolene Downtown (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Jungle Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Jungle Island (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Jungle Plaza (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Karma (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Kemistry (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Kia Forum (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Kimpton Everly Hotel (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Kiss Kiss Bang Bang (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Kitsch Bar (Costa Mesa)",
+    "address": "Costa Mesa",
+    "geometry": {
+      "lat": 33.6633386,
+      "lng": -117.903317
+    }
+  },
+  {
+    "name": "Kremwerk (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Kremwerk Complex (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "La Fabrica (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "LA Otra (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Lake Perris State Park (Lake Perris)",
+    "address": "Lake Perris",
+    "geometry": {
+      "lat": 33.8566601,
+      "lng": -117.1763322
+    }
+  },
+  {
+    "name": "Le Mondo (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Leinie Lodge & Beer Garden (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Level 1 at Cannonball Arts (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Liv (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Liv Miami (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "Liv Nightclub (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Lodge Room (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Los Angeles (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Los Globos (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "LOSO (Richmond, VA)",
+    "address": "Richmond, VA",
+    "geometry": {
+      "lat": 37.5385087,
+      "lng": -77.43428
+    }
+  },
+  {
+    "name": "Lot 613 (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "M2 (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Mad Club Wynwood (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Mad Live (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Mad Radio (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Madame Lou's (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Mana Wynwood (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Massive (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Mazuma (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Members Restaurant & Club (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Mercury @ Machinewerks (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Miami Beach Bandshell (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "Mode (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Money Cat (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Monkey Loft (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "url": "http://www.monroesf.com/",
+    "name": "Monroe",
+    "address": "473 Broadway St, San Francisco"
+  },
+  {
+    "name": "Mosaic (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Munchie's Pizza Club (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Museum Of Contemporary Art (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Music Box (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "National Hotel (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "National Union Building (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Nectar Lounge (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Neptune Theatre (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Neumos (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Nico's (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Nos Event Center (San Bernardino)",
+    "address": "San Bernardino",
+    "geometry": {
+      "lat": 34.8253019,
+      "lng": -116.0833144
+    }
+  },
+  {
+    "name": "Nova Sd (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Nowhere Ftl (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Observatory North Park (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Ohm Nightclub (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "On the Hiyu (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Open Form (Seattle)",
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Ora (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Pacha Collective (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Palm Tree Club (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Palms Beach Club (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Paradise on Broadway (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Paramount Theatre (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Peabody's Nightclub (Virginia Beach, VA)",
+    "address": "Virginia Beach, VA",
+    "geometry": {
+      "lat": 36.8496579,
+      "lng": -75.9760751
+    }
+  },
+  {
+    "name": "Pendry Hotel (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Pier 62 (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Pier Six Pavilion (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Pono Ranch (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Pony (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Proof Bar (Santa Ana)",
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7494951,
+      "lng": -117.873221
+    }
+  },
+  {
+    "name": "Q Nightclub (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Quartyard (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Queen Mary Waterfront (Long Beach)",
+    "address": "Long Beach",
+    "geometry": {
+      "lat": 33.7690164,
+      "lng": -118.191604
+    }
+  },
+  {
+    "name": "Queen Mary Waterfront (Long Beach/Los Angeles)",
+    "address": "Long Beach/Los Angeles",
+    "geometry": {
+      "lat": 33.7690164,
+      "lng": -118.191604
+    }
+  },
+  {
+    "name": "Rady Shell At Jacobs Park (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Reckless Shepherd Brewery (Columbia, MD)",
+    "address": "Columbia, MD",
+    "geometry": {
+      "lat": 39.1938429,
+      "lng": -76.8646092
+    }
+  },
+  {
+    "name": "Reframe Studios Indoors (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Regent Theater (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Respectable Street (West Palm Beach)",
+    "address": "West Palm Beach",
+    "geometry": {
+      "lat": 26.715364,
+      "lng": -80.0532942
+    }
+  },
+  {
+    "name": "Revolt (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Revolution Live (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "RFK Festival Grounds (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Rich's (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Rizo Corp Gallery (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Roam (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Rock Bar (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Rooftop @1Wlo (Fort Lauderdale)",
+    "address": "Fort Lauderdale",
+    "geometry": {
+      "lat": 26.1223084,
+      "lng": -80.1433786
+    }
+  },
+  {
+    "name": "Roxy Theatre Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Sagamore Hotel (Miami Beach)",
+    "address": "Miami Beach",
+    "geometry": {
+      "lat": 25.7929198,
+      "lng": -80.1353006
+    }
+  },
+  {
+    "name": "Santa Barbara Bowl (Santa Barbara)",
+    "address": "Santa Barbara",
+    "geometry": {
+      "lat": 34.4221319,
+      "lng": -119.702667
+    }
+  },
+  {
+    "name": "Santa Monica Pier (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Savage Labs (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Selva (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Shibuya Hi-Fi (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Showbox (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Showbox SoDo (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Shrine Expo Hall (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Sinners And Saints (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Skybar At The Mondrian (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Skydeck Open Air 1000 Wilshire Blvd (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Soda Bar (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Sofitel Los Angeles At Beverly Hills (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Soma (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Sost (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Sound Nightclub (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Soundbite Studios (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Soundcheck (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Soundstage (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "South Beach Lady Yacht (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Spice Club (Hollywood)",
+    "address": "Hollywood",
+    "geometry": {
+      "lat": 34.0980031,
+      "lng": -118.329523
+    }
+  },
+  {
+    "name": "Spin (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Spin Nightclub (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Sport Of Kings (Hallandale Beach)",
+    "address": "Hallandale Beach",
+    "geometry": {
+      "lat": 25.9812025,
+      "lng": -80.148379
+    }
+  },
+  {
+    "name": "Substation (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Sunset Cove Amphitheatre (Boca Raton)",
+    "address": "Boca Raton",
+    "geometry": {
+      "lat": 26.3586885,
+      "lng": -80.0830984
+    }
+  },
+  {
+    "name": "Sunshine Grove (Okeechobee)",
+    "address": "Okeechobee",
+    "geometry": {
+      "lat": 27.3923408,
+      "lng": -80.8873655
+    }
+  },
+  {
+    "url": "https://www.facebook.com/SwitchLoungeNightclub/",
+    "name": "Switch Lounge and Nightclub",
+    "address": "5665 N. Blackstone Ave Suite 110, Fresno"
+  },
+  {
+    "name": "Tacoma Dome (Tacoma, WA)",
+    "address": "Tacoma, WA",
+    "geometry": {
+      "lat": 47.2455013,
+      "lng": -122.438329
+    }
+  },
+  {
+    "name": "Tacos And Tattoos (Kendall)",
+    "address": "Kendall",
+    "geometry": {
+      "lat": 29.943885,
+      "lng": -98.7258845
+    }
+  },
+  {
+    "name": "TBA (30 Min Outside Los Angeles)",
+    "address": "30 Min Outside Los Angeles"
+  },
+  {
+    "name": "TBA (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "TBA (DTLA/Los Angeles)",
+    "address": "DTLA/Los Angeles",
+    "geometry": {
+      "lat": 34.0342948,
+      "lng": -118.240639
+    }
+  },
+  {
+    "name": "TBA (Elysian Park)",
+    "address": "Elysian Park",
+    "geometry": {
+      "lat": 40.7487638,
+      "lng": -74.0257602
+    }
+  },
+  {
+    "name": "TBA (Fremont, Seattle, WA)",
+    "address": "Fremont, Seattle, WA",
+    "geometry": {
+      "lat": 47.6504529,
+      "lng": -122.3499861
+    }
+  },
+  {
+    "name": "TBA (Inland Empire)",
+    "address": "Inland Empire",
+    "geometry": {
+      "lat": 47.6440625,
+      "lng": -117.4428575
+    }
+  },
+  {
+    "name": "TBA (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "TBA (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "TBA (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "TBA (Snoqualmie Pass, WA)",
+    "address": "Snoqualmie Pass, WA",
+    "geometry": {
+      "lat": 47.3984127,
+      "lng": -121.4143658
+    }
+  },
+  {
+    "name": "TBA (Socal)",
+    "address": "Socal",
+    "geometry": {
+      "lat": -24.3998924,
+      "lng": -47.7125224
+    }
+  },
+  {
+    "name": "TBA (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "TBA 2 Hrs from LA/SD/Riverside (Socal)",
+    "address": "Socal",
+    "geometry": {
+      "lat": -24.3998924,
+      "lng": -47.7125224
+    }
+  },
+  {
+    "name": "TBA Desert (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "TBA Downtown (Santa Barbara)",
+    "address": "Santa Barbara",
+    "geometry": {
+      "lat": 34.4221319,
+      "lng": -119.702667
+    }
+  },
+  {
+    "name": "TBA Echo Park (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "TBA Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "TBA Warehouse (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Teragram Ballroom (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The 4Bs (Seattle)",
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The 8X10 (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "The Air Conditioned Lounge (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Airliner (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Anthem (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "The Atlantis (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "The Auld Shebeen (Fairfax, VA)",
+    "address": "Fairfax, VA",
+    "geometry": {
+      "lat": 38.8462236,
+      "lng": -77.3063733
+    }
+  },
+  {
+    "name": "The Banshee (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Belasco (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Bellwether (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Blu Grouse (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Boombox (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "The Chapel Lounge (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Church Cantina (Tacoma, WA)",
+    "address": "Tacoma, WA",
+    "geometry": {
+      "lat": 47.2455013,
+      "lng": -122.438329
+    }
+  },
+  {
+    "name": "The Circle OC (Huntington Beach)",
+    "address": "Huntington Beach",
+    "geometry": {
+      "lat": 33.6783336,
+      "lng": -118.000016
+    }
+  },
+  {
+    "name": "The Compound (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "The Corner Door (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Crocodile (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Echo (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Fridge (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "The Funhouse (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Gorge Amphitheatre (George, WA)",
+    "address": "George, WA",
+    "geometry": {
+      "lat": 47.0807166,
+      "lng": -119.85709
+    }
+  },
+  {
+    "name": "The Ground (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "The Ground At Space (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "The Juice Box (Centralia, WA)",
+    "address": "Centralia, WA",
+    "geometry": {
+      "lat": 46.7204489,
+      "lng": -122.96143
+    }
+  },
+  {
+    "name": "The Little Friend (Venice/Los Angeles)",
+    "address": "Venice/Los Angeles",
+    "geometry": {
+      "lat": 33.995044,
+      "lng": -118.4668875
+    }
+  },
+  {
+    "name": "The Love Song (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Lumber Yard (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Melrose House (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Modern (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Monty Bar (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Moroccan Lounge (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Mountain Room (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Novo (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Observatory (Santa Ana)",
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7494951,
+      "lng": -117.873221
+    }
+  },
+  {
+    "name": "The Observatory North Park (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Officebarsd (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Rail (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Rendezvous (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Roadies (Vista)",
+    "address": "Vista",
+    "geometry": {
+      "lat": 33.2021425,
+      "lng": -117.2424805
+    }
+  },
+  {
+    "name": "The Rockwell (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "The Rose Room (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Roxy (Encinitas)",
+    "address": "Encinitas",
+    "geometry": {
+      "lat": 33.0369867,
+      "lng": -117.2919818
+    }
+  },
+  {
+    "name": "The Shop (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Showbox (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "The Slipper Clutch (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Soap Factory (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "The Sound Del Mar (Playa del Mar)",
+    "address": "Playa del Mar",
+    "geometry": {
+      "lat": 26.1758349,
+      "lng": -80.0975557
+    }
+  },
+  {
+    "name": "The Sound Garden (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "The Spotlight (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Theatre (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Vermont (Hollywood/Los Angeles)",
+    "address": "Hollywood/Los Angeles",
+    "geometry": {
+      "lat": 34.0980031,
+      "lng": -118.329523
+    }
+  },
+  {
+    "name": "The Viper Room (West Hollywood/Los Angeles)",
+    "address": "West Hollywood/Los Angeles",
+    "geometry": {
+      "lat": 34.0923014,
+      "lng": -118.3692894
+    }
+  },
+  {
+    "name": "The Wiltern (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "The Yost Theater (Santa Ana)",
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7494951,
+      "lng": -117.873221
+    }
+  },
+  {
+    "name": "Throw Social (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Tigres De LA Noche (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Tiki Bar (Costa Mesa)",
+    "address": "Costa Mesa",
+    "geometry": {
+      "lat": 33.6633386,
+      "lng": -117.903317
+    }
+  },
+  {
+    "name": "Timbre Room (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Time Nightclub (Costa Mesa)",
+    "address": "Costa Mesa",
+    "geometry": {
+      "lat": 33.6633386,
+      "lng": -117.903317
+    }
+  },
+  {
+    "name": "Time Warp (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Top Floor 315 N Main St (Santa Ana)",
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7494951,
+      "lng": -117.873221
+    }
+  },
+  {
+    "name": "Transmission (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Trattoria 25 (Vernon/Los Angeles)",
+    "address": "Vernon/Los Angeles",
+    "geometry": {
+      "lat": 34.007135,
+      "lng": -118.22525
+    }
+  },
+  {
+    "name": "Trilogy Sanctuary (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Union Craft Brewing (Baltimore, MD)",
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.2908816,
+      "lng": -76.610759
+    }
+  },
+  {
+    "name": "Union Stage (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Utopia (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Ventura Music Hall Reserved (Ventura)",
+    "address": "Ventura",
+    "geometry": {
+      "lat": 34.4458248,
+      "lng": -119.0779359
+    }
+  },
+  {
+    "name": "Vera Cocina (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Vermillion Art Gallery and Bar (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Vermont Hollywood (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Vice (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Vue Lounge (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "WaMu Theater (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Washington Hall (Seattle, WA)",
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6038321,
+      "lng": -122.330062
+    }
+  },
+  {
+    "name": "Waterfront Park (San Diego)",
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7174202,
+      "lng": -117.162772
+    }
+  },
+  {
+    "name": "Woodley Park Archers (Van Nuys/Los Angeles)",
+    "address": "Van Nuys/Los Angeles",
+    "geometry": {
+      "lat": 34.1866193,
+      "lng": -118.4486675
+    }
+  },
+  {
+    "name": "Wurstkuche Restaurant Venice Beach (Venice/Los Angeles)",
+    "address": "Venice/Los Angeles",
+    "geometry": {
+      "lat": 33.995044,
+      "lng": -118.4668875
+    }
+  },
+  {
+    "name": "Wynwood Marketplace (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Zebbie's Garden (Washington, DC)",
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8950368,
+      "lng": -77.0365427
+    }
+  },
+  {
+    "name": "Zebulon (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
+    }
+  },
+  {
+    "name": "Zeyzey (Miami)",
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7741566,
+      "lng": -80.1935973
+    }
+  },
+  {
+    "name": "Zizou (Los Angeles)",
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0536909,
+      "lng": -118.242766
     }
   }
 ]
