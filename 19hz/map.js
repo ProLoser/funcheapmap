@@ -712,6 +712,7 @@ class Events {
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
           ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
+          ${spotifyPlayerHTML}
         </div>
         <div class="info-body">
           ${spotifyPlayerHTML}
