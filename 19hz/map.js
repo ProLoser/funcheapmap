@@ -2,6 +2,18 @@
 // Delimiter for multiple category selections (must not appear in category names and not require URI encoding)
 const CATEGORY_DELIMITER = '~';
 
+// Spotify API configuration
+// For production, these should be loaded from environment variables or a secure backend
+const SPOTIFY_CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
+const SPOTIFY_CLIENT_SECRET = 'YOUR_SPOTIFY_CLIENT_SECRET';
+
+// Cache for Spotify access token
+let spotifyAccessToken = null;
+let spotifyTokenExpiry = null;
+
+// Cache for artist IDs to avoid repeated API calls
+const artistIdCache = new Map();
+
 const intersectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
@@ -10,6 +22,90 @@ const intersectionObserver = new IntersectionObserver((entries) => {
     }
   }
 });
+
+/**
+ * Gets a Spotify access token using client credentials flow
+ * @returns {Promise<string>} Access token
+ */
+async function getSpotifyAccessToken() {
+  if (SPOTIFY_CLIENT_ID === 'YOUR_SPOTIFY_CLIENT_ID' || 
+      SPOTIFY_CLIENT_SECRET === 'YOUR_SPOTIFY_CLIENT_SECRET') {
+    console.warn('Spotify API credentials not configured. Please add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET.');
+    return null;
+  }
+  
+  if (spotifyAccessToken && spotifyTokenExpiry && Date.now() < spotifyTokenExpiry) {
+    return spotifyAccessToken;
+  }
+  
+  try {
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET)
+      },
+      body: 'grant_type=client_credentials'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Spotify auth failed: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    spotifyAccessToken = data.access_token;
+    spotifyTokenExpiry = Date.now() + (data.expires_in * 1000) - 60000;
+    
+    return spotifyAccessToken;
+  } catch (error) {
+    console.error('Failed to get Spotify access token:', error);
+    return null;
+  }
+}
+
+/**
+ * Searches Spotify for an artist and returns their ID
+ * @param {string} artistName - Name of the artist to search for
+ * @returns {Promise<string|null>} Spotify artist ID or null if not found
+ */
+async function searchSpotifyArtist(artistName) {
+  if (artistIdCache.has(artistName)) {
+    return artistIdCache.get(artistName);
+  }
+  
+  const token = await getSpotifyAccessToken();
+  if (!token) {
+    return null;
+  }
+  
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(artistName)}&type=artist&limit=1`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    
+    if (!response.ok) {
+      throw new Error(`Spotify search failed: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (data.artists && data.artists.items && data.artists.items.length > 0) {
+      const artistId = data.artists.items[0].id;
+      artistIdCache.set(artistName, artistId);
+      return artistId;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error(`Failed to search for artist "${artistName}":`, error);
+    return null;
+  }
+}
 
 // Global variable to track user location marker
 let userLocationMarker = null;
@@ -369,10 +465,57 @@ window.viewEventDetails = function(eventIndex) {
  * Updates the Spotify player to search for a specific artist
  * @param {string} artistName - The artist name to search for
  */
-window.updateSpotifyPlayer = function(artistName) {
+window.updateSpotifyPlayer = async function(artistName) {
   const spotifyPlayer = document.getElementById('spotify-player');
-  if (spotifyPlayer) {
-    spotifyPlayer.src = `https://open.spotify.com/embed/search/${encodeURIComponent(artistName)}`;
+  if (!spotifyPlayer) {
+    return;
+  }
+  
+  const container = spotifyPlayer.parentElement;
+  
+  // Show loading state
+  spotifyPlayer.style.display = 'none';
+  if (!container.querySelector('.spotify-loading')) {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'spotify-loading';
+    loadingDiv.style.cssText = 'text-align: center; padding: 20px; color: #666; font-size: 14px;';
+    loadingDiv.textContent = `Loading ${artistName}...`;
+    container.appendChild(loadingDiv);
+  }
+  
+  try {
+    const artistId = await searchSpotifyArtist(artistName);
+    
+    const loadingDiv = container.querySelector('.spotify-loading');
+    if (loadingDiv) {
+      loadingDiv.remove();
+    }
+    
+    if (artistId) {
+      // Use the proper artist embed URL with the artist ID
+      spotifyPlayer.src = `https://open.spotify.com/embed/artist/${artistId}`;
+      spotifyPlayer.style.display = 'block';
+    } else {
+      console.warn(`Could not find Spotify artist ID for: ${artistName}`);
+      spotifyPlayer.style.display = 'none';
+      
+      // Show error message
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'spotify-error';
+      errorDiv.style.cssText = 'text-align: center; padding: 20px; color: #999; font-size: 12px;';
+      errorDiv.textContent = `Artist "${artistName}" not found on Spotify`;
+      container.appendChild(errorDiv);
+      
+      // Remove error after 3 seconds
+      setTimeout(() => errorDiv.remove(), 3000);
+    }
+  } catch (error) {
+    console.error(`Error updating Spotify player for ${artistName}:`, error);
+    const loadingDiv = container.querySelector('.spotify-loading');
+    if (loadingDiv) {
+      loadingDiv.remove();
+    }
+    spotifyPlayer.style.display = 'none';
   }
 };
 
@@ -692,11 +835,11 @@ class Events {
           return `<a href="https://open.spotify.com/search/${encodeURIComponent(artist)}" target="_blank">${artist}</a>${speakerIcon}`;
         }).join(', ');
         
-        // Create Spotify embed player
+        // Create Spotify embed player placeholder
         spotifyPlayerHTML = `
           <iframe id="spotify-player" 
             style="border-radius: 12px; margin-top: 10px;" 
-            src="https://open.spotify.com/embed/search/${encodeURIComponent(firstArtist)}" 
+            src="" 
             width="100%" 
             height="152" 
             frameBorder="0" 
@@ -712,7 +855,6 @@ class Events {
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
           ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
-          ${spotifyPlayerHTML}
         </div>
         <div class="info-body">
           ${spotifyPlayerHTML}
@@ -720,6 +862,12 @@ class Events {
       `;
       
       this.cachedInfoWindow.setContent(content);
+      
+      // Load first artist after content is set
+      if (hasValidArtists) {
+        const artists = artistsInfo.split(',').map(artist => artist.trim());
+        updateSpotifyPlayer(artists[0]);
+      }
     }
     return this.cachedInfoWindow;
   }

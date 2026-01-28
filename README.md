@@ -17,11 +17,20 @@ Latest version has a button to quickly add events to your calendar of choice
    cp .env.example .env
    ```
 
-2. Add your Apify API token and Google Maps API key to `.env`:
+2. Add your API keys to `.env`:
    ```
    APIFY_TOKEN=your_actual_apify_token_here
    GOOGLE_TOKEN=your_actual_google_maps_api_key_here
+   SPOTIFY_CLIENT_ID=your_spotify_client_id_here
+   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret_here
    ```
+   
+   **To get Spotify API credentials:**
+   - Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+   - Log in with your Spotify account
+   - Click "Create app"
+   - Fill in app name and description
+   - Copy the Client ID and Client Secret
 
 3. Open `index.html` in your browser directly, or use a local server:
    ```bash
@@ -36,7 +45,7 @@ The site automatically deploys to GitHub Pages when you push to the `gh-pages` b
 
 **Required GitHub Secrets:**
 
-You need to add your Apify API token and Google Maps API key as GitHub secrets:
+You need to add your API tokens as GitHub secrets:
 
 1. Go to your repository on GitHub
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
@@ -44,6 +53,8 @@ You need to add your Apify API token and Google Maps API key as GitHub secrets:
 4. Add the following secrets:
    - Name: `APIFY_TOKEN`, Value: Your Apify API token
    - Name: `GOOGLE_TOKEN`, Value: Your Google Maps API key
+   - Name: `SPOTIFY_CLIENT_ID`, Value: Your Spotify Client ID
+   - Name: `SPOTIFY_CLIENT_SECRET`, Value: Your Spotify Client Secret
 5. Click **Add secret** for each
 
 The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
