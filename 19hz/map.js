@@ -583,8 +583,9 @@ class Events {
       `;
       this.cachedInfoWindow.setHeaderContent(headerContent);
       const content = document.createElement('div');
-      const artistsInfo = event.cost_details.split('Artists: ')[1] || 'TBA';
-      const ageInfo = event.cost_details.split(' | ')[0];
+      const costDetailsParts = event.cost_details.split(' | Artists: ');
+      const ageInfo = costDetailsParts[0] || 'N/A';
+      const artistsInfo = costDetailsParts[1] || 'TBA';
       content.innerHTML = `
         <div class="info-header">
           <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
