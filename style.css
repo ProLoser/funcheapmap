@@ -177,6 +177,19 @@ html, body, #map-canvas {
   }
 }
 
+/* Spotify Player */
+.spotify-player {
+  margin: 10px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  iframe {
+    display: block;
+    width: 100%;
+    height: 152px;
+    border: none;
+  }
+}
+
 /* set the default transition time */
 :root {
   --delay-time: .5s;

@@ -583,6 +583,19 @@ class Events {
       `;
       this.cachedInfoWindow.setHeaderContent(headerContent);
       const content = document.createElement('div');
+      
+      // Generate Spotify embed HTML if there are artists
+      let spotifyEmbed = '';
+      if (event.artists && event.artists.length > 0) {
+        const primaryArtist = event.artists[0];
+        const searchQuery = encodeURIComponent(primaryArtist);
+        spotifyEmbed = `
+          <div class="spotify-player">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/search/${searchQuery}?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        `;
+      }
+      
       content.innerHTML = `
         <div class="info-header">
           <p>
@@ -590,6 +603,7 @@ class Events {
           </p>
           <p class="categories">Genres: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
         </div>
+        ${spotifyEmbed}
         <div class="info-body">
           <details ${expanded ? 'open' : ''}>
             <summary>Expand Details</summary>
@@ -750,6 +764,8 @@ class Events {
       }
       
       // Build event object
+      const artistsRaw = row[7] || '';
+      const artists = artistsRaw.split(',').map(a => a.trim()).filter(a => a);
       const event = {
         title: row[1],
         venue: venueData.name,
@@ -759,6 +775,7 @@ class Events {
         time: row[4],
         cost: row[5],
         cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
+        artists: artists,
         categories: row[2] ? row[2].split(',').map(g => g.trim()) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
