@@ -439,6 +439,18 @@ class Events {
   }
   
   /**
+   * Normalizes category name by trimming whitespace and removing the word 'music'
+   * @param {string} category - Raw category name
+   * @returns {string} Normalized category name
+   */
+  static normalizeCategory(category) {
+    return category
+      .trim()
+      .replace(/\s+music$/i, '')
+      .trim();
+  }
+  
+  /**
    * Parses CSV date format "Tue: Jan 27" to ISO date
    * @param {string} dateStr - Date string from CSV
    * @returns {string} ISO date string (YYYY-MM-DD)
@@ -759,7 +771,7 @@ class Events {
         time: row[4],
         cost: row[5],
         cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
-        categories: row[2] ? row[2].split(',').map(g => g.trim()) : [],
+        categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
         details: `
