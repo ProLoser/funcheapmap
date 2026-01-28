@@ -605,14 +605,18 @@ class Events {
       
       // Parse start time properly
       const startTime = Events.parseTime12Hour(time[0]);
-      const start = new Date(event.date);
+      // Parse date string as local date to avoid timezone issues
+      const [year, month, day] = event.date.split('-').map(Number);
+      const start = new Date(year, month - 1, day);
       start.setHours(startTime.hours, startTime.minutes, 0, 0);
       const startDate = start.toLocaleDateString('sv-SE'); // outputs yyyy-mm-dd
       
       let end;
       if (time[1]) {
         const endTime = Events.parseTime12Hour(time[1]);
-        end = new Date(event.date);
+        // Parse date string as local date to avoid timezone issues
+        const [year, month, day] = event.date.split('-').map(Number);
+        end = new Date(year, month - 1, day);
         end.setHours(endTime.hours, endTime.minutes, 0, 0);
         
         // Is event overnight? (end time is earlier than start time)
