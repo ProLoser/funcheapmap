@@ -543,6 +543,54 @@ class Events {
   }
   
   /**
+   * Parses time in 12-hour format (e.g., "9:30pm") and converts to 24-hour format
+   * @param {string} timeStr - Time string in 12-hour format (e.g., "9:30pm", "10am")
+   * @returns {{hours: number, minutes: number}} Object with hours (0-23) and minutes (0-59) in 24-hour format
+   */
+  static parseTime12Hour(timeStr) {
+    const trimmed = timeStr.trim().toLowerCase();
+    const isPM = trimmed.includes('pm');
+    const isAM = trimmed.includes('am');
+    
+    // Validate that time has am/pm indicator
+    if (!isPM && !isAM) {
+      console.warn(`Time string "${timeStr}" missing am/pm indicator, defaulting to PM`);
+    }
+    
+    // Remove am/pm and any spaces
+    const timeOnly = trimmed.replace(/am|pm/g, '').trim();
+    
+    // Split hours and minutes
+    const parts = timeOnly.split(':');
+    let hours = parseInt(parts[0]);
+    const minutes = parts[1] ? parseInt(parts[1]) : 0;
+    
+    // Validate parsed values
+    if (isNaN(hours) || hours < 1 || hours > 12) {
+      console.error(`Invalid hours value in time string "${timeStr}"`);
+      hours = 12; // Default to noon/midnight
+    }
+    if (isNaN(minutes) || minutes < 0 || minutes > 59) {
+      console.error(`Invalid minutes value in time string "${timeStr}"`);
+      minutes = 0; // Default to :00
+    }
+    
+    // Convert to 24-hour format
+    if (isPM && hours !== 12) {
+      hours += 12;
+    } else if (isAM && hours === 12) {
+      hours = 0;
+    } else if (!isPM && !isAM) {
+      // Default to PM if no indicator
+      if (hours !== 12) {
+        hours += 12;
+      }
+    }
+    
+    return { hours, minutes };
+  }
+
+  /**
    * Generates and returns a google maps info window
    * 
    * @param {object} [event] - If passed, sets the content
@@ -554,22 +602,27 @@ class Events {
       this.cachedInfoWindow = new google.maps.InfoWindow({});
     if (event) {
       const time = event.time.split('-');
-      const start = new Date(`${event.date} ${time[0]}`);
+      
+      // Parse start time properly
+      const startTime = Events.parseTime12Hour(time[0]);
+      const start = new Date(event.date);
+      start.setHours(startTime.hours, startTime.minutes, 0, 0);
       const startDate = start.toLocaleDateString('sv-SE'); // outputs yyyy-mm-dd
-      let endToken;
+      
+      let end;
       if (time[1]) {
-        // Is event overnight?
-        if (time[1].includes('am') && time[0].includes('pm')) {
-          let endDate = new Date(start);
-          endDate.setDate(endDate.getDate() + 1);
-          endToken = `${endDate.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${time[1]}`;
-        } else { // same day
-          endToken = `${startDate.replace(/-/gi, '/')} ${time[1]}`;
+        const endTime = Events.parseTime12Hour(time[1]);
+        end = new Date(event.date);
+        end.setHours(endTime.hours, endTime.minutes, 0, 0);
+        
+        // Is event overnight? (end time is earlier than start time)
+        if (end < start) {
+          end.setDate(end.getDate() + 1);
         }
-      } else { // default 1 hour duration
-        endToken = start.getTime() + 60*60*1000;
+      } else { 
+        // default 1 hour duration
+        end = new Date(start.getTime() + 60*60*1000);
       }
-      const end = new Date(endToken);
       const headerContent = document.createElement('div');
       headerContent.innerHTML = `
         <h2><a target="_blank" href="${event.url}" title="Event Page">${event.title}</a></h2>
