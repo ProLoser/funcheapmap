@@ -1,0 +1,1137 @@
+[
+  {
+    "url": "http://1015.com/",
+    "name": "1015 Folsom",
+    "address": "1015 Folsom St, San Francisco",
+    "geometry": {
+      "lat": 37.778224159374105,
+      "lng": -122.40578679999997
+    }
+  },
+  {
+    "url": "https://www.facebook.com/111minnagallery/",
+    "name": "111 Minna Gallery",
+    "address": "111 Minna St, San Francisco",
+    "geometry": {
+      "lat": 37.7874657,
+      "lng": -122.3993218
+    }
+  },
+  {
+    "url": "https://www.facebook.com/620Jones/",
+    "name": "620 Jones",
+    "address": "620 Jones St, San Francisco",
+    "geometry": {
+      "lat": 37.7871812,
+      "lng": -122.4129167
+    }
+  },
+  {
+    "url": "https://www.instagram.com/705lounge/",
+    "name": "705 Lounge",
+    "address": "705 J St, Sacramento",
+    "geometry": {
+      "lat": 38.5813933,
+      "lng": -121.4971829
+    }
+  },
+  {
+    "url": "https://www.facebook.com/7thwestoakland/",
+    "name": "7th West",
+    "address": "1255 7th St, Oakland",
+    "geometry": {
+      "lat": 37.8041157,
+      "lng": -122.2907066
+    }
+  },
+  {
+    "url": "https://www.facebook.com/Asiento",
+    "name": "Asiento",
+    "address": "2730 21st St, San Francisco",
+    "geometry": {
+      "lat": 37.7577659,
+      "lng": -122.4094366
+    }
+  },
+  {
+    "url": "http://www.audiosf.com/",
+    "name": "Audio",
+    "address": "316 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7713709,
+      "lng": -122.4138077
+    }
+  },
+  {
+    "url": "https://www.facebook.com/AugustHallSF/",
+    "name": "August Hall",
+    "address": "420 Mason St, San Francisco",
+    "geometry": {
+      "lat": 37.7875876,
+      "lng": -122.4097872
+    }
+  },
+  {
+    "url": "https://www.instagram.com/b4bel4b/",
+    "name": "B4bel4b Gallery",
+    "address": "184 10th St, Oakland",
+    "geometry": {
+      "lat": 37.798582,
+      "lng": -122.2655952
+    }
+  },
+  {
+    "url": "https://www.facebook.com/BadlandsSac/",
+    "name": "Badlands",
+    "address": "2003 K St, Sacramento",
+    "geometry": {
+      "lat": 38.5756253,
+      "lng": -121.4801708
+    }
+  },
+  {
+    "url": "https://www.instagram.com/bamboohutsfca/",
+    "name": "Bamboo Hut",
+    "address": "479 Broadway, San Francisco",
+    "geometry": {
+      "lat": 37.7979015,
+      "lng": -122.4050842
+    }
+  },
+  {
+    "url": "https://barparttime.com/",
+    "name": "Bar Part Time",
+    "address": "496 14th St, San Francisco",
+    "geometry": {
+      "lat": 37.7682034,
+      "lng": -122.4241871
+    }
+  },
+  {
+    "url": "https://www.instagram.com/bellasanfrancisco/",
+    "name": "Bella (Bergerac)",
+    "address": "316 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7713709,
+      "lng": -122.4138077
+    }
+  },
+  {
+    "url": "https://billgrahamcivic.com/",
+    "name": "Bill Graham Civic Auditorium",
+    "address": "99 Grove St, San Francisco",
+    "geometry": {
+      "lat": 37.7780501,
+      "lng": -122.4173077
+    }
+  },
+  {
+    "url": "http://www.bottomofthehill.com/",
+    "name": "Bottom of the Hill",
+    "address": "1233 17th St, San Francisco",
+    "geometry": {
+      "lat": 37.7649626,
+      "lng": -122.3964115
+    }
+  },
+  {
+    "url": "https://www.facebook.com/BrickandMortarMusic/",
+    "name": "Brick and Mortar",
+    "address": "1710 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7696864,
+      "lng": -122.4203028
+    }
+  },
+  {
+    "url": "https://www.instagram.com/buttersf",
+    "name": "Butter",
+    "address": "354 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7710445,
+      "lng": -122.4133205
+    }
+  },
+  {
+    "url": "https://cafedunord.com/",
+    "name": "Cafe Du Nord",
+    "address": "2170 Market St, San Francisco",
+    "geometry": {
+      "lat": 37.7667182,
+      "lng": -122.4305446
+    }
+  },
+  {
+    "url": "https://www.facebook.com/cardiffandcocktails/",
+    "name": "Cardiff and Cocktails",
+    "address": "260 E Campbell Ave, Campbell",
+    "geometry": {
+      "lat": 37.2869176,
+      "lng": -121.94535
+    }
+  },
+  {
+    "url": "https://www.sfcatclub.com/",
+    "name": "Cat Club",
+    "address": "1190 Folsom St, San Francisco",
+    "geometry": {
+      "lat": 37.7753288,
+      "lng": -122.4098955
+    }
+  },
+  {
+    "url": "https://channel24sac.com/",
+    "name": "Channel 24",
+    "address": "1800 24th St, Sacramento",
+    "geometry": {
+      "lat": 38.5662,
+      "lng": -121.4789488
+    }
+  },
+  {
+    "url": "https://www.facebook.com/club1220/",
+    "name": "Club 1220",
+    "address": "1220 Pine St, Walnut Creek",
+    "geometry": {
+      "lat": 37.9108439,
+      "lng": -122.0605734
+    }
+  },
+  {
+    "url": "https://www.instagram.com/clubwaziema/",
+    "name": "Club Waziema",
+    "address": "543 Divisadero, San Francisco",
+    "geometry": {
+      "lat": 37.7746404,
+      "lng": -122.4380205
+    }
+  },
+  {
+    "url": "https://www.facebook.com/club.x.sf",
+    "name": "Club X",
+    "address": "715 Harrison St, San Francisco",
+    "geometry": {
+      "lat": 37.7820544,
+      "lng": -122.3976485
+    }
+  },
+  {
+    "url": "https://www.facebook.com/cornerstoneberkeley/",
+    "name": "Cornerstone",
+    "address": "2367 Shattuck Ave, Berkeley",
+    "geometry": {
+      "lat": 37.8665642,
+      "lng": -122.2669287
+    }
+  },
+  {
+    "url": "https://crybaby.live/",
+    "name": "Crybaby",
+    "address": "1928 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8085621,
+      "lng": -122.2694898
+    }
+  },
+  {
+    "url": "http://danzhaus.tripod.com/",
+    "name": "Danzhaus (The Gingerbread House)",
+    "address": "1275 Connecticut St, San Francisco",
+    "geometry": {
+      "lat": 37.750201,
+      "lng": -122.3960211
+    }
+  },
+  {
+    "url": "https://www.dnalounge.com/",
+    "name": "DNA Lounge",
+    "address": "375 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7710876,
+      "lng": -122.4126126
+    }
+  },
+  {
+    "url": "https://events.drinkdrakes.com/",
+    "name": "Drake's The Barn",
+    "address": "985 Riverfront St, Sacramento",
+    "geometry": {
+      "lat": 38.5753958,
+      "lng": -121.514712
+    }
+  },
+  {
+    "url": "https://www.facebook.com/DriftwoodCocktails/",
+    "name": "Driftwood",
+    "address": "1225 Folsom St, San Francisco",
+    "geometry": {
+      "lat": 37.7745064,
+      "lng": -122.4103419
+    }
+  },
+  {
+    "url": "https://www.instagram.com/thedrop.84/",
+    "name": "Drop 84",
+    "address": "2284 Shattuck Ave, Berkeley",
+    "geometry": {
+      "lat": 37.86778,
+      "lng": -122.2681132
+    }
+  },
+  {
+    "url": "https://www.facebook.com/elriosf/",
+    "name": "El Rio",
+    "address": "3158 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7467953,
+      "lng": -122.4194188
+    }
+  },
+  {
+    "url": "https://www.instagram.com/ensonightclub/",
+    "name": "Enso Nightclub and Bar",
+    "address": "97 E Santa Clara St, San Jose",
+    "geometry": {
+      "lat": 37.3372668,
+      "lng": -121.8887679
+    }
+  },
+  {
+    "url": "https://www.facebook.com/pages/F8-1192-Folsom/434308303325958",
+    "name": "F8",
+    "address": "1192 Folsom, San Francisco",
+    "geometry": {
+      "lat": 37.7752814,
+      "lng": -122.4099546
+    }
+  },
+  {
+    "url": "https://www.facebook.com/FacesNightClub/",
+    "name": "Faces Nightclub",
+    "address": "2000 K St, Sacramento",
+    "geometry": {
+      "lat": 38.575475,
+      "lng": -121.48026
+    }
+  },
+  {
+    "url": "http://www.thefoxoakland.com/",
+    "name": "Fox Theater",
+    "address": "1807 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8079937,
+      "lng": -122.2701577
+    }
+  },
+  {
+    "url": "https://www.facebook.com/Fulton55/",
+    "name": "Fulton 55",
+    "address": "875 Divisadero St, Fresno",
+    "geometry": {
+      "lat": 36.7436123,
+      "lng": -119.8034926
+    }
+  },
+  {
+    "url": "https://www.instagram.com/goodkarmasj/",
+    "name": "Good Karma",
+    "address": "37 S 1st St, San Jose",
+    "geometry": {
+      "lat": 37.3353959,
+      "lng": -121.89021
+    }
+  },
+  {
+    "url": "http://grayarea.org/",
+    "name": "Gray Area Art + Technology",
+    "address": "2665 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7544372,
+      "lng": -122.4182629
+    }
+  },
+  {
+    "url": "https://www.facebook.com/HalcyonSF/",
+    "name": "Halycon",
+    "address": "314 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.771445,
+      "lng": -122.4139284
+    }
+  },
+  {
+    "url": "https://www.facebook.com/harlowsnightclub/",
+    "name": "Harlows Restaurant & Night Club",
+    "address": "2708 J St, Sacramento",
+    "geometry": {
+      "lat": 38.5738508,
+      "lng": -121.4701361
+    }
+  },
+  {
+    "url": "https://www.facebook.com/HawthornSF",
+    "name": "Hawthorn",
+    "address": "46 Geary St, San Francisco",
+    "geometry": {
+      "lat": 37.7879521,
+      "lng": -122.4042312
+    }
+  },
+  {
+    "url": "https://www.instagram.com/hellostrangerbar/",
+    "name": "Hello Stranger Bar",
+    "address": "1724 Broadway, Oakland",
+    "geometry": {
+      "lat": 37.8068866,
+      "lng": -122.2690915
+    }
+  },
+  {
+    "url": "https://wl.eventim.us/HopMonkSebastopol",
+    "name": "Hopmonk Tavern",
+    "address": "230 Petaluma Ave, Sebastopol",
+    "geometry": {
+      "lat": 38.4012775,
+      "lng": -122.8226878
+    }
+  },
+  {
+    "url": "https://www.instagram.com/kipsberkeley/",
+    "name": "Kip's",
+    "address": "2439 Durant Ave, Berkeley",
+    "geometry": {
+      "lat": 37.8680358,
+      "lng": -122.2596119
+    }
+  },
+  {
+    "url": "https://www.legendhasithifi.com/events",
+    "name": "Legend Has It",
+    "address": "410 L St, Sacramento",
+    "geometry": {
+      "lat": 38.5799658,
+      "lng": -121.5020508
+    }
+  },
+  {
+    "url": "https://www.facebook.com/LostAndFound510/",
+    "name": "Lost & Found Beer Garden",
+    "address": "2040 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8101191,
+      "lng": -122.2691778
+    }
+  },
+  {
+    "url": "https://www.facebook.com/LOUNGE3411/",
+    "name": "Lounge 3411",
+    "address": "3411 MacArthur Blvd, Oakland",
+    "geometry": {
+      "lat": 37.7941829,
+      "lng": -122.2012539
+    }
+  },
+  {
+    "url": "https://www.facebook.com/loveandpropaganda/",
+    "name": "Love + Propaganda",
+    "address": "85 Campton Pl, San Francisco",
+    "geometry": {
+      "lat": 37.788933,
+      "lng": -122.4066607
+    }
+  },
+  {
+    "url": "https://www.instagram.com/lowbrau916/",
+    "name": "Lowbrau",
+    "address": "1050 20th St, Sacramento",
+    "geometry": {
+      "lat": 38.5762436,
+      "lng": -121.480403
+    }
+  },
+  {
+    "url": "https://www.instagram.com/madaraesf/",
+    "name": "MadaRae",
+    "address": "46 Minna St, San Francisco",
+    "geometry": {
+      "lat": 37.7885478,
+      "lng": -122.398145
+    }
+  },
+  {
+    "url": "http://www.madroneartbar.com/",
+    "name": "Madrone Art Bar",
+    "address": "500 Divisadero St, San Francisco",
+    "geometry": {
+      "lat": 37.7742412,
+      "lng": -122.4374025
+    }
+  },
+  {
+    "url": "http://www.makeoutroom.com",
+    "name": "Make Out Room",
+    "address": "3225 22nd St, San Francisco",
+    "geometry": {
+      "lat": 37.755169,
+      "lng": -122.4195356
+    }
+  },
+  {
+    "url": "https://www.facebook.com/hellostrangerbar/",
+    "name": "Mars Bar",
+    "address": "798 Brannan St, San Francisco",
+    "geometry": {
+      "lat": 37.7733106,
+      "lng": -122.4032439
+    }
+  },
+  {
+    "url": "https://www.facebook.com/milkbarsf/",
+    "name": "Milk Bar",
+    "address": "1840 Haight St, San Francisco",
+    "geometry": {
+      "lat": 37.7695111,
+      "lng": -122.4526159
+    }
+  },
+  {
+    "url": "https://www.facebook.com/Mixdowntown/",
+    "name": "MiX Downtown",
+    "address": "1525 L Street, Sacramento",
+    "geometry": {
+      "lat": 38.5761836,
+      "lng": -121.4865354
+    }
+  },
+  {
+    "url": "https://www.facebook.com/moesalley/",
+    "name": "Moe's Alley",
+    "address": "1535 Commercial Way, Santa Cruz",
+    "geometry": {
+      "lat": 36.9877622,
+      "lng": -121.9828878
+    }
+  },
+  {
+    "url": "http://www.monarchsf.com/",
+    "name": "Monarch",
+    "address": "101 6th St,  San Francisco",
+    "geometry": {
+      "lat": 37.7809715,
+      "lng": -122.4083336
+    }
+  },
+  {
+    "url": "https://www.facebook.com/MonarchGardensSF/",
+    "name": "Monarch Gardens",
+    "address": "428 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7698465,
+      "lng": -122.4119465
+    }
+  },
+  {
+    "url": "https://www.instagram.com/mothershipbar/",
+    "name": "Mothership",
+    "address": "3152 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7469189,
+      "lng": -122.4193615
+    }
+  },
+  {
+    "url": "http://motivsc.com/",
+    "name": "MOTIV",
+    "address": "1209 Pacific Ave, Santa Cruz",
+    "geometry": {
+      "lat": 36.9731001,
+      "lng": -122.025962
+    }
+  },
+  {
+    "url": "https://www.facebook.com/NamingArt/",
+    "name": "Naming Gallery",
+    "address": "335 15th St, Oakland",
+    "geometry": {
+      "lat": 37.8041095,
+      "lng": -122.2678299
+    }
+  },
+  {
+    "url": "https://www.instagram.com/nicaloungeconcord/",
+    "name": "Nica Lounge",
+    "address": "1907 Salvio St, Concord",
+    "geometry": {
+      "lat": 37.9764007,
+      "lng": -122.0371742
+    }
+  },
+  {
+    "url": "https://noitesj.com/",
+    "name": "Noite",
+    "address": "399 S 1st St, San Jose",
+    "geometry": {
+      "lat": 37.3300715,
+      "lng": -121.8862223
+    }
+  },
+  {
+    "url": "https://www.instagram.com/nova.sanjose/",
+    "name": "Nova Nightclub",
+    "address": "83 S 2nd St, San Jose",
+    "geometry": {
+      "lat": 37.3351431,
+      "lng": -121.888619
+    }
+  },
+  {
+    "url": "http://www.oaklandmetro.org/",
+    "name": "Oakland Metro Operahouse",
+    "address": "522 2nd St, Oakland",
+    "geometry": {
+      "lat": 37.796998,
+      "lng": -122.2778461
+    }
+  },
+  {
+    "url": "https://www.instagram.com/oakland.secret/",
+    "name": "Oakland Secret",
+    "address": "577 5th St, Oakland",
+    "geometry": {
+      "lat": 37.7991699,
+      "lng": -122.2782624
+    }
+  },
+  {
+    "url": "http://www.clubomgsf.com/",
+    "name": "OMG",
+    "address": "43 6th St, San Francisco",
+    "geometry": {
+      "lat": 37.7817644,
+      "lng": -122.4093292
+    }
+  },
+  {
+    "url": "https://www.instagram.com/orifice.0/",
+    "name": "Orifice",
+    "address": "120 E San Carlos St, San Jose",
+    "geometry": {
+      "lat": 37.3325111,
+      "lng": -121.8845935
+    }
+  },
+  {
+    "url": "http://originsf.com/",
+    "name": "Origin SF",
+    "address": "1538 Fillmore St, San Francisco",
+    "geometry": {
+      "lat": 37.7836584,
+      "lng": -122.4326723
+    }
+  },
+  {
+    "url": "https://www.instagram.com/paname.sf/",
+    "name": "Paname",
+    "address": "523 Broadway, San Francisco",
+    "geometry": {
+      "lat": 37.7978277,
+      "lng": -122.4059423
+    }
+  },
+  {
+    "url": "https://www.instagram.com/paris75sf/",
+    "name": "Paris 75",
+    "address": "515 Broadway, San Francisco",
+    "geometry": {
+      "lat": 37.797887,
+      "lng": -122.4058355
+    }
+  },
+  {
+    "url": "https://www.811parliament.com/",
+    "name": "Parliament",
+    "address": "811 Washington St, Oakland",
+    "geometry": {
+      "lat": 37.8009752,
+      "lng": -122.2749978
+    }
+  },
+  {
+    "url": "https://petebecenter.com/",
+    "name": "Pete Be Center",
+    "address": "439 S 1st Street, San Jose",
+    "geometry": {
+      "lat": 37.3293137,
+      "lng": -121.8858164
+    }
+  },
+  {
+    "url": "https://www.facebook.com/phonobarsf/",
+    "name": "Phonobar",
+    "address": "370 Grove St, San Francisco",
+    "geometry": {
+      "lat": 37.7779856,
+      "lng": -122.4228597
+    }
+  },
+  {
+    "url": "https://www.instagram.com/popsbar/tagged/",
+    "name": "Pop's Bar",
+    "address": "2800 24th St, San Francisco",
+    "geometry": {
+      "lat": 37.7530434,
+      "lng": -122.4083673
+    }
+  },
+  {
+    "url": "https://www.purenightclub408.com/",
+    "name": "Pure Lounge",
+    "address": "146 S Murphy Ave, Sunnyvale",
+    "geometry": {
+      "lat": 37.3768027,
+      "lng": -122.0297687
+    }
+  },
+  {
+    "url": "https://www.instagram.com/recroomsj/",
+    "name": "Rec Room",
+    "address": "1 E San Fernando St, San Jose",
+    "geometry": {
+      "lat": 37.3356156,
+      "lng": -121.8849551
+    }
+  },
+  {
+    "url": "http://www.recordbarsf.com/events/",
+    "name": "RecordBar",
+    "address": "263 Eddy St, San Francisco",
+    "geometry": {
+      "lat": 37.7839331,
+      "lng": -122.4119342
+    }
+  },
+  {
+    "url": "https://www.instagram.com/redlight.lounge",
+    "name": "Redlight Lounge",
+    "address": "2326 J St, Sacramento",
+    "geometry": {
+      "lat": 38.575335,
+      "lng": -121.4752709
+    }
+  },
+  {
+    "url": "https://www.facebook.com/retrojunkiebar/",
+    "name": "Retro Junkie Bar",
+    "address": "2112 N Main St, Walnut Creek",
+    "geometry": {
+      "lat": 37.9086061,
+      "lng": -122.0648861
+    }
+  },
+  {
+    "url": "https://www.instagram.com/reunionunderground/",
+    "name": "Reunion Underground",
+    "address": "926 2nd St, Sacramento",
+    "geometry": {
+      "lat": 38.5839262,
+      "lng": -121.5038937
+    }
+  },
+  {
+    "url": "http://www.rickshawstop.com",
+    "name": "Rickshaw Stop",
+    "address": "155 Fell St, San Francisco",
+    "geometry": {
+      "lat": 37.7759904,
+      "lng": -122.4204754
+    }
+  },
+  {
+    "url": "https://www.facebook.com/clubsatori",
+    "name": "Satori",
+    "address": "400 South 1st St, San Jose",
+    "geometry": {
+      "lat": 37.3301346,
+      "lng": -121.885471
+    }
+  },
+  {
+    "url": "https://www.facebook.com/skyhighodditorium1/events",
+    "name": "Skyhigh Odditorium",
+    "address": "1255 26th St #101, Oakland",
+    "geometry": {
+      "lat": 37.8189247,
+      "lng": -122.285297
+    }
+  },
+  {
+    "url": "https://www.eventbrite.com/o/skylark-69258891143",
+    "name": "Skylark",
+    "address": "3089 16th St, San Francisco",
+    "geometry": {
+      "lat": 37.7648183,
+      "lng": -122.4215576
+    }
+  },
+  {
+    "url": "https://www.facebook.com/somarbarandlounge/",
+    "name": "SomaR Bar",
+    "address": "1727 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8073493,
+      "lng": -122.2704663
+    }
+  },
+  {
+    "url": "https://www.facebook.com/SWStudios/",
+    "name": "Soundwave Studios",
+    "address": "2200 Wood St, Oakland",
+    "geometry": {
+      "lat": 37.8188049,
+      "lng": -122.2927839
+    }
+  },
+  {
+    "url": "https://www.instagram.com/spatsbar/",
+    "name": "Spats",
+    "address": "1974 Shattuck Ave, Berkeley",
+    "geometry": {
+      "lat": 37.8726337,
+      "lng": -122.268815
+    }
+  },
+  {
+    "url": "https://www.facebook.com/spirithausgallery/",
+    "name": "Spirithaus Gallery",
+    "address": "2217 Adeline St, Oakland",
+    "geometry": {
+      "lat": 37.8161381,
+      "lng": -122.2841101
+    }
+  },
+  {
+    "url": "https://www.instagram.com/swigbarsf/",
+    "name": "Swig Bar",
+    "address": "561 Geary St, San Francisco",
+    "geometry": {
+      "lat": 37.7866167,
+      "lng": -122.4124513
+    }
+  },
+  {
+    "url": "https://www.facebook.com/Atrium916/",
+    "name": "The Atrium 916",
+    "address": "7300 Folsom Blvd, Sacramento",
+    "geometry": {
+      "lat": 38.5520554,
+      "lng": -121.42051
+    }
+  },
+  {
+    "url": "https://www.facebook.com/thebluelagoonnightclub/",
+    "name": "The Blue Lagoon",
+    "address": "923 Pacific Ave, Santa Cruz",
+    "geometry": {
+      "lat": 36.9705864,
+      "lng": -122.0253571
+    }
+  },
+  {
+    "url": "http://s172518151.onlinehome.us/caravan/site/",
+    "name": "The Caravan Lounge",
+    "address": "98 S Almaden Ave, San Jose",
+    "geometry": {
+      "lat": 37.3329996,
+      "lng": -121.8923717
+    }
+  },
+  {
+    "url": "http://www.catalystclub.com/",
+    "name": "The Catalyst",
+    "address": "1011 Pacific Ave, Santa Cruz",
+    "geometry": {
+      "lat": 36.9712828,
+      "lng": -122.0258837
+    }
+  },
+  {
+    "url": "https://www.facebook.com/thedistricttheater/",
+    "name": "The District Theater",
+    "address": "7430 Monterey Rd, Gilroy",
+    "geometry": {
+      "lat": 37.0072824,
+      "lng": -121.5686958
+    }
+  },
+  {
+    "url": "https://www.instagram.com/endupsf/",
+    "name": "The EndUp",
+    "address": "401 6th St, San Francisco",
+    "geometry": {
+      "lat": 37.7772743,
+      "lng": -122.4038409
+    }
+  },
+  {
+    "url": "https://www.facebook.com/FlamingoSac/",
+    "name": "The Flamingo House",
+    "address": "2315 K St, Sacramento",
+    "geometry": {
+      "lat": 38.5746073,
+      "lng": -121.4756772
+    }
+  },
+  {
+    "url": "https://www.facebook.com/TheFoundrySF/",
+    "name": "The Foundry",
+    "address": "1425 Folsom St, San Francisco",
+    "geometry": {
+      "lat": 37.7723978,
+      "lng": -122.4130688
+    }
+  },
+  {
+    "url": "https://www.facebook.com/GRANDSF/",
+    "name": "The Grand",
+    "address": "520 4th St, San Francisco",
+    "geometry": {
+      "lat": 37.7790931,
+      "lng": -122.3979041
+    }
+  },
+  {
+    "url": "https://www.facebook.com/thegreatnorthernSF",
+    "name": "The Great Northern",
+    "address": "119 Utah St, San Francisco",
+    "geometry": {
+      "lat": 37.7676612,
+      "lng": -122.4065246
+    }
+  },
+  {
+    "url": "https://www.facebook.com/HoneyHiveGallery/",
+    "name": "The Honey Hive Gallery",
+    "address": "4117 Judah St, San Francisco",
+    "geometry": {
+      "lat": 37.7602053,
+      "lng": -122.5063854
+    }
+  },
+  {
+    "url": "http://www.monroesf.com/",
+    "name": "Monroe",
+    "address": "473 Broadway St, San Francisco"
+  },
+  {
+    "url": "https://www.facebook.com/SwitchLoungeNightclub/",
+    "name": "Switch Lounge and Nightclub",
+    "address": "5665 N. Blackstone Ave Suite 110, Fresno"
+  },
+  {
+    "url": "http://www.theindependentsf.com/",
+    "name": "The Independent",
+    "address": "628 Divisadero St, San Francisco",
+    "geometry": {
+      "lat": 37.7755281,
+      "lng": -122.437641
+    }
+  },
+  {
+    "url": "https://theknockoutsf.com/",
+    "name": "The Knockout",
+    "address": "3223 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7451409,
+      "lng": -122.420005
+    }
+  },
+  {
+    "url": "https://www.instagram.com/thekornerstore_sf/",
+    "name": "The Korner Store",
+    "address": "4516 Mission St, San Francisco",
+    "geometry": {
+      "lat": 37.7255737,
+      "lng": -122.4342457
+    }
+  },
+  {
+    "url": "https://www.facebook.com/TheLaundrySF/",
+    "name": "The Laundry",
+    "address": "3359 26th St, San Francisco",
+    "geometry": {
+      "lat": 37.7488462,
+      "lng": -122.4172871
+    }
+  },
+  {
+    "url": "http://legionnairesaloon.com/",
+    "name": "The Legionnaire Saloon",
+    "address": "2272 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8123705,
+      "lng": -122.2685717
+    }
+  },
+  {
+    "url": "http://www.themidwaysf.com/",
+    "name": "The Midway",
+    "address": "900 Marin St, San Francisco",
+    "geometry": {
+      "lat": 37.7495304,
+      "lng": -122.3860944
+    }
+  },
+  {
+    "url": "http://thenewparish.com/shows.cfm",
+    "name": "The New Parish",
+    "address": "1743 San Pablo Ave, Oakland",
+    "geometry": {
+      "lat": 37.8076763,
+      "lng": -122.2725814
+    }
+  },
+  {
+    "url": "https://www.theparksac.com/",
+    "name": "The Park Ultra Lounge",
+    "address": "1116 15th St, Sacramento",
+    "geometry": {
+      "lat": 38.5767973,
+      "lng": -121.487812
+    }
+  },
+  {
+    "url": "http://publicsf.com/",
+    "name": "The Public Works",
+    "address": "161 Erie St, San Francisco",
+    "geometry": {
+      "lat": 37.7688931,
+      "lng": -122.4192651
+    }
+  },
+  {
+    "url": "http://www.theregencyballroom.com/",
+    "name": "The Regency Ballroom",
+    "address": "1300 Van Ness Ave, San Francisco",
+    "geometry": {
+      "lat": 37.7878176,
+      "lng": -122.4215762
+    }
+  },
+  {
+    "url": "https://www.facebook.com/theritzsj/",
+    "name": "The Ritz",
+    "address": "400 S 1st St, San Jose",
+    "geometry": {
+      "lat": 37.3301346,
+      "lng": -121.885471
+    }
+  },
+  {
+    "url": "https://www.facebook.com/TheRoyaleSF/",
+    "name": "The Royale",
+    "address": "800 Post St, San Francisco",
+    "geometry": {
+      "lat": 37.7875509,
+      "lng": -122.415188
+    }
+  },
+  {
+    "url": "https://www.eventbrite.com/o/stone-house-productions-39228932673",
+    "name": "The Stone House",
+    "address": "107 Sacramento St, Nevada City",
+    "geometry": {
+      "lat": 39.2618038,
+      "lng": -121.0160339
+    }
+  },
+  {
+    "url": "https://www.facebook.com/THESTUDBAR/",
+    "name": "The STUD",
+    "address": "1123 Folsom St, San Francisco",
+    "geometry": {
+      "lat": 37.7761609,
+      "lng": -122.408362
+    }
+  },
+  {
+    "url": "https://www.facebook.com/647valencia/",
+    "name": "The Valencia Room",
+    "address": "647 Valencia St, San Francisco",
+    "geometry": {
+      "lat": 37.7625085,
+      "lng": -122.4214069
+    }
+  },
+  {
+    "url": "http://www.thewarfieldtheatre.com/",
+    "name": "The Warfield",
+    "address": "982 Market St, San Francisco",
+    "geometry": {
+      "lat": 37.7826218,
+      "lng": -122.410342
+    }
+  },
+  {
+    "url": "https://theestorkclub.com/calendar/",
+    "name": "Thee Stork Club",
+    "address": "2330 Telegraph Ave, Oakland",
+    "geometry": {
+      "lat": 37.8131364,
+      "lng": -122.2683848
+    }
+  },
+  {
+    "url": "http://www.theuctheatre.org/",
+    "name": "UC Theatre",
+    "address": "2036 University Ave, Berkeley",
+    "geometry": {
+      "lat": 37.8718055,
+      "lng": -122.2698143
+    }
+  },
+  {
+    "url": "https://twitter.com/underground_sf",
+    "name": "Underground SF",
+    "address": "424 Haight St, San Francisco",
+    "geometry": {
+      "lat": 37.7723529,
+      "lng": -122.4293176
+    }
+  },
+  {
+    "url": "https://www.facebook.com/vintagesynthmuseum/",
+    "name": "Vintage Synthesizer Museum",
+    "address": "65th Street, Emeryville",
+    "geometry": {
+      "lat": 37.8470125,
+      "lng": -122.2903862
+    }
+  },
+  {
+    "url": "https://www.facebook.com/vinyldreamssf",
+    "name": "Vinyl Dreams",
+    "address": "593 Haight St, San Francisco",
+    "geometry": {
+      "lat": 37.7717761,
+      "lng": -122.431733
+    }
+  },
+  {
+    "url": "https://www.facebook.com/PureEDM/",
+    "name": "YOLO Nightclub",
+    "address": "333 11th St, San Francisco",
+    "geometry": {
+      "lat": 37.7715111,
+      "lng": -122.4132648
+    }
+  },
+  {
+    "url": "https://www.instagram.com/zoebarsf/",
+    "name": "Zoe Cocktail Bar",
+    "address": "579 Howard St, San Francisco",
+    "geometry": {
+      "lat": 37.787073,
+      "lng": -122.3975019
+    }
+  }
+]
