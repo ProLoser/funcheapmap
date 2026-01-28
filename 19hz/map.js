@@ -24,10 +24,10 @@ async function initialize() {
   const markerLibrary = await google.maps.importLibrary("marker");
   const AdvancedMarkerElement = markerLibrary.AdvancedMarkerElement;
   const PinElement = markerLibrary.PinElement;
-  // Create the map
+  // Create the map - centered on North America
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 12,
-    center: new google.maps.LatLng(37.76173100956567, -122.4386811010743),
+    zoom: 4,
+    center: new google.maps.LatLng(39.8283, -98.5795), // Center of USA
     disableDefaultUI: true,
     zoomControl: true,
     mapId: 'c46bf4bc0e87c92b'
@@ -64,13 +64,17 @@ async function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
-      let minDate, maxDate, categories = new Set();
+      let minDate, maxDate, categories = new Set(), regions = new Set();
       events.forEach(event => {
         if (!event.title) return console.warn('Event Title Missing', { event });
         if (!event.geometry) return console.warn('Event Geometry Missing', { event });
         // Add categories to the set
         if (event.categories) {
           event.categories.forEach(category => categories.add(category));
+        }
+        // Add region to the set
+        if (event.region) {
+          regions.add(event.region);
         }
         // Calculate min/max date
         if (event.date) {
@@ -110,6 +114,13 @@ async function initialize() {
         form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
         form.elements['date'].max = maxDate.toLocaleDateString('fr-ca');
       }
+      // Update the region select
+      if (regions.size > 1) {
+        form.elements['region'].innerHTML = '<option value="">All Regions</option>' + 
+          Array.from(regions).sort().map(region => 
+            `<option value="${region}">${region}</option>`
+          ).join('');
+      }
       // Update the category select
       form.elements['category'].innerHTML = Array.from(categories).sort().map(category => 
         `<option value="${category}">${category}</option>`
@@ -140,6 +151,7 @@ let options = {};
  * @param {object} filters
  * @param {string} [filters.date]
  * @param {string} [filters.category]
+ * @param {string} [filters.region]
  */
 window.filter = async function (filters = {}) {
   Object.assign(options, filters);
@@ -152,6 +164,7 @@ window.filter = async function (filters = {}) {
   if (options.category) {
     categories = options.category.split(CATEGORY_DELIMITER)
   }
+  let selectedRegion = options.region || '';
     
   // Clear existing cluster markers
   clusterMarkers.forEach(marker => {
@@ -163,6 +176,10 @@ window.filter = async function (filters = {}) {
   let count = window.events.get()?.filter(event => {
     if (!event.title || !event.geometry) return; // skip corrupt events
     event.visible = true;
+    // check region
+    if (selectedRegion && event.region !== selectedRegion) {
+      event.visible = false;
+    }
     // check date
     if (date) {
       if (!event.date) {
@@ -416,9 +433,8 @@ window.showUserLocation = async function () {
  * Utility class for managing event data
  */
 class Events {
-  static CSV_URL = './events_BayArea.csv';
-//   static CSV_URL = 'https://19hz.info/events_BayArea.csv';
-  static VENUES_URL = 'venues.json';
+  static REGIONS_URL = 'regions.json';
+  static DEFAULT_VENUES_URL = 'venues.json';
   
   /**
    * Normalizes venue name for matching
@@ -678,28 +694,71 @@ class Events {
   }
   
   /**
-   * Queries the CSV API and loads venues
+   * Queries the CSV API and loads venues for all configured regions
    *
    * @returns {Promise}
    */
   async query() {
-    console.log('Fetching CSV from', Events.CSV_URL);
-    console.log('Loading venues from', Events.VENUES_URL);
+    console.log('Loading regions configuration from', Events.REGIONS_URL);
+    
+    // Load regions configuration
+    const regionsResponse = await fetch(new Request(Events.REGIONS_URL));
+    
+    if (!regionsResponse.ok) {
+      const error = new Error(`Regions Config Fetch Failed! ${regionsResponse.status}`);
+      error.response = regionsResponse;
+      throw error;
+    }
+    
+    const regions = await regionsResponse.json();
+    console.log(`Found ${regions.length} configured regions`);
+    
+    // Load all regions in parallel
+    const allEvents = [];
+    
+    for (const region of regions) {
+      try {
+        console.log(`Loading region: ${region.name}`);
+        const events = await this.queryRegion(region);
+        console.log(`  Loaded ${events.length} events from ${region.name}`);
+        allEvents.push(...events);
+      } catch (error) {
+        console.error(`Failed to load region ${region.name}:`, error);
+        // Continue loading other regions even if one fails
+      }
+    }
+    
+    console.log(`Total events loaded: ${allEvents.length}`);
+    return allEvents;
+  }
+  
+  /**
+   * Queries a single region's CSV and venues
+   *
+   * @param {object} region - Region configuration object
+   * @returns {Promise}
+   */
+  async queryRegion(region) {
+    const csvUrl = `./${region.csvFile}`;
+    const venuesUrl = region.venuesFile ? `./${region.venuesFile}` : Events.DEFAULT_VENUES_URL;
+    
+    console.log(`  Fetching CSV from ${csvUrl}`);
+    console.log(`  Loading venues from ${venuesUrl}`);
     
     // Load both CSV and venues in parallel
     const [csvResponse, venuesResponse] = await Promise.all([
-      fetch(new Request(Events.CSV_URL)),
-      fetch(new Request(Events.VENUES_URL))
+      fetch(new Request(csvUrl)),
+      fetch(new Request(venuesUrl))
     ]);
     
     if (!csvResponse.ok) {
-      const error = new Error(`CSV Fetch Failed! ${csvResponse.status}`);
+      const error = new Error(`CSV Fetch Failed for ${region.name}! ${csvResponse.status}`);
       error.response = csvResponse;
       throw error;
     }
     
     if (!venuesResponse.ok) {
-      const error = new Error(`Venues Fetch Failed! ${venuesResponse.status}`);
+      const error = new Error(`Venues Fetch Failed for ${region.name}! ${venuesResponse.status}`);
       error.response = venuesResponse;
       throw error;
     }
@@ -707,7 +766,7 @@ class Events {
     const csvText = await csvResponse.text();
     const venues = await venuesResponse.json();
     
-    console.log(`Loaded ${venues.length} venues`);
+    console.log(`  Loaded ${venues.length} venues`);
     
     // Create venue lookup map
     const venueMap = new Map();
@@ -718,7 +777,7 @@ class Events {
     
     // Parse CSV
     const rows = Events.parseCSV(csvText);
-    console.log(`Parsed ${rows.length} CSV rows`);
+    console.log(`  Parsed ${rows.length} CSV rows`);
     
     // Transform rows to events
     const events = [];
@@ -730,7 +789,6 @@ class Events {
       // 5: Cost, 6: Age, 7: Artists, 8: URL1, 9: URL2, 10: Numeric
       
       if (row.length < 8) {
-        console.warn(`Row ${index} has insufficient fields:`, row);
         return;
       }
       
@@ -745,7 +803,6 @@ class Events {
       
       const parsedDate = Events.parseCSVDate(row[0]);
       if (!parsedDate) {
-        console.warn(`Could not parse date: ${row[0]}`);
         return;
       }
       
@@ -762,7 +819,9 @@ class Events {
         categories: row[2] ? row[2].split(',').map(g => g.trim()) : [],
         url: row[8] || row[9] || '#',
         eventUrl: row[8] || row[9] || '#',
+        region: region.name,
         details: `
+          <p><strong>Region:</strong> ${region.name}</p>
           <p><strong>Genres:</strong> ${row[2]}</p>
           <p><strong>Artists:</strong> ${row[7] || 'TBA'}</p>
           <p><strong>Age:</strong> ${row[6]}</p>
@@ -775,10 +834,8 @@ class Events {
       events.push(event);
     });
     
-    console.log(`Successfully processed ${events.length} events`);
-    
     if (unmatchedVenues.size > 0) {
-      console.warn(`Unmatched venues (${unmatchedVenues.size}):`, Array.from(unmatchedVenues).sort());
+      console.warn(`  Unmatched venues in ${region.name} (${unmatchedVenues.size}):`, Array.from(unmatchedVenues).slice(0, 10));
     }
     
     return events;

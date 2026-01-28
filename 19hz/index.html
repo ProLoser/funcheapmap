@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>19hz Mapper</title>
     <meta name="description"
-        content="The Unofficial Map of 19hz Events Updated Daily! Pick a day and a category to plan activities or just clear the filters and browse through all the most popular events the Bay Area has to offer. Free. Open Source. No registration necessary. Works with Mobile and Tablets as well as Computers!" />
+        content="The Unofficial Map of 19hz Events from North America! Pick a day and a category to plan activities or just clear the filters and browse through all the most popular events across multiple regions. Free. Open Source. No registration necessary. Works with Mobile and Tablets as well as Computers!" />
     <link rel="stylesheet" href="../style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="icon" href="../favicon_fc.ico" />
@@ -24,7 +24,7 @@
         Feedback
     </a>
 
-    <form id="controls" onreset="filter({ date: '', category: '' })">
+    <form id="controls" onreset="filter({ date: '', category: '', region: '' })">
         <details open>
             <summary>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="filter-icon">
@@ -32,6 +32,12 @@
                 </svg>
                 Showing <output name="countEvents" for="date">0</output> Events
             </summary>
+            <p>
+                <label for="region">Region:</label>
+                <select id="region" name="region" onchange="filter({ region: this.value })">
+                    <option value="">All Regions</option>
+                </select>
+            </p>
             <p>
                 <label for="date">Date:</label>
                 <input id="date" name="date" type="date" onchange="filter({ date: this.value })">

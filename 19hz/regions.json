@@ -1,0 +1,12 @@
+[
+  {
+    "id": "BayArea",
+    "name": "San Francisco Bay Area",
+    "csvFile": "events_BayArea.csv",
+    "venuesFile": "venues.json",
+    "center": {
+      "lat": 37.76173100956567,
+      "lng": -122.4386811010743
+    }
+  }
+]
