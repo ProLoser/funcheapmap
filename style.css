@@ -206,8 +206,16 @@ html, body, #map-canvas {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
   &:hover {
     background-color: #f0f0f0;
+  }
+  &:focus-visible {
+    outline: 2px solid #1DB954;
+    outline-offset: 2px;
   }
   &.active {
     background-color: #1DB954;
@@ -222,6 +230,7 @@ html, body, #map-canvas {
   fill: #1DB954;
   vertical-align: middle;
   transition: fill 0.2s;
+  flex-shrink: 0;
 }
 
 /* set the default transition time */
