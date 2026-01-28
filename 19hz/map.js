@@ -583,27 +583,16 @@ class Events {
       `;
       this.cachedInfoWindow.setHeaderContent(headerContent);
       const content = document.createElement('div');
+      const artistsInfo = event.cost_details.split('Artists: ')[1] || 'TBA';
+      const ageInfo = event.cost_details.split(' | ')[0];
       content.innerHTML = `
         <div class="info-header">
-          <p>
-            ${event.cost_details}
-          </p>
-          <p class="categories">Genres: ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
-        </div>
-        <div class="info-body">
-          <details ${expanded ? 'open' : ''}>
-            <summary>Expand Details</summary>
-            <div id="details">
-              ${event.details}
-            </div>
-          </details>
+          <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
+          <p><strong>Artists:</strong> ${artistsInfo}</p>
+          <p><strong>Age:</strong> ${ageInfo}</p>
+          ${event.url !== '#' ? `<p><a href="${event.url}" target="_blank">Event Link</a></p>` : ''}
         </div>
       `;
-      // Reposition after expanding
-      content.querySelector('details').addEventListener('toggle', () => {
-        const { lat, lng } = this.cachedInfoWindow.getPosition();
-        window.map.panTo({ lat: lat() + 0.03, lng: lng()});
-      });
       this.cachedInfoWindow.setContent(content);
     }
     return this.cachedInfoWindow;
