@@ -34,8 +34,8 @@ jobs:
         run: |
           sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js
           sed -i "s/__GOOGLE_TOKEN__/${GOOGLE_TOKEN}/g" index.html
-          sed -i "s/YOUR_SPOTIFY_CLIENT_ID/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
-          sed -i "s/YOUR_SPOTIFY_CLIENT_SECRET/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
+          sed -i "s/__SPOTIFY_CLIENT_ID__/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
+          sed -i "s/__SPOTIFY_CLIENT_SECRET__/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
