@@ -439,9 +439,9 @@ class Events {
   }
   
   /**
-   * Parses CSV date format "Tue: Jan 27" to ISO date
+   * Parses CSV date format "Tue: Jan 27" to ISO date and readable format
    * @param {string} dateStr - Date string from CSV
-   * @returns {string} ISO date string (YYYY-MM-DD)
+   * @returns {object} Object with iso (YYYY-MM-DD) and text (Jan 27, YYYY) formats
    */
   static parseCSVDate(dateStr) {
     // Extract month and day from "Tue: Jan 27" format
@@ -474,7 +474,10 @@ class Events {
     }
     
     const eventDate = new Date(year, month, day);
-    return eventDate.toISOString().split('T')[0];
+    return {
+      iso: eventDate.toISOString().split('T')[0],
+      text: `${monthStr} ${day}, ${year}`
+    };
   }
   
   /**
@@ -754,8 +757,8 @@ class Events {
         title: row[1],
         venue: venueData.name,
         geometry: venueData.geometry,
-        date: parsedDate,
-        date_text: row[0],
+        date: parsedDate.iso,
+        date_text: parsedDate.text,
         time: row[4],
         cost: row[5],
         cost_details: `${row[6]} | Artists: ${row[7] || 'TBA'}`,
