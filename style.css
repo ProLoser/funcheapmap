@@ -63,6 +63,11 @@ html, body, #map-canvas {
     width: 20px;
     height: 20px;
     fill: #666;
+    transition: transform 0.3s ease;
+  }
+  
+  details:not([open]) .filter-icon {
+    transform: rotate(180deg);
   }
 }
 
