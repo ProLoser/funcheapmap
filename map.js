@@ -22,6 +22,8 @@ let cardModeEnabled = localStorage.getItem('cardMode') !== 'false';
 let visibleEventsList = [];
 let currentCardIndex = -1;
 const SWIPE_THRESHOLD = 50;
+const VELOCITY_THRESHOLD = 0.3; // px/ms
+const CARD_TRANSITION = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
 
 function updateCardToggleButton() {
   const button = document.getElementById('card-mode-toggle');
@@ -30,16 +32,8 @@ function updateCardToggleButton() {
   button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
 }
 
-function showEventCard(event) {
-  currentCardIndex = visibleEventsList.indexOf(event);
-  renderEventCard();
-}
-
-function renderEventCard() {
-  const event = visibleEventsList[currentCardIndex];
-  if (!event) return;
-
-  const titleEl = document.getElementById('event-card-title');
+function buildCardContent(container, event) {
+  const titleEl = container.querySelector('.event-card-title');
   titleEl.innerHTML = '';
   const titleLink = document.createElement('a');
   titleLink.target = '_blank';
@@ -47,7 +41,7 @@ function renderEventCard() {
   titleLink.textContent = event.title;
   titleEl.appendChild(titleLink);
 
-  const metaEl = document.getElementById('event-card-meta');
+  const metaEl = container.querySelector('.event-card-meta');
   metaEl.innerHTML = '';
   const venueLink = document.createElement('a');
   venueLink.target = '_blank';
@@ -56,7 +50,7 @@ function renderEventCard() {
   metaEl.appendChild(venueLink);
   metaEl.appendChild(document.createTextNode(` | ${event.date_text} | ${event.time}`));
 
-  const costEl = document.getElementById('event-card-cost');
+  const costEl = container.querySelector('.event-card-cost');
   costEl.innerHTML = '';
   const costLink = document.createElement('a');
   costLink.target = '_blank';
@@ -66,7 +60,14 @@ function renderEventCard() {
   if (event.cost_details) {
     costEl.appendChild(document.createTextNode(' — ' + event.cost_details));
   }
+}
 
+function showEventCard(event) {
+  currentCardIndex = visibleEventsList.indexOf(event);
+  const current = document.getElementById('event-card-current');
+  current.style.transition = 'none';
+  current.style.transform = 'translateX(0)';
+  buildCardContent(current, event);
   document.getElementById('event-card-counter').textContent =
     `${currentCardIndex + 1} of ${visibleEventsList.length}`;
   document.getElementById('event-card').classList.add('visible');
@@ -76,43 +77,148 @@ function hideEventCard() {
   document.getElementById('event-card').classList.remove('visible');
 }
 
-function navigateEventCard(direction) {
+function commitNavigation(direction) {
   if (!visibleEventsList.length) return;
-  currentCardIndex = (currentCardIndex + direction + visibleEventsList.length) % visibleEventsList.length;
-  const event = visibleEventsList[currentCardIndex];
-  if (event?.marker) {
-    window.map.panTo(event.geometry);
-  }
-  renderEventCard();
+  const slider = document.getElementById('event-card-slider');
+  const current = document.getElementById('event-card-current');
+  const peek = document.getElementById('event-card-peek');
+  const width = slider.offsetWidth;
+  const newIndex = (currentCardIndex + direction + visibleEventsList.length) % visibleEventsList.length;
+
+  buildCardContent(peek, visibleEventsList[newIndex]);
+  peek.style.transition = 'none';
+  current.style.transition = 'none';
+  peek.style.transform = `translateX(${direction > 0 ? width : -width}px)`;
+  current.style.transform = 'translateX(0)';
+
+  // Force reflow so transition fires
+  peek.offsetWidth;
+
+  peek.style.transition = CARD_TRANSITION;
+  current.style.transition = CARD_TRANSITION;
+  current.style.transform = `translateX(${direction > 0 ? -width : width}px)`;
+  peek.style.transform = 'translateX(0)';
+
+  current.addEventListener('transitionend', () => finishNavigation(current, peek, newIndex), { once: true });
+}
+
+function finishNavigation(current, peek, newIndex) {
+  currentCardIndex = newIndex;
+  current.style.transition = 'none';
+  peek.style.transition = 'none';
+  current.style.transform = 'translateX(0)';
+  peek.style.transform = '';
+  buildCardContent(current, visibleEventsList[currentCardIndex]);
+  document.getElementById('event-card-counter').textContent =
+    `${currentCardIndex + 1} of ${visibleEventsList.length}`;
+  const ev = visibleEventsList[currentCardIndex];
+  if (ev?.marker) window.map.panTo(ev.geometry);
 }
 
 function initEventCard() {
   const card = document.getElementById('event-card');
+  const slider = document.getElementById('event-card-slider');
+  const current = document.getElementById('event-card-current');
+  const peek = document.getElementById('event-card-peek');
+
   let touchStartX = 0, touchStartY = 0;
+  let lastMoveX = 0, lastMoveTime = 0, swipeVelocity = 0;
+  let gestureAxis = null; // 'horizontal' | 'vertical'
+  let peekDirection = 0;  // 1 = peek is on right (next), -1 = peek is on left (prev)
 
   card.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    lastMoveX = touchStartX;
+    lastMoveTime = Date.now();
+    swipeVelocity = 0;
+    gestureAxis = null;
+    peekDirection = 0;
+    current.style.transition = 'none';
+    peek.style.transition = 'none';
+  }, { passive: true });
+
+  card.addEventListener('touchmove', e => {
+    const deltaX = e.touches[0].clientX - touchStartX;
+    const deltaY = e.touches[0].clientY - touchStartY;
+
+    if (!gestureAxis) {
+      if (Math.abs(deltaX) > 8) gestureAxis = 'horizontal';
+      else if (Math.abs(deltaY) > 8) gestureAxis = 'vertical';
+      else return;
+    }
+    if (gestureAxis !== 'horizontal') return;
+
+    const now = Date.now();
+    const dt = now - lastMoveTime;
+    if (dt > 0) swipeVelocity = (e.touches[0].clientX - lastMoveX) / dt;
+    lastMoveX = e.touches[0].clientX;
+    lastMoveTime = now;
+
+    const width = slider.offsetWidth;
+    const newDir = deltaX < 0 ? 1 : -1; // 1=next, -1=prev
+
+    if (peekDirection !== newDir) {
+      peekDirection = newDir;
+      const peekIndex = (currentCardIndex + newDir + visibleEventsList.length) % visibleEventsList.length;
+      buildCardContent(peek, visibleEventsList[peekIndex]);
+      peek.style.transition = 'none';
+      peek.style.transform = `translateX(${newDir > 0 ? width : -width}px)`;
+    }
+
+    current.style.transform = `translateX(${deltaX}px)`;
+    peek.style.transform = `translateX(${(peekDirection > 0 ? width : -width) + deltaX}px)`;
   }, { passive: true });
 
   card.addEventListener('touchend', e => {
     const deltaX = e.changedTouches[0].clientX - touchStartX;
     const deltaY = e.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+
+    if (gestureAxis === 'vertical') {
       if (deltaY > SWIPE_THRESHOLD) hideEventCard();
-    } else {
-      if (deltaX < -SWIPE_THRESHOLD) navigateEventCard(1);
-      else if (deltaX > SWIPE_THRESHOLD) navigateEventCard(-1);
+      return;
     }
+
+    if (gestureAxis !== 'horizontal' || !peekDirection) {
+      return;
+    }
+
+    const width = slider.offsetWidth;
+    const shouldCommit = Math.abs(deltaX) > SWIPE_THRESHOLD || Math.abs(swipeVelocity) > VELOCITY_THRESHOLD;
+    const commitDir = deltaX < 0 ? 1 : -1;
+
+    if (shouldCommit) {
+      const newIndex = (currentCardIndex + commitDir + visibleEventsList.length) % visibleEventsList.length;
+      current.style.transition = CARD_TRANSITION;
+      peek.style.transition = CARD_TRANSITION;
+      current.style.transform = `translateX(${commitDir > 0 ? -width : width}px)`;
+      peek.style.transform = 'translateX(0)';
+
+      current.addEventListener('transitionend', () => finishNavigation(current, peek, newIndex), { once: true });
+    } else {
+      current.style.transition = CARD_TRANSITION;
+      peek.style.transition = CARD_TRANSITION;
+      current.style.transform = 'translateX(0)';
+      peek.style.transform = `translateX(${peekDirection > 0 ? width : -width}px)`;
+    }
+
+    gestureAxis = null;
+    peekDirection = 0;
   }, { passive: true });
 
-  document.getElementById('event-card-prev').addEventListener('click', () => navigateEventCard(-1));
-  document.getElementById('event-card-next').addEventListener('click', () => navigateEventCard(1));
+  document.getElementById('event-card-prev').addEventListener('click', () => commitNavigation(-1));
+  document.getElementById('event-card-next').addEventListener('click', () => commitNavigation(1));
   document.getElementById('event-card-close').addEventListener('click', hideEventCard);
 
   document.getElementById('event-card-details').addEventListener('click', () => {
     const event = visibleEventsList[currentCardIndex];
     if (event) Events.infoWindow(event).open(window.map, event.marker);
+  });
+
+  window.addEventListener('keydown', e => {
+    if (!document.getElementById('event-card').classList.contains('visible')) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); commitNavigation(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); commitNavigation(1); }
   });
 
   const toggleButton = document.getElementById('card-mode-toggle');
