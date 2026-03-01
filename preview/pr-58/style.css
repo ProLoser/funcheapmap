@@ -337,7 +337,7 @@ html, body, #map-canvas {
   gap: 8px;
   margin-top: 10px;
 
-  button {
+  button, a {
     flex: 1;
     font-size: 13px;
     padding: 6px 10px;
