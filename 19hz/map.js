@@ -4,8 +4,8 @@ const CATEGORY_DELIMITER = '~';
 
 // Spotify API configuration
 // For production, these should be loaded from environment variables or a secure backend
-const SPOTIFY_CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
-const SPOTIFY_CLIENT_SECRET = 'YOUR_SPOTIFY_CLIENT_SECRET';
+const SPOTIFY_CLIENT_ID = '__SPOTIFY_CLIENT_ID__';
+const SPOTIFY_CLIENT_SECRET = '__SPOTIFY_CLIENT_SECRET__';
 
 // Cache for Spotify access token
 let spotifyAccessToken = null;
@@ -28,8 +28,8 @@ const intersectionObserver = new IntersectionObserver((entries) => {
  * @returns {Promise<string>} Access token
  */
 async function getSpotifyAccessToken() {
-  if (SPOTIFY_CLIENT_ID === 'YOUR_SPOTIFY_CLIENT_ID' || 
-      SPOTIFY_CLIENT_SECRET === 'YOUR_SPOTIFY_CLIENT_SECRET') {
+  if (SPOTIFY_CLIENT_ID.includes('SPOTIFY_CLIENT_ID') || 
+      SPOTIFY_CLIENT_SECRET.includes('SPOTIFY_CLIENT_SECRET')) {
     console.warn('Spotify API credentials not configured. Please add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET.');
     return null;
   }
