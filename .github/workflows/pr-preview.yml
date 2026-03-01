@@ -59,3 +59,20 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh workflow run deploy.yml --ref gh-pages --repo ${{ github.repository }}
+
+  wait:
+    needs: preview
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Pages deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sleep 10  # allow time for the dispatched deploy.yml run to register
+          RUN_ID=$(gh run list --workflow=deploy.yml --branch=gh-pages --limit=1 --json databaseId --jq '.[0].databaseId' --repo ${{ github.repository }})
+          if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
+            echo "No deploy.yml run found - deploy may not have triggered"
+            exit 1
+          fi
+          gh run watch "$RUN_ID" --repo ${{ github.repository }} --exit-status
