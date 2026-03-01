@@ -217,7 +217,7 @@ function initEventCard() {
 
   document.getElementById('event-card-details').addEventListener('click', () => {
     const detailsEl = Events.infoWindow().getContent()?.querySelector('details');
-    if (detailsEl) detailsEl.open = true;
+    if (detailsEl) detailsEl.open = !detailsEl.open;
   });
 
   window.addEventListener('keydown', e => {
@@ -365,6 +365,28 @@ async function initialize() {
 }
 
 let options = {};
+
+function isEventEnded(event) {
+  if (!event.time || !event.date_text) return false;
+  const timeParts = event.time.split(' to ');
+  const start = new Date(`${event.date_text} ${timeParts[0]}`);
+  if (isNaN(start.getTime())) return false;
+  let end;
+  if (timeParts[1]) {
+    const startDate = start.toLocaleDateString('sv-SE');
+    if (timeParts[1].slice(-2) === 'am' && timeParts[0].slice(-2) === 'pm') {
+      const endDate = new Date(start);
+      endDate.setDate(endDate.getDate() + 1);
+      end = new Date(`${endDate.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${timeParts[1]}`);
+    } else {
+      end = new Date(`${startDate.replace(/-/gi, '/')} ${timeParts[1]}`);
+    }
+  } else {
+    end = new Date(start.getTime() + 60 * 60 * 1000);
+  }
+  return end < new Date();
+}
+
 /**
  * Callback for datepicker, filters all visible events to specified date and category
  * @param {object} filters
@@ -378,6 +400,11 @@ window.filter = async function (filters = {}) {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
+  const today = new Date();
+  const isToday = date &&
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
   let categories = [];
   if (options.category) {
     categories = options.category.split(CATEGORY_DELIMITER)
@@ -457,6 +484,11 @@ window.filter = async function (filters = {}) {
         event.marker.map = window.map;
         if (event.marker.content.style.opacity === '0') {
           intersectionObserver.observe(event.marker.content);
+        }
+        if (isToday && isEventEnded(event)) {
+          event.marker.content.classList.add('event-ended');
+        } else {
+          event.marker.content.classList.remove('event-ended');
         }
       }
     } else {
