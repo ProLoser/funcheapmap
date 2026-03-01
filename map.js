@@ -71,6 +71,7 @@ function showEventCard(event) {
   document.getElementById('event-card-counter').textContent =
     `${currentCardIndex + 1} of ${visibleEventsList.length}`;
   document.getElementById('event-card').classList.add('visible');
+  Events.infoWindow(event).open(window.map, event.marker);
 }
 
 function hideEventCard() {
@@ -112,7 +113,10 @@ function finishNavigation(current, peek, newIndex) {
   document.getElementById('event-card-counter').textContent =
     `${currentCardIndex + 1} of ${visibleEventsList.length}`;
   const ev = visibleEventsList[currentCardIndex];
-  if (ev?.marker) window.map.panTo(ev.geometry);
+  if (ev?.marker) {
+    window.map.panTo(ev.geometry);
+    Events.infoWindow(ev).open(window.map, ev.marker);
+  }
 }
 
 function initEventCard() {
@@ -211,8 +215,8 @@ function initEventCard() {
   document.getElementById('event-card-close').addEventListener('click', hideEventCard);
 
   document.getElementById('event-card-details').addEventListener('click', () => {
-    const event = visibleEventsList[currentCardIndex];
-    if (event) Events.infoWindow(event).open(window.map, event.marker);
+    const detailsEl = Events.infoWindow().getContent()?.querySelector('details');
+    if (detailsEl) detailsEl.open = true;
   });
 
   window.addEventListener('keydown', e => {
