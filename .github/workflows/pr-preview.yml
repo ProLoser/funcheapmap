@@ -40,7 +40,7 @@ jobs:
         run: |
           if [ "${{ github.event.action }}" != "closed" ]; then
             mkdir -p /tmp/preview/19hz
-            cp index.html map.js categories.json /tmp/preview/
+            cp index.html map.js categories.json style.css /tmp/preview/
             cp 19hz/index.html 19hz/map.js 19hz/venues.json /tmp/preview/19hz/
             echo "source-dir=/tmp/preview" >> $GITHUB_OUTPUT
           else
@@ -52,3 +52,9 @@ jobs:
           source-dir: ${{ steps.stage.outputs.source-dir }}
           preview-branch: gh-pages
           umbrella-dir: pr-preview
+
+      - name: Trigger Pages deploy
+        if: github.event.action != 'closed'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref gh-pages --repo ${{ github.repository }}
