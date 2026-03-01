@@ -1,6 +1,6 @@
 /* global google */
-// Delimiter for multiple category selections (must not appear in category names and not require URI encoding)
-const CATEGORY_DELIMITER = '~';
+// Delimiter for multiple tag selections (must not appear in tag names and not require URI encoding)
+const TAG_DELIMITER = '~';
 
 // Spotify API configuration
 // For production, these should be loaded from environment variables or a secure backend
@@ -160,14 +160,12 @@ async function initialize() {
   console.log('Loading Events...');
   window.events.load()
     .then(events => {
-      let minDate, maxDate, categories = new Set();
+      let minDate, maxDate, tags = new Set();
       events.forEach(event => {
         if (!event.title) return console.warn('Event Title Missing', { event });
         if (!event.geometry) return console.warn('Event Geometry Missing', { event });
-        // Add categories to the set
-        if (event.categories) {
-          event.categories.forEach(category => categories.add(category));
-        }
+        const eventTags = event.tags || event.categories || [];
+        eventTags.forEach(tag => tags.add(tag));
         // Calculate min/max date
         if (event.date) {
           const eventDate = new Date(event.date);
@@ -206,9 +204,8 @@ async function initialize() {
         form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
         form.elements['date'].max = maxDate.toLocaleDateString('fr-ca');
       }
-      // Update the category select
-      form.elements['category'].innerHTML = Array.from(categories).sort().map(category => 
-        `<option value="${category}">${category}</option>`
+      form.elements['tag'].innerHTML = Array.from(tags).sort().map(tag => 
+        `<option value="${tag}">${tag}</option>`
       ).join('');
       // Apply URL filters
       let filters = {};
@@ -232,10 +229,10 @@ async function initialize() {
 
 let options = {};
 /**
- * Callback for datepicker, filters all visible events to specified date and category
+ * Callback for datepicker, filters all visible events to specified date and tag
  * @param {object} filters
  * @param {string} [filters.date]
- * @param {string} [filters.category]
+ * @param {string} [filters.tag]
  */
 window.filter = async function (filters = {}) {
   Object.assign(options, filters);
@@ -244,9 +241,9 @@ window.filter = async function (filters = {}) {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
-  let categories = [];
-  if (options.category) {
-    categories = options.category.split(CATEGORY_DELIMITER)
+  let selectedTags = [];
+  if (options.tag) {
+    selectedTags = options.tag.split(TAG_DELIMITER)
   }
     
   // Clear existing cluster markers
@@ -277,8 +274,8 @@ window.filter = async function (filters = {}) {
         }
       }
     }
-    // check category
-    if (categories.length && !event.categories.some(category => categories.includes(category))) {
+    const eventTags = event.tags || event.categories || [];
+    if (selectedTags.length && !eventTags.some(tag => selectedTags.includes(tag))) {
       event.visible = false;
     }
     
@@ -370,14 +367,14 @@ window.filter = async function (filters = {}) {
     let element = form.elements[option];
     if (element) {
       if (element.type === 'select-multiple') {
-        const selected = options[option].split(CATEGORY_DELIMITER);
+        const selected = options[option].split(TAG_DELIMITER);
         for (const option of element.options) {
           option.selected = selected.includes(option.value)
         }
         setTimeout(element => {
           element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200, element);
-        query.push(encodeURIComponent(option) + '=' + categories.map(category => encodeURIComponent(category)).join(CATEGORY_DELIMITER));
+        query.push(encodeURIComponent(option) + '=' + selectedTags.map(tag => encodeURIComponent(tag)).join(TAG_DELIMITER));
       } else {
         element.value = options[option];
         query.push(encodeURIComponent(option) + '=' + encodeURIComponent(options[option]));
@@ -386,7 +383,7 @@ window.filter = async function (filters = {}) {
   }
   window.history.replaceState({}, '', '?' + query.join('&'));
   form.elements['countEvents'].innerText = count;
-  form.elements['countCategories'].innerText = categories.length || 'All';
+  form.elements['countTags'].innerText = selectedTags.length || 'All';
 };
 
 /**
@@ -593,12 +590,12 @@ class Events {
   }
   
   /**
-   * Normalizes category name by trimming whitespace and removing the word 'music'
-   * @param {string} category - Raw category name
-   * @returns {string} Normalized category name
+   * Normalizes tag name by trimming whitespace and removing the word 'music'
+   * @param {string} tag - Raw tag name
+   * @returns {string} Normalized tag name
    */
-  static normalizeCategory(category) {
-    return category
+  static normalizeTag(tag) {
+    return tag
       .trim()
       .replace(/\s+music$/i, '')
       .trim();
@@ -864,7 +861,7 @@ class Events {
       
       content.innerHTML = `
         <div class="info-header">
-          <p><strong>Genres:</strong> ${event.categories.map(category => `<a onclick="filter({category:'${category}'})">${category}</a>`).join(', ')}</p>
+          <p><strong>Genres:</strong> ${(event.tags || event.categories || []).map(tag => `<a onclick="filter({tag:'${tag}'})">${tag}</a>`).join(', ')}</p>
           ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
         </div>
@@ -957,7 +954,7 @@ class Events {
         return;
       }
       const extractedArtists = Events.extractArtistsFromTitle(row.title) || 'TBA';
-      const genresList = row.tags ? row.tags.split(',').map(genre => Events.normalizeCategory(genre)).filter(category => category) : [];
+      const tagsList = row.tags ? row.tags.split(',').map(t => Events.normalizeTag(t)).filter(Boolean) : [];
       const eventUrl = row.url1 || row.url2 || '#';
       events.push({
         title: row.title,
@@ -969,12 +966,12 @@ class Events {
         cost: row.price,
         cost_details: row.age,
         extractedArtists,
-        categories: genresList,
+        tags: tagsList,
         url: eventUrl,
         eventUrl,
         promoter: row.organizers || '',
         details: `
-          <p><strong>Genres:</strong> ${genresList.length ? genresList.join(', ') : 'N/A'}</p>
+          <p><strong>Genres:</strong> ${tagsList.length ? tagsList.join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${extractedArtists}</p>
           ${row.organizers ? `<p><strong>Promoter:</strong> ${row.organizers}</p>` : ''}
           <p><strong>Age:</strong> ${row.age}</p>

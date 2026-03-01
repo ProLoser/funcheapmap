@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>19hz Mapper</title>
     <meta name="description"
-        content="The Unofficial Map of 19hz Events Updated Daily! Pick a day and a category to plan activities or just clear the filters and browse through all the most popular events the Bay Area has to offer. Free. Open Source. No registration necessary. Works with Mobile and Tablets as well as Computers!" />
+        content="The Unofficial Map of 19hz Events Updated Daily! Pick a day and a tag to plan activities or just clear the filters and browse through all the most popular events the Bay Area has to offer. Free. Open Source. No registration necessary. Works with Mobile and Tablets as well as Computers!" />
     <link rel="stylesheet" href="../style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="icon" href="../favicon_fc.ico" />
@@ -24,7 +24,7 @@
         Feedback
     </a>
 
-    <form id="controls" onreset="filter({ date: '', category: '' })">
+    <form id="controls" onreset="filter({ date: '', tag: '' })">
         <details open>
             <summary>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="filter-icon">
@@ -38,46 +38,12 @@
                 <button type="reset">Clear</button>
             </p>
             <p>
-                <label for="category">Categories: <output name="countCategories" for="category">All</output></label>
+                <label for="tag">Tags: <output name="countTags" for="tag">All</output></label>
             </p>
             <p>
-                <!-- <select id="category" onchange="filter({ category: this.value })"> -->
-                <select id="category" name="category" multiple
-                    onchange="filter({ category: Array.from(this.selectedOptions).map(o => o.value).join('~') })">
+                <select id="tag" name="tag" multiple
+                    onchange="filter({ tag: Array.from(this.selectedOptions).map(o => o.value).join('~') })">
                     <!-- These are programmatically replaced after data loads -->
-                    <option value="**Annual Event**">Annual Event</option>
-                    <option value="*Top Pick*">Top Pick</option>
-                    <option value="420">420</option>
-                    <option value="4th of July">4th of July</option>
-                    <option value="Top Annual Event">Top Annual Event</option>
-                    <option value="Adults Only">Adults Only</option>
-                    <option value="Art & Museums">Art &amp; Museums</option>
-                    <option value="Charity & Volunteering">Charity &amp; Volunteering</option>
-                    <option value="Cheap Drinks">Cheap Drinks</option>
-                    <option value="Club / DJ">Club / DJ</option>
-                    <option value="Comedy">Comedy</option>
-                    <option value="Discount Tix / Promo Codes">Discount Tix / Promo Codes</option>
-                    <option value="Eating & Drinking">Eating &amp; Drinking</option>
-                    <option value="Fairs & Festivals">Fairs &amp; Festivals</option>
-                    <option value="Free Food">Free Food</option>
-                    <option value="Fun & Games">Fun &amp; Games</option>
-                    <option value="Geek Event">Geek Event</option>
-                    <option value="In Person">In Person</option>
-                    <option value="Kids & Families">Kids &amp; Families</option>
-                    <option value="Lectures & Workshops">Lectures &amp; Workshops</option>
-                    <option value="LGBTQ+">LGBTQ+</option>
-                    <option value="Literature">Literature</option>
-                    <option value="Live Music">Live Music</option>
-                    <option value="Movies">Movies</option>
-                    <option value="Outdoors">Outdoors</option>
-                    <option value="Other">Other</option>
-                    <option value="Rainy Day Fun">Rainy Day Fun</option>
-                    <option value="San FranFREEsco">San FranFREEsco</option>
-                    <option value="Shopping & Fashion">Shopping &amp; Fashion</option>
-                    <option value="Sponsored">Sponsored</option>
-                    <option value="Sports & Wellness">Sports &amp; Wellness</option>
-                    <option value="Theater & Performance">Theater &amp; Performance</option>
-                    <option value="Walks & Tours">Walks &amp; Tours</option>
                 </select>
             </p>
         </details>
