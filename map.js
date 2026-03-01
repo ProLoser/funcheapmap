@@ -2,6 +2,46 @@
 // Delimiter for multiple category selections (must not appear in category names and not require URI encoding)
 const CATEGORY_DELIMITER = '~';
 
+/**
+ * Returns PinElement constructor options based on event cost.
+ * Free events get a green pin; everything else uses the default.
+ * @param {object} event
+ * @returns {object} PinElement options
+ */
+function getMarkerPinOptions(event) {
+  if (event.cost && /free/i.test(event.cost)) {
+    return { background: '#34A853', borderColor: '#137333', glyphColor: '#ffffff' };
+  }
+  return {};
+}
+
+/**
+ * Returns the computed end Date for an event, or null if it cannot be determined.
+ * @param {object} event
+ * @returns {Date|null}
+ */
+function getEventEndTime(event) {
+  if (!event.date_text || !event.time) return null;
+  const time = event.time.split(' to ');
+  const start = new Date(`${event.date_text} ${time[0]}`);
+  if (isNaN(start.getTime())) return null;
+  const startDateStr = start.toLocaleDateString('sv-SE').replace(/-/gi, '/');
+  let endToken;
+  if (time[1]) {
+    if (time[1].slice(-2) === 'am' && time[0].slice(-2) === 'pm') {
+      const endDate = new Date(start);
+      endDate.setDate(endDate.getDate() + 1);
+      endToken = `${endDate.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${time[1]}`;
+    } else {
+      endToken = `${startDateStr} ${time[1]}`;
+    }
+  } else {
+    return new Date(start.getTime() + 60 * 60 * 1000);
+  }
+  const end = new Date(endToken);
+  return isNaN(end.getTime()) ? null : end;
+}
+
 const intersectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
@@ -85,7 +125,7 @@ async function initialize() {
           }
         }
         // Create marker
-        const pinElement = new PinElement();
+        const pinElement = new PinElement(getMarkerPinOptions(event));
         const content = pinElement.element;
         event.marker = new AdvancedMarkerElement({
           map: window.map,
@@ -150,6 +190,11 @@ window.filter = async function (filters = {}) {
     date = options.date.replace(/-/gi, '/');
     date = new Date(date);
   }
+  const today = new Date();
+  const isViewingToday = date &&
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
   let categories = [];
   if (options.category) {
     categories = options.category.split(CATEGORY_DELIMITER)
@@ -229,6 +274,12 @@ window.filter = async function (filters = {}) {
         event.marker.map = window.map;
         if (event.marker.content.style.opacity === '0') {
           intersectionObserver.observe(event.marker.content);
+        }
+        const eventEnd = getEventEndTime(event);
+        if (isViewingToday && eventEnd && eventEnd < today) {
+          event.marker.content.classList.add('ended');
+        } else {
+          event.marker.content.classList.remove('ended');
         }
       }
     } else {
