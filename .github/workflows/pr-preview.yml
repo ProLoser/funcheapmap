@@ -52,7 +52,7 @@ jobs:
           source-dir: ${{ steps.stage.outputs.source-dir }}
           umbrella-dir: preview
           qr-code: false
-          wait-for-pages-deployment: true
+          wait-for-pages-deployment: false
 
       - name: Trigger Pages deploy
         if: github.event.action != 'closed'
