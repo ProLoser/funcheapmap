@@ -4,8 +4,8 @@ const CATEGORY_DELIMITER = '~';
 
 // Spotify API configuration
 // For production, these should be loaded from environment variables or a secure backend
-const SPOTIFY_CLIENT_ID = '__SPOTIFY_CLIENT_ID__';
-const SPOTIFY_CLIENT_SECRET = '__SPOTIFY_CLIENT_SECRET__';
+const SPOTIFY_CLIENT_ID = '447cbdc30cb443c79ab069b4dec478a8';
+const SPOTIFY_CLIENT_SECRET = '48cea91e36d5410297b49763bcb73730';
 
 // Cache for Spotify access token
 let spotifyAccessToken = null;
@@ -570,7 +570,7 @@ window.showUserLocation = async function () {
  * Utility class for managing event data
  */
 class Events {
-  static API_TOKEN = '__APIFY_TOKEN__';
+  static API_TOKEN = 'apify_api_2VVNvbl0l5Bo3S3xLVENJRKAt9GW2P1RcRX6';
   static API = `https://api.apify.com/v2/acts/proloser~19hz-csv-crawler/runs/last/dataset/items?clean=true&token=${Events.API_TOKEN}`;
   static VENUES_URL = 'venues.json';
   
