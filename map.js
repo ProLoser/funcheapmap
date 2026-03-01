@@ -17,6 +17,115 @@ let userLocationMarker = null;
 // Global variable to track cluster markers
 let clusterMarkers = [];
 
+// Floating card state
+let cardModeEnabled = localStorage.getItem('cardMode') !== 'false';
+let visibleEventsList = [];
+let currentCardIndex = -1;
+const SWIPE_THRESHOLD = 50;
+
+function updateCardToggleButton() {
+  const button = document.getElementById('card-mode-toggle');
+  if (!button) return;
+  button.classList.toggle('active', cardModeEnabled);
+  button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
+}
+
+function showEventCard(event) {
+  currentCardIndex = visibleEventsList.indexOf(event);
+  renderEventCard();
+}
+
+function renderEventCard() {
+  const event = visibleEventsList[currentCardIndex];
+  if (!event) return;
+
+  const titleEl = document.getElementById('event-card-title');
+  titleEl.innerHTML = '';
+  const titleLink = document.createElement('a');
+  titleLink.target = '_blank';
+  titleLink.href = event.url;
+  titleLink.textContent = event.title;
+  titleEl.appendChild(titleLink);
+
+  const metaEl = document.getElementById('event-card-meta');
+  metaEl.innerHTML = '';
+  const venueLink = document.createElement('a');
+  venueLink.target = '_blank';
+  venueLink.href = `https://maps.google.com/?q=${encodeURIComponent(event.venue)}&ll=${event.geometry.lat},${event.geometry.lng}`;
+  venueLink.textContent = event.venue;
+  metaEl.appendChild(venueLink);
+  metaEl.appendChild(document.createTextNode(` | ${event.date_text} | ${event.time}`));
+
+  const costEl = document.getElementById('event-card-cost');
+  costEl.innerHTML = '';
+  const costLink = document.createElement('a');
+  costLink.target = '_blank';
+  costLink.href = event.eventUrl;
+  costLink.textContent = event.cost;
+  costEl.appendChild(costLink);
+  if (event.cost_details) {
+    costEl.appendChild(document.createTextNode(' — ' + event.cost_details));
+  }
+
+  document.getElementById('event-card-counter').textContent =
+    `${currentCardIndex + 1} of ${visibleEventsList.length}`;
+  document.getElementById('event-card').classList.add('visible');
+}
+
+function hideEventCard() {
+  document.getElementById('event-card').classList.remove('visible');
+}
+
+function navigateEventCard(direction) {
+  if (!visibleEventsList.length) return;
+  currentCardIndex = (currentCardIndex + direction + visibleEventsList.length) % visibleEventsList.length;
+  const event = visibleEventsList[currentCardIndex];
+  if (event?.marker) {
+    window.map.panTo(event.geometry);
+  }
+  renderEventCard();
+}
+
+function initEventCard() {
+  const card = document.getElementById('event-card');
+  let touchStartX = 0, touchStartY = 0;
+
+  card.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  card.addEventListener('touchend', e => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      if (deltaY > SWIPE_THRESHOLD) hideEventCard();
+    } else {
+      if (deltaX < -SWIPE_THRESHOLD) navigateEventCard(1);
+      else if (deltaX > SWIPE_THRESHOLD) navigateEventCard(-1);
+    }
+  }, { passive: true });
+
+  document.getElementById('event-card-prev').addEventListener('click', () => navigateEventCard(-1));
+  document.getElementById('event-card-next').addEventListener('click', () => navigateEventCard(1));
+  document.getElementById('event-card-close').addEventListener('click', hideEventCard);
+
+  document.getElementById('event-card-details').addEventListener('click', () => {
+    const event = visibleEventsList[currentCardIndex];
+    if (event) Events.infoWindow(event).open(window.map, event.marker);
+  });
+
+  const toggleButton = document.getElementById('card-mode-toggle');
+  updateCardToggleButton();
+  toggleButton.addEventListener('click', () => {
+    cardModeEnabled = !cardModeEnabled;
+    localStorage.setItem('cardMode', cardModeEnabled);
+    updateCardToggleButton();
+    if (!cardModeEnabled) hideEventCard();
+  });
+}
+
+
 // Initialize the map
 // window.addEventListener('load', initialize)
 async function initialize() {
@@ -42,12 +151,14 @@ async function initialize() {
   window.addEventListener('keyup', event => {
     switch (event.keyCode) {
       case 27: // esc
-        Events.infoWindow().close();  
+        Events.infoWindow().close();
+        hideEventCard();
         break;  
     }
   });
   google.maps.event.addListener(window.map, 'click', function(event) {
       Events.infoWindow().close();
+      hideEventCard();
   });
 
   // Add "You Are Here" button
@@ -100,13 +211,19 @@ async function initialize() {
         content.style.setProperty('--delay-time', time + 's');
         intersectionObserver.observe(content);
         event.marker.addListener('gmp-click', function () {
-          Events.infoWindow(event).open(window.map, event.marker);
+          if (cardModeEnabled) {
+            showEventCard(event);
+          } else {
+            Events.infoWindow(event).open(window.map, event.marker);
+          }
         });
       });
       const form = document.getElementById('controls');
       form.addEventListener('reset', window.filter);
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(form);
       map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('feedback'));
+      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('card-mode-toggle'));
+      initEventCard();
       // Update the date picker
       if (minDate && maxDate) {
         form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
@@ -293,6 +410,10 @@ window.filter = async function (filters = {}) {
   window.history.replaceState({}, '', '?' + query.join('&'));
   form.elements['countEvents'].innerText = count;
   form.elements['countCategories'].innerText = categories.length || 'All';
+  // Update the cached visible events list for card navigation
+  visibleEventsList = window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [];
+  // Dismiss the card when filters change since the current event may no longer be visible
+  hideEventCard();
 };
 
 /**
