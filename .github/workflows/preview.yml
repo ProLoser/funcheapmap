@@ -28,7 +28,7 @@ jobs:
               with:
                   source-dir: .
                   preview-branch: gh-pages
-                  umbrella-dir: pr-preview
+                  umbrella-dir: preview
                   action: auto
                   wait-for-pages-deployment: true
                   comment: true
