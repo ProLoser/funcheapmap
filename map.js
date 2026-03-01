@@ -76,6 +76,7 @@ function showEventCard(event) {
 
 function hideEventCard() {
   document.getElementById('event-card').classList.remove('visible');
+  Events.infoWindow().close();
 }
 
 function commitNavigation(direction) {
