@@ -103,6 +103,7 @@ function showEventCard(event) {
 function hideEventCard() {
   document.getElementById('event-card').classList.remove('visible');
   Events.infoWindow().close();
+  Events.currentEvent = null;
 }
 
 function commitNavigation(direction) {
@@ -258,7 +259,11 @@ function initEventCard() {
     cardModeEnabled = !cardModeEnabled;
     localStorage.setItem('cardMode', cardModeEnabled);
     updateCardToggleButton();
-    if (!cardModeEnabled) hideEventCard();
+    if (cardModeEnabled && Events.currentEvent) {
+      showEventCard(Events.currentEvent);
+    } else if (!cardModeEnabled) {
+      hideEventCard();
+    }
   });
 }
 
@@ -721,6 +726,7 @@ class Events {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
     if (event) {
+      this.currentEvent = event;
       const time = event.time.split(' to ')
       const start = new Date(`${event.date_text} ${time[0]}`)
       const startDate = start.toLocaleDateString('sv-SE') // outputs yyyy-mm-dd
