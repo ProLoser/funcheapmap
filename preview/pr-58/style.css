@@ -335,7 +335,8 @@ html, body, #map-canvas {
 #event-card-actions {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 10px;  
+  height: 50px;
 
   button, a, add-to-calendar-button {
     flex: 1;
