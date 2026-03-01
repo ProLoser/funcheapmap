@@ -916,11 +916,6 @@ class Events {
     return this.query().then(this.set.bind(this));
   }
   
-  static rowField(row, index, key) {
-    if (Array.isArray(row)) return row[index];
-    return row[key] ?? row[index];
-  }
-
   async query() {
     console.log('Fetching events from', Events.API);
     console.log('Loading venues from', Events.VENUES_URL);
@@ -946,51 +941,46 @@ class Events {
     });
     const events = [];
     const unmatchedVenues = new Set();
-    const field = (row, index) => Events.rowField(row, index, ['date', 'title', 'genres', 'venue', 'time', 'cost', 'age', 'promoter', 'url1', 'url2'][index]);
     items.forEach((row, index) => {
-      if (!field(row, 1) || !field(row, 3)) {
+      if (!row.title || !row.venue) {
         console.warn(`Row ${index} has insufficient fields:`, row);
         return;
       }
-      const rawVenue = field(row, 3);
-      const venueData = venueMap.get(Events.normalizeVenueName(rawVenue));
+      const venueData = venueMap.get(Events.normalizeVenueName(row.venue));
       if (!venueData) {
-        unmatchedVenues.add(rawVenue);
+        unmatchedVenues.add(row.venue);
         return;
       }
-      const parsedDate = Events.parseCSVDate(field(row, 0));
+      const parsedDate = Events.parseCSVDate(row.date);
       if (!parsedDate) {
-        console.warn(`Could not parse date: ${field(row, 0)}`);
+        console.warn(`Could not parse date: ${row.date}`);
         return;
       }
-      const extractedArtists = Events.extractArtistsFromTitle(field(row, 1)) || 'TBA';
-      const genres = field(row, 2);
-      const genresList = genres ? genres.split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [];
-      const url1 = field(row, 8);
-      const url2 = field(row, 9);
-      const eventUrl = url1 || url2 || '#';
+      const extractedArtists = Events.extractArtistsFromTitle(row.title) || 'TBA';
+      const genresList = row.tags ? row.tags.split(',').map(genre => Events.normalizeCategory(genre)).filter(category => category) : [];
+      const eventUrl = row.url1 || row.url2 || '#';
       events.push({
-        title: field(row, 1),
+        title: row.title,
         venue: venueData.name,
         geometry: venueData.geometry,
         date: parsedDate.iso,
         date_text: parsedDate.text,
-        time: field(row, 4),
-        cost: field(row, 5),
-        cost_details: field(row, 6),
+        time: row.time,
+        cost: row.price,
+        cost_details: row.age,
         extractedArtists,
         categories: genresList,
         url: eventUrl,
         eventUrl,
-        promoter: field(row, 7) || '',
+        promoter: row.organizers || '',
         details: `
           <p><strong>Genres:</strong> ${genresList.length ? genresList.join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${extractedArtists}</p>
-          ${field(row, 7) ? `<p><strong>Promoter:</strong> ${field(row, 7)}</p>` : ''}
-          <p><strong>Age:</strong> ${field(row, 6)}</p>
-          <p><strong>Cost:</strong> ${field(row, 5)}</p>
-          ${url1 ? `<p><a href="${url1}" target="_blank">Event Link</a></p>` : ''}
-          ${url2 ? `<p><a href="${url2}" target="_blank">Additional Link</a></p>` : ''}
+          ${row.organizers ? `<p><strong>Promoter:</strong> ${row.organizers}</p>` : ''}
+          <p><strong>Age:</strong> ${row.age}</p>
+          <p><strong>Cost:</strong> ${row.price}</p>
+          ${row.url1 ? `<p><a href="${row.url1}" target="_blank">Event Link</a></p>` : ''}
+          ${row.url2 ? `<p><a href="${row.url2}" target="_blank">Additional Link</a></p>` : ''}
         `
       });
     });
