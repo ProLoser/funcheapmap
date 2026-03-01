@@ -217,7 +217,7 @@ function initEventCard() {
 
   document.getElementById('event-card-details').addEventListener('click', () => {
     const detailsEl = Events.infoWindow().getContent()?.querySelector('details');
-    if (detailsEl) detailsEl.open = true;
+    if (detailsEl) detailsEl.open = !detailsEl.open;
   });
 
   window.addEventListener('keydown', e => {
