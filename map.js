@@ -451,7 +451,7 @@ window.showUserLocation = async function () {
  */
 class Events {
   static API_TOKEN = '__APIFY_TOKEN__';
-  static API = `https://api.apify.com/v2/acts/apify~cheerio-scraper/runs/last/dataset/items?clean=true&token=${Events.API_TOKEN}`;
+  static API = `https://api.apify.com/v2/actor-tasks/proloser~funcheapsf-cheerio-scraper-task/runs/last/dataset/items?token=${Events.API_TOKEN}`;
   /**
    * Generates and returns a google maps info window
    * 
