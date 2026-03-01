@@ -164,8 +164,9 @@ async function initialize() {
       events.forEach(event => {
         if (!event.title) return console.warn('Event Title Missing', { event });
         if (!event.geometry) return console.warn('Event Geometry Missing', { event });
-        const eventTags = event.tags || event.categories || [];
-        eventTags.forEach(tag => tags.add(tag));
+        if (event.tags) {
+          event.tags.forEach(tag => tags.add(tag));
+        }
         // Calculate min/max date
         if (event.date) {
           const eventDate = new Date(event.date);
@@ -274,8 +275,7 @@ window.filter = async function (filters = {}) {
         }
       }
     }
-    const eventTags = event.tags || event.categories || [];
-    if (selectedTags.length && !eventTags.some(tag => selectedTags.includes(tag))) {
+    if (selectedTags.length && !event.tags?.some(tag => selectedTags.includes(tag))) {
       event.visible = false;
     }
     
@@ -368,11 +368,11 @@ window.filter = async function (filters = {}) {
     if (element) {
       if (element.type === 'select-multiple') {
         const selected = options[option].split(TAG_DELIMITER);
-        for (const option of element.options) {
-          option.selected = selected.includes(option.value)
+        for (const opt of element.options) {
+          opt.selected = selected.includes(opt.value)
         }
-        setTimeout(element => {
-          element.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(elem => {
+          elem.querySelector('option:checked')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 200, element);
         query.push(encodeURIComponent(option) + '=' + selectedTags.map(tag => encodeURIComponent(tag)).join(TAG_DELIMITER));
       } else {
@@ -589,11 +589,6 @@ class Events {
       .trim();
   }
   
-  /**
-   * Normalizes tag name by trimming whitespace and removing the word 'music'
-   * @param {string} tag - Raw tag name
-   * @returns {string} Normalized tag name
-   */
   static normalizeTag(tag) {
     return tag
       .trim()
@@ -861,7 +856,7 @@ class Events {
       
       content.innerHTML = `
         <div class="info-header">
-          <p><strong>Genres:</strong> ${(event.tags || event.categories || []).map(tag => `<a onclick="filter({tag:'${tag}'})">${tag}</a>`).join(', ')}</p>
+          <p><strong>Tags:</strong> ${event.tags?.map(tag => `<a onclick="filter({tag:'${tag}'})">${tag}</a>`).join(', ') || '—'}</p>
           ${hasValidArtists ? `<p><strong>Artists:</strong> ${artistsHTML}</p>` : ''}
           <p><strong>Age:</strong> ${ageInfo}</p>
         </div>
@@ -954,7 +949,7 @@ class Events {
         return;
       }
       const extractedArtists = Events.extractArtistsFromTitle(row.title) || 'TBA';
-      const tagsList = row.tags ? row.tags.split(',').map(t => Events.normalizeTag(t)).filter(Boolean) : [];
+      const tagsList = row.tags ? row.tags.split(',').map(raw => Events.normalizeTag(raw)).filter(Boolean) : [];
       const eventUrl = row.url1 || row.url2 || '#';
       events.push({
         title: row.title,
@@ -971,7 +966,7 @@ class Events {
         eventUrl,
         promoter: row.organizers || '',
         details: `
-          <p><strong>Genres:</strong> ${tagsList.length ? tagsList.join(', ') : 'N/A'}</p>
+          <p><strong>Tags:</strong> ${tagsList.length ? tagsList.join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${extractedArtists}</p>
           ${row.organizers ? `<p><strong>Promoter:</strong> ${row.organizers}</p>` : ''}
           <p><strong>Age:</strong> ${row.age}</p>

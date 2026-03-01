@@ -43,7 +43,7 @@
             <p>
                 <select id="tag" name="tag" multiple
                     onchange="filter({ tag: Array.from(this.selectedOptions).map(o => o.value).join('~') })">
-                    <!-- These are programmatically replaced after data loads -->
+                    <option value="" disabled>Loading…</option>
                 </select>
             </p>
         </details>
