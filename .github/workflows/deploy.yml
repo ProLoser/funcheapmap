@@ -1,58 +1,29 @@
-name: Deploy to GitHub Pages
-
+# .github/workflows/deploy.yml
+name: Deploy
 on:
-  push:
-    branches:
-      - gh-pages
-      - copilot/add-filters-icon-header
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
+    push:
+        branches:
+            - main
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Inject tokens
-        env:
-          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
-          GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
-          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
-          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
-        run: |
-          sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js
-          sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js 19hz/map.js
-          sed -i "s/__GOOGLE_TOKEN__/${GOOGLE_TOKEN}/g" index.html
-          sed -i "s/__SPOTIFY_CLIENT_ID__/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
-          sed -i "s/__SPOTIFY_CLIENT_SECRET__/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Inject tokens
+              env:
+                APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+                GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
+                SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+                SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+              run: |
+                sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js
+                sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js 19hz/map.js
+                sed -i "s/__GOOGLE_TOKEN__/${GOOGLE_TOKEN}/g" index.html
+                sed -i "s/__SPOTIFY_CLIENT_ID__/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
+                sed -i "s/__SPOTIFY_CLIENT_SECRET__/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
+            - uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  folder: .
+                  branch: gh-pages
+                  clean-exclude: pr-preview
+                  force: false
