@@ -571,7 +571,7 @@ window.showUserLocation = async function () {
  */
 class Events {
   static API_TOKEN = 'apify_api_2VVNvbl0l5Bo3S3xLVENJRKAt9GW2P1RcRX6';
-  static API = `https://api.apify.com/v2/acts/proloser~19hz-csv-crawler/runs/last/dataset/items?clean=true&token=${Events.API_TOKEN}`;
+  static API = `https://api.apify.com/v2/actor-tasks/proloser~19hz-csv-crawler/runs/last/dataset/items?token=${Events.API_TOKEN}`;
   static VENUES_URL = 'venues.json';
   
   /**
