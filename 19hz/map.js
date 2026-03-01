@@ -4,8 +4,8 @@ const CATEGORY_DELIMITER = '~';
 
 // Spotify API configuration
 // For production, these should be loaded from environment variables or a secure backend
-const SPOTIFY_CLIENT_ID = '447cbdc30cb443c79ab069b4dec478a8';
-const SPOTIFY_CLIENT_SECRET = '48cea91e36d5410297b49763bcb73730';
+const SPOTIFY_CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
+const SPOTIFY_CLIENT_SECRET = 'YOUR_SPOTIFY_CLIENT_SECRET';
 
 // Cache for Spotify access token
 let spotifyAccessToken = null;

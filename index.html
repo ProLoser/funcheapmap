@@ -12,6 +12,43 @@
 <body>
   <div id="map-canvas"></div>
 
+  <div id="event-card">
+    <div id="event-card-handle"></div>
+    <div id="event-card-nav">
+      <button id="event-card-prev" class="ui-button" title="Previous event">&#8249;</button>
+      <span id="event-card-counter"></span>
+      <button id="event-card-next" class="ui-button" title="Next event">&#8250;</button>
+    </div>
+    <div id="event-card-slider">
+      <div id="event-card-current">
+        <h2 class="event-card-title"></h2>
+        <p class="event-card-meta"></p>
+        <p class="event-card-cost"></p>
+        <div id="event-card-actions">
+          <button id="event-card-details" class="ui-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"/></svg> Details</button>
+          <span id="event-card-calendar-container"></span>
+          <button id="event-card-close" class="ui-button">✕ Close</button>
+        </div>
+      </div>
+      <div id="event-card-peek" aria-hidden="true">
+        <h2 class="event-card-title"></h2>
+        <p class="event-card-meta"></p>
+        <p class="event-card-cost"></p>
+      </div>
+    </div>
+  </div>
+
+  <button id="card-mode-toggle" class="ui-button" title="Toggle floating card view">
+    <svg class="icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20 3H4C2.9 3 2 3.9 2 5v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H4v-6h16v6zm0-8H4V5h16v6z"/>
+    </svg>
+    <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20 3H4C2.9 3 2 3.9 2 5v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H4v-6h16v6zm0-8H4V5h16v6z"/>
+      <path d="M7 8l5 5 5-5z"/>
+    </svg>
+    Cards
+  </button>
+
   <a id="feedback" class="ui-button" target="_blank" href="https://github.com/ProLoser/funcheapmap/issues">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"></path>

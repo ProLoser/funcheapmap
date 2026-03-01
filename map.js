@@ -17,6 +17,267 @@ let userLocationMarker = null;
 // Global variable to track cluster markers
 let clusterMarkers = [];
 
+// Floating card state
+let cardModeEnabled = localStorage.getItem('cardMode') !== 'false';
+let visibleEventsList = [];
+let currentCardIndex = -1;
+const SWIPE_THRESHOLD = 50;
+const VELOCITY_THRESHOLD = 0.3; // px/ms
+const CARD_TRANSITION = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+
+function updateCardToggleButton() {
+  const button = document.getElementById('card-mode-toggle');
+  if (!button) return;
+  button.classList.toggle('active', cardModeEnabled);
+  button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
+}
+
+function buildCardContent(container, event) {
+  const titleEl = container.querySelector('.event-card-title');
+  titleEl.innerHTML = '';
+  const titleLink = document.createElement('a');
+  titleLink.target = '_blank';
+  titleLink.href = event.url;
+  titleLink.textContent = event.title;
+  titleEl.appendChild(titleLink);
+
+  const metaEl = container.querySelector('.event-card-meta');
+  metaEl.innerHTML = '';
+  const venueLink = document.createElement('a');
+  venueLink.target = '_blank';
+  venueLink.href = `https://maps.google.com/?q=${encodeURIComponent(event.venue)}&ll=${event.geometry.lat},${event.geometry.lng}`;
+  venueLink.textContent = event.venue;
+  metaEl.appendChild(venueLink);
+  metaEl.appendChild(document.createTextNode(` | ${event.date_text} | ${event.time}`));
+
+  const costEl = container.querySelector('.event-card-cost');
+  costEl.innerHTML = '';
+  const costLink = document.createElement('a');
+  costLink.target = '_blank';
+  costLink.href = event.eventUrl;
+  costLink.textContent = event.cost;
+  costEl.appendChild(costLink);
+  if (event.cost_details) {
+    costEl.appendChild(document.createTextNode(' — ' + event.cost_details));
+  }
+  const calendarContainer = container.querySelector('#event-card-calendar-container');
+  if (calendarContainer) {
+    const time = event.time.split(' to ');
+    const start = new Date(`${event.date_text} ${time[0]}`);
+    const startDate = start.toLocaleDateString('sv-SE');
+    let endToken;
+    if (time[1]) {
+      if (time[1].substr(-2) == 'am' && time[0].substr(-2) == 'pm') {
+        const endDate = new Date(start);
+        endDate.setDate(endDate.getDate() + 1);
+        endToken = `${endDate.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${time[1]}`;
+      } else {
+        endToken = `${startDate.replace(/-/gi, '/')} ${time[1]}`;
+      }
+    } else {
+      endToken = start.getTime() + 60*60*1000;
+    }
+    const end = new Date(endToken);
+    calendarContainer.innerHTML = `<add-to-calendar-button
+        name="${event.title.replaceAll('"', "'")}"
+        description="${event.eventUrl}"
+        startDate="${startDate}"
+        options="'Apple','Google','iCal','Outlook.com'"
+        startTime="${start.toTimeString().substr(0, 5)}"
+        endDate="${end.toLocaleDateString('sv-SE')}"
+        endTime="${end.toTimeString().substr(0, 5)}"
+        location="${event.venue}"
+        listStyle="modal"
+        buttonStyle="default"
+        timeZone="America/Los_Angeles"
+        size="4"
+        hideTextLabelButton
+        hideCheckmark
+        forceOverlay
+    ></add-to-calendar-button>`;
+  }
+}
+
+function showEventCard(event) {
+  currentCardIndex = visibleEventsList.indexOf(event);
+  const current = document.getElementById('event-card-current');
+  current.style.transition = 'none';
+  current.style.transform = 'translateX(0)';
+  buildCardContent(current, event);
+  document.getElementById('event-card-counter').textContent =
+    `${currentCardIndex + 1} of ${visibleEventsList.length}`;
+  document.getElementById('event-card').classList.add('visible');
+  Events.infoWindow(event).open(window.map, event.marker);
+}
+
+function hideEventCard() {
+  document.getElementById('event-card').classList.remove('visible');
+  Events.infoWindow().close();
+  Events.currentEvent = null;
+}
+
+function commitNavigation(direction) {
+  if (!visibleEventsList.length) return;
+  const slider = document.getElementById('event-card-slider');
+  const current = document.getElementById('event-card-current');
+  const peek = document.getElementById('event-card-peek');
+  const width = slider.offsetWidth;
+  const newIndex = (currentCardIndex + direction + visibleEventsList.length) % visibleEventsList.length;
+
+  buildCardContent(peek, visibleEventsList[newIndex]);
+  peek.style.transition = 'none';
+  current.style.transition = 'none';
+  peek.style.transform = `translateX(${direction > 0 ? width : -width}px)`;
+  current.style.transform = 'translateX(0)';
+
+  // Force reflow so transition fires
+  peek.offsetWidth;
+
+  peek.style.transition = CARD_TRANSITION;
+  current.style.transition = CARD_TRANSITION;
+  current.style.transform = `translateX(${direction > 0 ? -width : width}px)`;
+  peek.style.transform = 'translateX(0)';
+
+  current.addEventListener('transitionend', () => finishNavigation(current, peek, newIndex), { once: true });
+}
+
+function finishNavigation(current, peek, newIndex) {
+  currentCardIndex = newIndex;
+  current.style.transition = 'none';
+  peek.style.transition = 'none';
+  current.style.transform = 'translateX(0)';
+  peek.style.transform = '';
+  buildCardContent(current, visibleEventsList[currentCardIndex]);
+  document.getElementById('event-card-counter').textContent =
+    `${currentCardIndex + 1} of ${visibleEventsList.length}`;
+  const ev = visibleEventsList[currentCardIndex];
+  if (ev?.marker) {
+    window.map.panTo(ev.geometry);
+    Events.infoWindow(ev).open(window.map, ev.marker);
+  }
+}
+
+function initEventCard() {
+  const card = document.getElementById('event-card');
+  const slider = document.getElementById('event-card-slider');
+  const current = document.getElementById('event-card-current');
+  const peek = document.getElementById('event-card-peek');
+
+  let touchStartX = 0, touchStartY = 0;
+  let lastMoveX = 0, lastMoveTime = 0, swipeVelocity = 0;
+  let gestureAxis = null; // 'horizontal' | 'vertical'
+  let peekDirection = 0;  // 1 = peek is on right (next), -1 = peek is on left (prev)
+
+  card.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    lastMoveX = touchStartX;
+    lastMoveTime = Date.now();
+    swipeVelocity = 0;
+    gestureAxis = null;
+    peekDirection = 0;
+    current.style.transition = 'none';
+    peek.style.transition = 'none';
+  }, { passive: true });
+
+  card.addEventListener('touchmove', e => {
+    const deltaX = e.touches[0].clientX - touchStartX;
+    const deltaY = e.touches[0].clientY - touchStartY;
+
+    if (!gestureAxis) {
+      if (Math.abs(deltaX) > 8) gestureAxis = 'horizontal';
+      else if (Math.abs(deltaY) > 8) gestureAxis = 'vertical';
+      else return;
+    }
+    if (gestureAxis !== 'horizontal') return;
+
+    const now = Date.now();
+    const dt = now - lastMoveTime;
+    if (dt > 0) swipeVelocity = (e.touches[0].clientX - lastMoveX) / dt;
+    lastMoveX = e.touches[0].clientX;
+    lastMoveTime = now;
+
+    const width = slider.offsetWidth;
+    const newDir = deltaX < 0 ? 1 : -1; // 1=next, -1=prev
+
+    if (peekDirection !== newDir) {
+      peekDirection = newDir;
+      const peekIndex = (currentCardIndex + newDir + visibleEventsList.length) % visibleEventsList.length;
+      buildCardContent(peek, visibleEventsList[peekIndex]);
+      peek.style.transition = 'none';
+      peek.style.transform = `translateX(${newDir > 0 ? width : -width}px)`;
+    }
+
+    current.style.transform = `translateX(${deltaX}px)`;
+    peek.style.transform = `translateX(${(peekDirection > 0 ? width : -width) + deltaX}px)`;
+  }, { passive: true });
+
+  card.addEventListener('touchend', e => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+    if (gestureAxis === 'vertical') {
+      if (deltaY > SWIPE_THRESHOLD) hideEventCard();
+      return;
+    }
+
+    if (gestureAxis !== 'horizontal' || !peekDirection) {
+      return;
+    }
+
+    const width = slider.offsetWidth;
+    const shouldCommit = Math.abs(deltaX) > SWIPE_THRESHOLD || Math.abs(swipeVelocity) > VELOCITY_THRESHOLD;
+    const commitDir = deltaX < 0 ? 1 : -1;
+
+    if (shouldCommit) {
+      const newIndex = (currentCardIndex + commitDir + visibleEventsList.length) % visibleEventsList.length;
+      current.style.transition = CARD_TRANSITION;
+      peek.style.transition = CARD_TRANSITION;
+      current.style.transform = `translateX(${commitDir > 0 ? -width : width}px)`;
+      peek.style.transform = 'translateX(0)';
+
+      current.addEventListener('transitionend', () => finishNavigation(current, peek, newIndex), { once: true });
+    } else {
+      current.style.transition = CARD_TRANSITION;
+      peek.style.transition = CARD_TRANSITION;
+      current.style.transform = 'translateX(0)';
+      peek.style.transform = `translateX(${peekDirection > 0 ? width : -width}px)`;
+    }
+
+    gestureAxis = null;
+    peekDirection = 0;
+  }, { passive: true });
+
+  document.getElementById('event-card-prev').addEventListener('click', () => commitNavigation(-1));
+  document.getElementById('event-card-next').addEventListener('click', () => commitNavigation(1));
+  document.getElementById('event-card-close').addEventListener('click', hideEventCard);
+
+  document.getElementById('event-card-details').addEventListener('click', () => {
+    const detailsEl = Events.infoWindow().getContent()?.querySelector('details');
+    if (detailsEl) detailsEl.open = !detailsEl.open;
+  });
+
+  window.addEventListener('keydown', e => {
+    if (!document.getElementById('event-card').classList.contains('visible')) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); commitNavigation(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); commitNavigation(1); }
+  });
+
+  const toggleButton = document.getElementById('card-mode-toggle');
+  updateCardToggleButton();
+  toggleButton.addEventListener('click', () => {
+    cardModeEnabled = !cardModeEnabled;
+    localStorage.setItem('cardMode', cardModeEnabled);
+    updateCardToggleButton();
+    if (cardModeEnabled && Events.currentEvent) {
+      showEventCard(Events.currentEvent);
+    } else if (!cardModeEnabled) {
+      hideEventCard();
+    }
+  });
+}
+
+
 // Initialize the map
 // window.addEventListener('load', initialize)
 async function initialize() {
@@ -42,12 +303,14 @@ async function initialize() {
   window.addEventListener('keyup', event => {
     switch (event.keyCode) {
       case 27: // esc
-        Events.infoWindow().close();  
+        Events.infoWindow().close();
+        hideEventCard();
         break;  
     }
   });
   google.maps.event.addListener(window.map, 'click', function(event) {
       Events.infoWindow().close();
+      hideEventCard();
   });
 
   // Add "You Are Here" button
@@ -100,13 +363,19 @@ async function initialize() {
         content.style.setProperty('--delay-time', time + 's');
         intersectionObserver.observe(content);
         event.marker.addListener('gmp-click', function () {
-          Events.infoWindow(event).open(window.map, event.marker);
+          if (cardModeEnabled) {
+            showEventCard(event);
+          } else {
+            Events.infoWindow(event).open(window.map, event.marker);
+          }
         });
       });
       const form = document.getElementById('controls');
       form.addEventListener('reset', window.filter);
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(form);
       map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('feedback'));
+      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('card-mode-toggle'));
+      initEventCard();
       // Update the date picker
       if (minDate && maxDate) {
         form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
@@ -325,6 +594,10 @@ window.filter = async function (filters = {}) {
   window.history.replaceState({}, '', '?' + query.join('&'));
   form.elements['countEvents'].innerText = count;
   form.elements['countCategories'].innerText = categories.length || 'All';
+  // Update the cached visible events list for card navigation
+  visibleEventsList = window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [];
+  // Dismiss the card when filters change since the current event may no longer be visible
+  hideEventCard();
 };
 
 /**
@@ -463,6 +736,7 @@ class Events {
     if (!this.cachedInfoWindow)
       this.cachedInfoWindow = new google.maps.InfoWindow({});
     if (event) {
+      this.currentEvent = event;
       const time = event.time.split(' to ')
       const start = new Date(`${event.date_text} ${time[0]}`)
       const startDate = start.toLocaleDateString('sv-SE') // outputs yyyy-mm-dd

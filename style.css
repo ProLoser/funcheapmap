@@ -237,7 +237,148 @@ html, body, #map-canvas {
   animation: drop 0.3s linear forwards var(--delay-time);
 }
 
-/* Cluster Info Styles */
+/* Floating event card (bottom sheet) */
+#event-card {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: min(420px, 94vw);
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.18);
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  touch-action: none;
+  user-select: none;
+
+  &.visible {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+#event-card-handle {
+  width: 40px;
+  height: 4px;
+  background: #ccc;
+  border-radius: 2px;
+  margin: 6px auto 0;
+}
+
+#event-card-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px 6px 0;
+
+  #event-card-prev, #event-card-next {
+    font-size: 22px;
+    line-height: 1;
+    padding: 2px 6px;
+    min-width: 28px;
+  }
+
+  #event-card-counter {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+  }
+}
+
+#event-card-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+#event-card-current {
+  padding: 6px 16px 16px;
+  will-change: transform;
+}
+
+#event-card-peek {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 6px 16px 16px;
+  pointer-events: none;
+  will-change: transform;
+  box-sizing: border-box;
+}
+
+#event-card-current, #event-card-peek {
+  .event-card-title {
+    font-size: 16px;
+    margin: 8px 0 6px;
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  .event-card-meta, .event-card-cost {
+    margin: 4px 0;
+    font-size: 13px;
+    color: #555;
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+#event-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;  
+  height: 50px;
+
+  button {
+    flex: 1;
+    font-size: 13px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+}
+
+#card-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  padding: 8px;
+
+  .icon-close { display: none; }
+
+  &.active {
+    background: #e8f0fe;
+    color: #1a73e8;
+    fill: #1a73e8;
+    .icon-open { display: none; }
+    .icon-close { display: block; }
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+}
+
 .cluster-info {
   max-width: 80vw;
   max-height: 60vh;
