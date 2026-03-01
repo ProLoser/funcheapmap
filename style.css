@@ -338,7 +338,7 @@ html, body, #map-canvas {
   margin-top: 10px;  
   height: 50px;
 
-  button, a, add-to-calendar-button {
+  button {
     flex: 1;
     font-size: 13px;
     padding: 6px 10px;
