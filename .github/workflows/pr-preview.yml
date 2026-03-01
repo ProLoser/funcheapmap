@@ -35,8 +35,20 @@ jobs:
           sed -i "s/__SPOTIFY_CLIENT_ID__/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
           sed -i "s/__SPOTIFY_CLIENT_SECRET__/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
 
+      - name: Stage preview files
+        id: stage
+        run: |
+          if [ "${{ github.event.action }}" != "closed" ]; then
+            mkdir -p /tmp/preview/19hz
+            cp index.html map.js categories.json /tmp/preview/
+            cp 19hz/index.html 19hz/map.js 19hz/venues.json /tmp/preview/19hz/
+            echo "source-dir=/tmp/preview" >> $GITHUB_OUTPUT
+          else
+            echo "source-dir=." >> $GITHUB_OUTPUT
+          fi
+
       - uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: .
+          source-dir: ${{ steps.stage.outputs.source-dir }}
           preview-branch: gh-pages
           umbrella-dir: pr-preview
