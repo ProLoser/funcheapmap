@@ -262,21 +262,21 @@ html, body, #map-canvas {
   height: 4px;
   background: #ccc;
   border-radius: 2px;
-  margin: 10px auto 0;
+  margin: 6px auto 0;
 }
 
 #event-card-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 8px 16px 0;
+  gap: 4px;
+  padding: 4px 6px 0;
 
   #event-card-prev, #event-card-next {
     font-size: 22px;
     line-height: 1;
-    padding: 4px 10px;
-    min-width: 36px;
+    padding: 2px 6px;
+    min-width: 28px;
   }
 
   #event-card-counter {
