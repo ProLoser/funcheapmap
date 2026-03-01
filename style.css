@@ -342,6 +342,16 @@ html, body, #map-canvas {
     flex: 1;
     font-size: 13px;
     padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 }
 
