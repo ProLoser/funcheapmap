@@ -1,13 +1,12 @@
 async function pageFunction(context) {
     const { $, request, log } = context;
 
-
-
-    const API_KEY = 'AIzaSyA6u8cQEcT8e94ZGBdbdWkC17aUP1etCos';
+    const API_KEY = 'GOOGLE_TOKEN';
     const pageTitle = $('title').first().text();
     const MAP_IFRAME = 'https://www.google.com/maps/embed/v1/place?q=';
     const mapIframe = $(`iframe[src^="${MAP_IFRAME}"]`);
     // const mapIframe = $('iframe[src]').filter((el) => el.src.startsWith(MAP_IFRAME));
+    const geocode = address => fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${API_KEY}`)
 
     if (mapIframe.length) {
 
@@ -16,7 +15,8 @@ async function pageFunction(context) {
         let geometry;
         try {
             // context.log.info(`Geocoding... ${JSON.stringify(location)}`)
-            results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${API_KEY}`)
+            // results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${API_KEY}`)
+            results = await geocode(location)
             if (results.ok) {
                 json = await results.json();
                 // context.log.info(`Resolved Geocode`, json.results[0]?.geometry.location)
@@ -26,7 +26,8 @@ async function pageFunction(context) {
                 if (!geometry) {
                     context.log.info('No geometry found, retrying with ", san francisco" appended');
                     const locationWithSF = location + ', san francisco';
-                    results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationWithSF)}&key=${API_KEY}`)
+                    // results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationWithSF)}&key=${API_KEY}`)
+                    results = await geocode(locationWithSF)
                     if (results.ok) {
                         json = await results.json();
                         geometry = json.results[0]?.geometry.location;
@@ -81,7 +82,7 @@ async function pageFunction(context) {
             if (postImage.length && !$('.at-above-post:first-of-type ~ .media-credit-container').length) {
                 context.log.info('Prepending wp-post-image to details');
                 details = `${$.html(postImage)}\n${details || ''}`;
-            } 
+            }
         } catch (error) {
             context.log.error('Error prepending wp-post-image to details', { error });
         }

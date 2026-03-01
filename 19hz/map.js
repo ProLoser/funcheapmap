@@ -570,13 +570,8 @@ window.showUserLocation = async function () {
  * Utility class for managing event data
  */
 class Events {
-  static CSV_URLS = [
-    './events_BayArea.csv',
-    './events_DC.csv',
-    './events_LosAngeles.csv',
-    './events_Miami.csv',
-    './events_Seattle.csv'
-  ];
+  static API_TOKEN = '__APIFY_TOKEN__';
+  static API = `https://api.apify.com/v2/acts/proloser~19hz-csv-crawler/runs/last/dataset/items?clean=true&token=${Events.API_TOKEN}`;
   static VENUES_URL = 'venues.json';
   
   /**
@@ -709,51 +704,6 @@ class Events {
       iso: eventDate.toISOString().split('T')[0],
       text: `${monthStr} ${day}, ${year}`
     };
-  }
-  
-  /**
-   * Parses CSV text into array of rows
-   * @param {string} csvText - Raw CSV text
-   * @returns {Array<Array<string>>} Array of rows, each row is array of fields
-   */
-  static parseCSV(csvText) {
-    const rows = [];
-    const lines = csvText.split('\n');
-    
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      
-      const row = [];
-      let currentField = '';
-      let inQuotes = false;
-      
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-        
-        if (char === '"') {
-          if (inQuotes && line[i + 1] === '"') {
-            // Escaped quote
-            currentField += '"';
-            i++;
-          } else {
-            // Toggle quote state
-            inQuotes = !inQuotes;
-          }
-        } else if (char === ',' && !inQuotes) {
-          // Field separator
-          row.push(currentField.trim());
-          currentField = '';
-        } else {
-          currentField += char;
-        }
-      }
-      
-      // Add last field
-      row.push(currentField.trim());
-      rows.push(row);
-    }
-    
-    return rows;
   }
   
   /**
@@ -934,157 +884,120 @@ class Events {
     return this.cachedInfoWindow;
   }
   
-  /**
-   * Loads event data from memory cache
-   * 
-   * @returns {object[]} events
-   */
   get() {
+    if (this.cache) return this.cache;
+    this.cache = window.localStorage.getItem('events');
+    if (this.cache) this.cache = JSON.parse(this.cache);
     return this.cache;
   }
-  
-  /**
-   * Stores the event data to memory cache
-   * 
-   * @param {object[]} events 
-   * @returns {object[]} events
-   */
+
   set(events) {
+    try {
+      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events_age', Date.now());
+    } catch (e) {
+      console.error(e);
+    }
     this.cache = events;
     return this.cache;
   }
-  
-  /**
-   * Loads events by querying the CSV files
-   * 
-   * @returns {Promise}
-   */
+
+  age() {
+    return window.localStorage.getItem('events_age');
+  }
+
+  isFresh(old = 86400) {
+    const age = this.age();
+    return age && age > (Date.now() - old);
+  }
+
   load() {
-    return this.query()
-      .then(this.set.bind(this));
+    if (this.isFresh()) return Promise.resolve(this.get());
+    return this.query().then(this.set.bind(this));
   }
   
-  /**
-   * Queries the CSV API and loads venues
-   *
-   * @returns {Promise}
-   */
+  static rowField(row, index, key) {
+    if (Array.isArray(row)) return row[index];
+    return row[key] ?? row[index];
+  }
+
   async query() {
-    console.log('Fetching CSVs from', Events.CSV_URLS);
+    console.log('Fetching events from', Events.API);
     console.log('Loading venues from', Events.VENUES_URL);
-    
-    // Load all CSVs and venues in parallel
-    const fetchPromises = Events.CSV_URLS.map(url => fetch(new Request(url)));
-    const responses = await Promise.all([...fetchPromises, fetch(new Request(Events.VENUES_URL))]);
-    
-    const csvResponses = responses.slice(0, -1);
-    const venuesResponse = responses[responses.length - 1];
-    
-    // Check all CSV responses
-    for (let i = 0; i < csvResponses.length; i++) {
-      if (!csvResponses[i].ok) {
-        const error = new Error(`CSV Fetch Failed for ${Events.CSV_URLS[i]}: ${csvResponses[i].status}`);
-        error.response = csvResponses[i];
-        throw error;
-      }
+    const [apiResponse, venuesResponse] = await Promise.all([
+      fetch(new Request(Events.API)),
+      fetch(new Request(Events.VENUES_URL))
+    ]);
+    if (!apiResponse.ok) {
+      const error = new Error(`Events Query Failed! ${apiResponse.status}`);
+      error.response = apiResponse;
+      throw error;
     }
-    
     if (!venuesResponse.ok) {
       const error = new Error(`Venues Fetch Failed! ${venuesResponse.status}`);
       error.response = venuesResponse;
       throw error;
     }
-    
-    // Get text from all CSV responses
-    const csvTexts = await Promise.all(csvResponses.map(r => r.text()));
-    const venues = await venuesResponse.json();
-    
-    console.log(`Loaded ${venues.length} venues`);
-    
-    // Create venue lookup map
+    const [items, venues] = await Promise.all([apiResponse.json(), venuesResponse.json()]);
+    console.log(`Loaded ${items.length} items from API, ${venues.length} venues`);
     const venueMap = new Map();
     venues.forEach(venue => {
-      const normalizedName = Events.normalizeVenueName(venue.name);
-      venueMap.set(normalizedName, venue);
+      venueMap.set(Events.normalizeVenueName(venue.name), venue);
     });
-    
-    // Parse all CSVs and merge rows
-    let allRows = [];
-    csvTexts.forEach((csvText, index) => {
-      const rows = Events.parseCSV(csvText);
-      console.log(`Parsed ${rows.length} rows from ${Events.CSV_URLS[index]}`);
-      allRows = allRows.concat(rows);
-    });
-    console.log(`Total rows from all CSVs: ${allRows.length}`);
-    
-    // Transform rows to events
     const events = [];
     const unmatchedVenues = new Set();
-    
-    allRows.forEach((row, index) => {
-      // CSV structure:
-      // 0: Date, 1: Title, 2: Genres, 3: Venue, 4: Time, 
-      // 5: Cost, 6: Age, 7: Promoter, 8: URL1, 9: URL2, 10: Numeric
-      // Note: Artists are extracted from Title (column 1)
-      
-      if (row.length < 8) {
+    const field = (row, index) => Events.rowField(row, index, ['date', 'title', 'genres', 'venue', 'time', 'cost', 'age', 'promoter', 'url1', 'url2'][index]);
+    items.forEach((row, index) => {
+      if (!field(row, 1) || !field(row, 3)) {
         console.warn(`Row ${index} has insufficient fields:`, row);
         return;
       }
-      
-      const rawVenue = row[3];
-      const normalizedVenue = Events.normalizeVenueName(rawVenue);
-      const venueData = venueMap.get(normalizedVenue);
-      
+      const rawVenue = field(row, 3);
+      const venueData = venueMap.get(Events.normalizeVenueName(rawVenue));
       if (!venueData) {
         unmatchedVenues.add(rawVenue);
-        return; // Skip events with unmatched venues
-      }
-      
-      const parsedDate = Events.parseCSVDate(row[0]);
-      if (!parsedDate) {
-        console.warn(`Could not parse date: ${row[0]}`);
         return;
       }
-      
-      // Extract artists from title instead of using promoter field
-      const extractedArtists = Events.extractArtistsFromTitle(row[1]) || 'TBA';
-      
-      // Build event object
-      const event = {
-        title: row[1],
+      const parsedDate = Events.parseCSVDate(field(row, 0));
+      if (!parsedDate) {
+        console.warn(`Could not parse date: ${field(row, 0)}`);
+        return;
+      }
+      const extractedArtists = Events.extractArtistsFromTitle(field(row, 1)) || 'TBA';
+      const genres = field(row, 2);
+      const genresList = genres ? genres.split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [];
+      const url1 = field(row, 8);
+      const url2 = field(row, 9);
+      const eventUrl = url1 || url2 || '#';
+      events.push({
+        title: field(row, 1),
         venue: venueData.name,
         geometry: venueData.geometry,
         date: parsedDate.iso,
         date_text: parsedDate.text,
-        time: row[4],
-        cost: row[5],
-        cost_details: row[6],
-        extractedArtists: extractedArtists,
-        categories: row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c) : [],
-        url: row[8] || row[9] || '#',
-        eventUrl: row[8] || row[9] || '#',
-        promoter: row[7] || '',
+        time: field(row, 4),
+        cost: field(row, 5),
+        cost_details: field(row, 6),
+        extractedArtists,
+        categories: genresList,
+        url: eventUrl,
+        eventUrl,
+        promoter: field(row, 7) || '',
         details: `
-          <p><strong>Genres:</strong> ${row[2] ? row[2].split(',').map(g => Events.normalizeCategory(g)).filter(c => c).join(', ') : 'N/A'}</p>
+          <p><strong>Genres:</strong> ${genresList.length ? genresList.join(', ') : 'N/A'}</p>
           <p><strong>Artists:</strong> ${extractedArtists}</p>
-          ${row[7] ? `<p><strong>Promoter:</strong> ${row[7]}</p>` : ''}
-          <p><strong>Age:</strong> ${row[6]}</p>
-          <p><strong>Cost:</strong> ${row[5]}</p>
-          ${row[8] ? `<p><a href="${row[8]}" target="_blank">Event Link</a></p>` : ''}
-          ${row[9] ? `<p><a href="${row[9]}" target="_blank">Additional Link</a></p>` : ''}
+          ${field(row, 7) ? `<p><strong>Promoter:</strong> ${field(row, 7)}</p>` : ''}
+          <p><strong>Age:</strong> ${field(row, 6)}</p>
+          <p><strong>Cost:</strong> ${field(row, 5)}</p>
+          ${url1 ? `<p><a href="${url1}" target="_blank">Event Link</a></p>` : ''}
+          ${url2 ? `<p><a href="${url2}" target="_blank">Additional Link</a></p>` : ''}
         `
-      };
-      
-      events.push(event);
+      });
     });
-    
     console.log(`Successfully processed ${events.length} events`);
-    
     if (unmatchedVenues.size > 0) {
       console.warn(`Unmatched venues (${unmatchedVenues.size}):`, Array.from(unmatchedVenues).sort());
     }
-    
     return events;
   }
 }
