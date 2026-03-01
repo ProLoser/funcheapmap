@@ -1,0 +1,35 @@
+name: Deploy PR previews
+concurrency: preview-${{ github.ref }}
+on:
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+            - closed
+jobs:
+    deploy-preview:
+        runs-on: ubuntu-latest
+        steps:    
+            - uses: actions/checkout@v4
+            - name: Inject tokens
+              if: github.event.action != 'closed'
+              env:
+                APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+                GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
+                SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+                SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+              run: |
+                sed -i "s/__APIFY_TOKEN__/${APIFY_TOKEN}/g" map.js 19hz/map.js
+                sed -i "s/__GOOGLE_TOKEN__/${GOOGLE_TOKEN}/g" index.html
+                sed -i "s/__SPOTIFY_CLIENT_ID__/${SPOTIFY_CLIENT_ID}/g" 19hz/map.js
+                sed -i "s/__SPOTIFY_CLIENT_SECRET__/${SPOTIFY_CLIENT_SECRET}/g" 19hz/map.js
+            - uses: rossjrw/pr-preview-action@v1
+              with:
+                  source-dir: .
+                  preview-branch: gh-pages
+                  umbrella-dir: pr-preview
+                  action: auto
+                  wait-for-pages-deployment: false
+                  comment: true
+                  qr-code: false
