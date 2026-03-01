@@ -50,8 +50,9 @@ jobs:
       - uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ${{ steps.stage.outputs.source-dir }}
-          preview-branch: gh-pages
-          umbrella-dir: pr-preview
+          umbrella-dir: preview
+          qr-code: false
+          wait-for-pages-deployment: true
 
       - name: Trigger Pages deploy
         if: github.event.action != 'closed'
