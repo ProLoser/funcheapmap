@@ -32,6 +32,30 @@ function updateCardToggleButton() {
   button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
 }
 
+function buildCalendarUrl(event) {
+  const timeParts = event.time.split(' to ');
+  const start = new Date(`${event.date_text} ${timeParts[0]}`);
+  if (isNaN(start.getTime())) return '';
+  let end;
+  if (timeParts[1]) {
+    const startDateStr = start.toLocaleDateString('sv-SE');
+    if (timeParts[1].slice(-2) === 'am' && timeParts[0].slice(-2) === 'pm') {
+      const nextDay = new Date(start);
+      nextDay.setDate(nextDay.getDate() + 1);
+      end = new Date(`${nextDay.toLocaleDateString('sv-SE').replace(/-/gi, '/')} ${timeParts[1]}`);
+    } else {
+      end = new Date(`${startDateStr.replace(/-/gi, '/')} ${timeParts[1]}`);
+    }
+  } else {
+    end = new Date(start.getTime() + 60 * 60 * 1000);
+  }
+  const fmt = d => {
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  };
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${fmt(start)}/${fmt(end)}&details=${encodeURIComponent(event.eventUrl)}&location=${encodeURIComponent(event.venue)}&ctz=America%2FLos_Angeles`;
+}
+
 function buildCardContent(container, event) {
   const titleEl = container.querySelector('.event-card-title');
   titleEl.innerHTML = '';
@@ -60,6 +84,8 @@ function buildCardContent(container, event) {
   if (event.cost_details) {
     costEl.appendChild(document.createTextNode(' — ' + event.cost_details));
   }
+  const calendarEl = container.querySelector('#event-card-calendar');
+  if (calendarEl) calendarEl.href = buildCalendarUrl(event);
 }
 
 function showEventCard(event) {
