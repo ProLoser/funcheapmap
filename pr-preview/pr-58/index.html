@@ -14,18 +14,25 @@
 
   <div id="event-card">
     <div id="event-card-handle"></div>
-    <div id="event-card-body">
-      <div id="event-card-nav">
-        <button id="event-card-prev" class="ui-button" title="Previous event">&#8249;</button>
-        <span id="event-card-counter"></span>
-        <button id="event-card-next" class="ui-button" title="Next event">&#8250;</button>
+    <div id="event-card-nav">
+      <button id="event-card-prev" class="ui-button" title="Previous event">&#8249;</button>
+      <span id="event-card-counter"></span>
+      <button id="event-card-next" class="ui-button" title="Next event">&#8250;</button>
+    </div>
+    <div id="event-card-slider">
+      <div id="event-card-current">
+        <h2 class="event-card-title"></h2>
+        <p class="event-card-meta"></p>
+        <p class="event-card-cost"></p>
+        <div id="event-card-actions">
+          <button id="event-card-details" class="ui-button">Full Details</button>
+          <button id="event-card-close" class="ui-button">✕ Close</button>
+        </div>
       </div>
-      <h2 id="event-card-title"></h2>
-      <p id="event-card-meta"></p>
-      <p id="event-card-cost"></p>
-      <div id="event-card-actions">
-        <button id="event-card-details" class="ui-button">Full Details</button>
-        <button id="event-card-close" class="ui-button">✕ Close</button>
+      <div id="event-card-peek" aria-hidden="true">
+        <h2 class="event-card-title"></h2>
+        <p class="event-card-meta"></p>
+        <p class="event-card-cost"></p>
       </div>
     </div>
   </div>
