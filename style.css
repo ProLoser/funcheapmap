@@ -362,10 +362,14 @@ html, body, #map-canvas {
   font-size: 11px;
   padding: 8px;
 
+  .icon-close { display: none; }
+
   &.active {
     background: #e8f0fe;
     color: #1a73e8;
     fill: #1a73e8;
+    .icon-open { display: none; }
+    .icon-close { display: block; }
   }
 
   svg {
