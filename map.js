@@ -101,8 +101,11 @@ function buildCardContent(container, event) {
 function showEventCard(event) {
   currentCardIndex = visibleEventsList.indexOf(event);
   const current = document.getElementById('event-card-current');
+  const peek = document.getElementById('event-card-peek');
   current.style.transition = 'none';
   current.style.transform = 'translateX(0)';
+  peek.style.transition = 'none';
+  peek.style.transform = 'translateX(100%)';
   buildCardContent(current, event);
   document.getElementById('event-card-counter').textContent =
     `${currentCardIndex + 1} of ${visibleEventsList.length}`;
@@ -146,7 +149,7 @@ function finishNavigation(current, peek, newIndex) {
   current.style.transition = 'none';
   peek.style.transition = 'none';
   current.style.transform = 'translateX(0)';
-  peek.style.transform = '';
+  peek.style.transform = 'translateX(100%)';
   buildCardContent(current, visibleEventsList[currentCardIndex]);
   document.getElementById('event-card-counter').textContent =
     `${currentCardIndex + 1} of ${visibleEventsList.length}`;
