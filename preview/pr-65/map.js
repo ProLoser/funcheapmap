@@ -470,7 +470,7 @@ window.filter = async function (filters = {}) {
         // If filtering by date but event has no date, hide it
         event.visible = false;
       } else {
-        let eventDate = new Date(event.date);
+        let eventDate = new Date(event.date.replace(/-/g, '/'));
         // Make sure the date is valid
         if (isNaN(eventDate.getTime())) {
           event.visible = false;
@@ -597,8 +597,16 @@ window.filter = async function (filters = {}) {
   window.history.replaceState({}, '', '?' + query.join('&'));
   form.elements['countEvents'].innerText = count;
   form.elements['countCategories'].innerText = categories.length || 'All';
-  // Update the cached visible events list for card navigation
-  visibleEventsList = window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [];
+  // Update the cached visible events list for card navigation, sorted by start time
+  const getEventStartTime = event => {
+    if (!event.date_text || !event.time) return Infinity;
+    const timestamp = new Date(`${event.date_text} ${event.time.split(' to ')[0]}`).getTime();
+    return isNaN(timestamp) ? Infinity : timestamp;
+  };
+  visibleEventsList = (window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [])
+    .map(event => ({ event, startTime: getEventStartTime(event) }))
+    .sort((a, b) => a.startTime - b.startTime)
+    .map(({ event }) => event);
   // Dismiss the card when filters change since the current event may no longer be visible
   hideEventCard();
 };
@@ -862,7 +870,7 @@ class Events {
    * @param {number} [old=86400] - How long ago is considered old. Default: 24 hours
    * @returns {boolean} 
    */
-  isFresh(old = 86400) {
+  isFresh(old = 86400000) {
     let age = this.age();
     return age && age > (Date.now() - old);
   }
