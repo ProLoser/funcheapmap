@@ -1,0 +1,450 @@
+[
+  {
+    "id": 12998,
+    "count": 9060,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/annual-event-2\/",
+    "name": "**Annual Event**",
+    "slug": "annual-event-2",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/12998"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=12998"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "count": 28305,
+    "description": "These are the events that we think are the best of the best, or have something unique to offer.",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/top-pick\/",
+    "name": "*Top Pick*",
+    "slug": "top-pick",
+    "taxonomy": "category",
+    "parent": 3,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/4"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/3"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=4"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 184,
+    "count": 22,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/select-one\/",
+    "name": "- Select One -",
+    "slug": "select-one",
+    "taxonomy": "category",
+    "parent": 38,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/184"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/38"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=184"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 185,
+    "count": 672,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/location\/select-one-location\/",
+    "name": "- Select One -",
+    "slug": "select-one-location",
+    "taxonomy": "category",
+    "parent": 39,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/185"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/39"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=185"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 13083,
+    "count": 5,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/holidays\/1906-quake-anniversary\/",
+    "name": "1906 Quake Anniversary",
+    "slug": "1906-quake-anniversary",
+    "taxonomy": "category",
+    "parent": 75,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/13083"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/75"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=13083"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 7741,
+    "count": 44,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/holidays\/420\/",
+    "name": "420",
+    "slug": "420",
+    "taxonomy": "category",
+    "parent": 75,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/7741"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/75"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=7741"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 419,
+    "count": 152,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/sports-fitness\/49ers\/",
+    "name": "49ers",
+    "slug": "49ers",
+    "taxonomy": "category",
+    "parent": 71,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/419"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/71"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=419"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 8258,
+    "count": 265,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/holidays\/4th-of-july\/",
+    "name": "4th of July",
+    "slug": "4th-of-july",
+    "taxonomy": "category",
+    "parent": 75,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/8258"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/75"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=8258"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 13026,
+    "count": 16,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/event\/event-types\/holidays\/academy-awards-oscars\/",
+    "name": "Academy Awards \/ Oscars",
+    "slug": "academy-awards-oscars",
+    "taxonomy": "category",
+    "parent": 75,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/13026"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/75"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=13026"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 13344,
+    "count": 0,
+    "description": "",
+    "link": "http:\/\/sf.funcheap.com\/category\/ad\/",
+    "name": "Ad",
+    "slug": "ad",
+    "taxonomy": "category",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories\/13344"
+        }
+      ],
+      "collection": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/categories"
+        }
+      ],
+      "about": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/taxonomies\/category"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "http:\/\/sf.funcheap.com\/wp-json\/wp\/v2\/posts?categories=13344"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+]
