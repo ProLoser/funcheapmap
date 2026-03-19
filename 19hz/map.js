@@ -886,15 +886,15 @@ class Events {
   
   get() {
     if (this.cache) return this.cache;
-    this.cache = window.localStorage.getItem('events');
+    this.cache = window.localStorage.getItem('19hz_events');
     if (this.cache) this.cache = JSON.parse(this.cache);
     return this.cache;
   }
 
   set(events) {
     try {
-      window.localStorage.setItem('events', JSON.stringify(events));
-      window.localStorage.setItem('events_age', Date.now());
+      window.localStorage.setItem('19hz_events', JSON.stringify(events));
+      window.localStorage.setItem('19hz_events_age', Date.now());
     } catch (e) {
       console.error(e);
     }
@@ -903,7 +903,7 @@ class Events {
   }
 
   age() {
-    return window.localStorage.getItem('events_age');
+    return window.localStorage.getItem('19hz_events_age');
   }
 
   isFresh(old = 86400) {
