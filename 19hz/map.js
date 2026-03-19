@@ -265,7 +265,7 @@ window.filter = async function (filters = {}) {
         // If filtering by date but event has no date, hide it
         event.visible = false;
       } else {
-        let eventDate = new Date(event.date);
+        let eventDate = new Date(event.date.replace(/-/g, '/'));
         // Make sure the date is valid
         if (isNaN(eventDate.getTime())) {
           event.visible = false;
@@ -701,7 +701,7 @@ class Events {
     
     const eventDate = new Date(year, month, day);
     return {
-      iso: eventDate.toISOString().split('T')[0],
+      iso: `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
       text: `${monthStr} ${day}, ${year}`
     };
   }
@@ -906,7 +906,7 @@ class Events {
     return window.localStorage.getItem('events_age');
   }
 
-  isFresh(old = 86400) {
+  isFresh(old = 86400000) {
     const age = this.age();
     return age && age > (Date.now() - old);
   }

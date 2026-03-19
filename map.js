@@ -470,7 +470,7 @@ window.filter = async function (filters = {}) {
         // If filtering by date but event has no date, hide it
         event.visible = false;
       } else {
-        let eventDate = new Date(event.date);
+        let eventDate = new Date(event.date.replace(/-/g, '/'));
         // Make sure the date is valid
         if (isNaN(eventDate.getTime())) {
           event.visible = false;
@@ -862,7 +862,7 @@ class Events {
    * @param {number} [old=86400] - How long ago is considered old. Default: 24 hours
    * @returns {boolean} 
    */
-  isFresh(old = 86400) {
+  isFresh(old = 86400000) {
     let age = this.age();
     return age && age > (Date.now() - old);
   }
