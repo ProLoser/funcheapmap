@@ -597,8 +597,16 @@ window.filter = async function (filters = {}) {
   window.history.replaceState({}, '', '?' + query.join('&'));
   form.elements['countEvents'].innerText = count;
   form.elements['countCategories'].innerText = categories.length || 'All';
-  // Update the cached visible events list for card navigation
-  visibleEventsList = window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [];
+  // Update the cached visible events list for card navigation, sorted by start time
+  const getEventStartTime = event => {
+    if (!event.date_text || !event.time) return Infinity;
+    const timestamp = new Date(`${event.date_text} ${event.time.split(' to ')[0]}`).getTime();
+    return isNaN(timestamp) ? Infinity : timestamp;
+  };
+  visibleEventsList = (window.events.get()?.filter(e => e.visible && e.title && e.geometry) || [])
+    .map(event => ({ event, startTime: getEventStartTime(event) }))
+    .sort((a, b) => a.startTime - b.startTime)
+    .map(({ event }) => event);
   // Dismiss the card when filters change since the current event may no longer be visible
   hideEventCard();
 };
