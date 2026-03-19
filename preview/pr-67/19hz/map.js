@@ -629,19 +629,25 @@ class Events {
       }
     }
     
+    // Strip venue info (e.g., "Artist @ Venue - Date" → "Artist")
+    cleanedTitle = cleanedTitle.replace(/\s*@\s*.+$/, '').trim();
+
     // Format: "Event Name - Artist1, Artist2" or "Artist1 - Event Name"
     if (cleanedTitle.includes(' - ')) {
       const parts = cleanedTitle.split(' - ');
       // Take the first substantial part that looks like artists
       const firstPart = parts[0].trim();
       const secondPart = parts.length > 1 ? parts[1].trim() : '';
-      
+
+      // Ignore parts that look like a date (e.g., "3/19")
+      const secondPartIsDate = /^\d+\/\d+$/.test(secondPart);
+
       // Prefer the part with commas (likely multiple artists)
-      if (secondPart && secondPart.includes(',')) {
+      if (secondPart && secondPart.includes(',') && !secondPartIsDate) {
         cleanedTitle = secondPart;
       } else if (firstPart && firstPart.includes(',')) {
         cleanedTitle = firstPart;
-      } else if (secondPart) {
+      } else if (secondPart && !secondPartIsDate) {
         // Use second part if it exists (common format: "Event - Artists")
         cleanedTitle = secondPart;
       } else {
