@@ -1,8 +1,8 @@
 const fs = require('fs');
 const https = require('https');
 
-const INPUT_FILE = 'venues.json';
-const OUTPUT_FILE = 'venues.json';
+const INPUT_FILE = '../venues.json';
+const OUTPUT_FILE = '../venues.json';
 const DELAY_MS = 1000; // Nominatim requires 1 request per second
 
 function delay(ms) {
