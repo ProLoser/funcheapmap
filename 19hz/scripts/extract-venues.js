@@ -97,6 +97,6 @@ console.log(`\nTotal unique venues across all files: ${allVenues.size}`);
 console.log('\nWriting to new-venues.json...');
 
 const venueArray = Array.from(allVenues.values());
-fs.writeFileSync('new-venues.json', JSON.stringify(venueArray, null, 2));
+fs.writeFileSync('../new-venues.json', JSON.stringify(venueArray, null, 2));
 
 console.log(`Done! Wrote ${venueArray.length} venues to new-venues.json`);
