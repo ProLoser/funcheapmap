@@ -82,6 +82,24 @@
             </p>
         </details>
     </form>
+    <script src="https://browser.sentry-cdn.com/10.42.0/bundle.tracing.replay.min.js" crossorigin="anonymous"></script>
+    <script>
+        if (typeof Sentry !== 'undefined') Sentry.init({
+            dsn: "__SENTRY_DSN__",
+            environment: "production",
+            integrations: [
+                Sentry.browserTracingIntegration(),
+                Sentry.replayIntegration({
+                    maskAllText: false,
+                    blockAllMedia: false,
+                }),
+            ],
+            tracesSampleRate: 0.2,
+            tracePropagationTargets: ["funcheapsfmap.com"],
+            replaysSessionSampleRate: 0.1,
+            replaysOnErrorSampleRate: 1.0,
+        });
+    </script>
     <script async defer src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2"></script>
     <script src="map.js"></script>
     <script async
