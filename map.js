@@ -220,7 +220,12 @@ function initEventCard() {
     const deltaY = e.changedTouches[0].clientY - touchStartY;
 
     if (gestureAxis === 'vertical') {
-      if (deltaY > SWIPE_THRESHOLD) hideEventCard();
+      if (deltaY > SWIPE_THRESHOLD) {
+        hideEventCard();
+        cardModeEnabled = false;
+        localStorage.setItem('cardMode', false);
+        updateCardToggleButton();
+      }
       return;
     }
 
