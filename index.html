@@ -118,6 +118,12 @@
   <script src="map.js"></script>
   <script async src="https://maps.googleapis.com/maps/api/js?v=3.exp&loading=async&key=__GOOGLE_TOKEN__&libraries=marker&callback=initialize"></script>
 
+<!-- Sentry -->
+<script src="https://cdn.jsdelivr.net/npm/@sentry/browser@8/build/bundle.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.init({ dsn: '__SENTRY_DSN__', environment: 'funcheapsf' })
+</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NECRETGYD"></script>
 <script>
