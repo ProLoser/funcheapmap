@@ -25,7 +25,11 @@ const SWIPE_THRESHOLD = 50;
 const VELOCITY_THRESHOLD = 0.3; // px/ms
 const CARD_TRANSITION = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
 
-function updateCardToggleButton() {
+function updateCardToggleButton(enabled) {
+  if (enabled !== undefined) {
+    cardModeEnabled = enabled;
+    localStorage.setItem('cardMode', enabled);
+  }
   const button = document.getElementById('card-mode-toggle');
   if (!button) return;
   button.classList.toggle('active', cardModeEnabled);
@@ -222,9 +226,7 @@ function initEventCard() {
     if (gestureAxis === 'vertical') {
       if (deltaY > SWIPE_THRESHOLD) {
         hideEventCard();
-        cardModeEnabled = false;
-        localStorage.setItem('cardMode', false);
-        updateCardToggleButton();
+        updateCardToggleButton(false);
       }
       return;
     }
@@ -274,9 +276,7 @@ function initEventCard() {
   const toggleButton = document.getElementById('card-mode-toggle');
   updateCardToggleButton();
   toggleButton.addEventListener('click', () => {
-    cardModeEnabled = !cardModeEnabled;
-    localStorage.setItem('cardMode', cardModeEnabled);
-    updateCardToggleButton();
+    updateCardToggleButton(!cardModeEnabled);
     if (cardModeEnabled && Events.currentEvent) {
       showEventCard(Events.currentEvent);
     } else if (!cardModeEnabled) {
