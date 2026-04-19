@@ -26,14 +26,18 @@ const VELOCITY_THRESHOLD = 0.3; // px/ms
 const CARD_TRANSITION = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
 
 function updateCardToggleButton(enabled) {
-  if (enabled !== undefined) {
-    cardModeEnabled = enabled;
-    localStorage.setItem('cardMode', enabled);
-  }
+  cardModeEnabled = enabled;
+  localStorage.setItem('cardMode', enabled);
   const button = document.getElementById('card-mode-toggle');
-  if (!button) return;
-  button.classList.toggle('active', cardModeEnabled);
-  button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
+  if (button) {
+    button.classList.toggle('active', cardModeEnabled);
+    button.title = cardModeEnabled ? 'Disable floating cards' : 'Enable floating cards';
+  }
+  if (enabled && Events.currentEvent) {
+    showEventCard(Events.currentEvent);
+  } else if (!enabled) {
+    hideEventCard();
+  }
 }
 
 function buildCardContent(container, event) {
@@ -225,7 +229,6 @@ function initEventCard() {
 
     if (gestureAxis === 'vertical') {
       if (deltaY > SWIPE_THRESHOLD) {
-        hideEventCard();
         updateCardToggleButton(false);
       }
       return;
@@ -274,14 +277,9 @@ function initEventCard() {
   });
 
   const toggleButton = document.getElementById('card-mode-toggle');
-  updateCardToggleButton();
+  updateCardToggleButton(cardModeEnabled);
   toggleButton.addEventListener('click', () => {
     updateCardToggleButton(!cardModeEnabled);
-    if (cardModeEnabled && Events.currentEvent) {
-      showEventCard(Events.currentEvent);
-    } else if (!cardModeEnabled) {
-      hideEventCard();
-    }
   });
 }
 
