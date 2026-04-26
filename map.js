@@ -812,7 +812,7 @@ class Events {
           <details ${expanded ? 'open' : ''}>
             <summary>Expand Details</summary>
             <div id="details">
-              ${event.details}
+              ${event.details || `<p><a target="_blank" href="${event.url}">View full details on FunCheapSF</a></p>`}
             </div>
           </details>
         </div>
@@ -850,8 +850,10 @@ class Events {
    */
   set(events) {
     try {
+      // Strip large HTML details field before caching to avoid localStorage quota errors on mobile
+      const storable = events.map(({details, ...event}) => event);
       // Known to throw QuotaExceededException on Safari
-      window.localStorage.setItem('events', JSON.stringify(events));
+      window.localStorage.setItem('events', JSON.stringify(storable));
       window.localStorage.setItem('events_age', Date.now());
     } catch (e) {
       console.error(e)

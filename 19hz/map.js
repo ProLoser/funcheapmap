@@ -893,7 +893,9 @@ class Events {
 
   set(events) {
     try {
-      window.localStorage.setItem('19hz_events', JSON.stringify(events));
+      // Strip large HTML details field before caching to avoid localStorage quota errors on mobile
+      const storable = events.map(({details, ...event}) => event);
+      window.localStorage.setItem('19hz_events', JSON.stringify(storable));
       window.localStorage.setItem('19hz_events_age', Date.now());
     } catch (e) {
       console.error(e);
