@@ -934,9 +934,10 @@ class Events {
     });
     const events = [];
     const unmatchedVenues = new Set();
-    items.forEach((row, index) => {
+    const invalidRows = [];
+    items.forEach(row => {
       if (!row.title || !row.venue) {
-        console.warn(`Row ${index} has insufficient fields:`, row);
+        invalidRows.push(row);
         return;
       }
       const venueLabel = Events.normalizeVenueName(row.venue);
@@ -981,6 +982,9 @@ class Events {
       });
     });
     console.log(`Successfully processed ${events.length} events`);
+    if (invalidRows.length) {
+      console.warn(`Skipped ${invalidRows.length} rows missing title or venue from the events API. Check the crawler for failed CSV requests. Sample:`, invalidRows[0]);
+    }
     if (unmatchedVenues.size > 0) {
       console.warn(`Unmatched venues (${unmatchedVenues.size}):`, Array.from(unmatchedVenues).sort());
     }
