@@ -1,0 +1,38 @@
+name: Update 19hz venues
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-19hz-venues
+  cancel-in-progress: false
+
+jobs:
+  update-venues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Extract, merge, and geocode venues
+        working-directory: 19hz/scripts
+        run: |
+          node extract-venues.js
+          node merge-venues.js
+          node geocode-venues.js
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/update-19hz-venues
+          base: main
+          add-paths: 19hz/venues.json
+          commit-message: Update 19hz venues
+          title: Update 19hz venues
+          body: Updates the 19hz venue data using the extraction, merge, and geocoding scripts.
