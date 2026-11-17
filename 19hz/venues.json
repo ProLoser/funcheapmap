@@ -9975,12 +9975,20 @@
   {
     "label": "There/There Bar (Oakland)",
     "name": "There/There Bar",
-    "address": "Oakland"
+    "address": "Oakland",
+    "geometry": {
+      "lat": 37.814543,
+      "lng": -122.26698
+    }
   },
   {
     "label": "Three Links Deep Ellum (Dallas)",
     "name": "Three Links Deep Ellum",
-    "address": "Dallas"
+    "address": "Dallas",
+    "geometry": {
+      "lat": 32.7843163,
+      "lng": -96.7844827
+    }
   },
   {
     "label": "Three Top Lounge At The Salt Shed (Chicago)",
@@ -9995,7 +10003,11 @@
   {
     "label": "Throw Social (Washington, DC)",
     "name": "Throw Social",
-    "address": "Washington, DC"
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.914721,
+      "lng": -76.9834578
+    }
   },
   {
     "label": "Thunderbird Hall (Philadelphia)",
@@ -10015,12 +10027,20 @@
   {
     "label": "Tiki Bar (Costa Mesa)",
     "name": "Tiki Bar",
-    "address": "Costa Mesa"
+    "address": "Costa Mesa",
+    "geometry": {
+      "lat": 33.636349,
+      "lng": -117.9315932
+    }
   },
   {
     "label": "Timbre Room (Seattle, WA)",
     "name": "Timbre Room",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6169221,
+      "lng": -122.3311669
+    }
   },
   {
     "label": "Time Nightclub (Costa Mesa)",
@@ -10030,17 +10050,29 @@
   {
     "label": "Time Warp (Seattle, WA)",
     "name": "Time Warp",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6135863,
+      "lng": -122.3192629
+    }
   },
   {
     "label": "Tomorrowland (Miami)",
     "name": "Tomorrowland",
-    "address": "Miami"
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.7880686,
+      "lng": -80.1943992
+    }
   },
   {
     "label": "Tongue & Groove (Atlanta)",
     "name": "Tongue & Groove",
-    "address": "Atlanta"
+    "address": "Atlanta",
+    "geometry": {
+      "lat": 33.8223388,
+      "lng": -84.3687794
+    }
   },
   {
     "label": "Tortona Big Top (Alameda)",
@@ -10050,47 +10082,83 @@
   {
     "label": "Townhouse (Los Angeles)",
     "name": "Townhouse",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 33.8092107,
+      "lng": -118.2625476
+    }
   },
   {
     "label": "Townhouse Venice (Los Angeles)",
     "name": "Townhouse Venice",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 33.9872485,
+      "lng": -118.4726526
+    }
   },
   {
     "label": "Toyota Center (Houston)",
     "name": "Toyota Center",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.7507473,
+      "lng": -95.3622315
+    }
   },
   {
     "label": "Tracks (Denver)",
     "name": "Tracks",
-    "address": "Denver"
+    "address": "Denver",
+    "geometry": {
+      "lat": 39.7677614,
+      "lng": -104.9749659
+    }
   },
   {
     "label": "Tradex (Abbotsford, BC)",
     "name": "Tradex",
-    "address": "Abbotsford, BC"
+    "address": "Abbotsford, BC",
+    "geometry": {
+      "lat": 49.0239761,
+      "lng": -122.3814919
+    }
   },
   {
     "label": "Transmission (Washington, DC)",
     "name": "Transmission",
-    "address": "Washington, DC"
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.9000394,
+      "lng": -76.986589
+    }
   },
   {
     "label": "Treehouse (Denver)",
     "name": "Treehouse",
-    "address": "Denver"
+    "address": "Denver",
+    "geometry": {
+      "lat": 39.759915,
+      "lng": -104.9839232
+    }
   },
   {
     "label": "Trinity Drug Store (Toronto)",
     "name": "Trinity Drug Store",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6519941,
+      "lng": -79.4068669
+    }
   },
   {
     "label": "Trinity Nightclub (Seattle, WA)",
     "name": "Trinity Nightclub",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6016022,
+      "lng": -122.3333473
+    }
   },
   {
     "label": "Trio Lounge (Portland, OR)",
@@ -10100,12 +10168,20 @@
   {
     "label": "Troubadour (Los Angeles)",
     "name": "Troubadour",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0816145,
+      "lng": -118.3893521
+    }
   },
   {
     "label": "TV Lounge (Detroit)",
     "name": "TV Lounge",
-    "address": "Detroit"
+    "address": "Detroit",
+    "geometry": {
+      "lat": 42.3380785,
+      "lng": -83.0625727
+    }
   },
   {
     "label": "Twins Nightclub (Austin)",
@@ -10130,22 +10206,38 @@
   {
     "label": "Underground (San Francisco)",
     "name": "Underground",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.728251,
+      "lng": -122.4759334
+    }
   },
   {
     "label": "Underground Arts (Philadelphia)",
     "name": "Underground Arts",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9590941,
+      "lng": -75.1590111
+    }
   },
   {
     "label": "Union Tavern (Somerville)",
     "name": "Union Tavern",
-    "address": "Somerville"
+    "address": "Somerville",
+    "geometry": {
+      "lat": 42.3808838,
+      "lng": -71.0981995
+    }
   },
   {
     "label": "Union Transfer (Philadelphia)",
     "name": "Union Transfer",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9613822,
+      "lng": -75.1553446
+    }
   },
   {
     "label": "Unitarian Universalist Society (San Francisco)",
@@ -10155,7 +10247,11 @@
   {
     "label": "United Center (Chicago)",
     "name": "United Center",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.8806831,
+      "lng": -87.6741851
+    }
   },
   {
     "label": "United Heritage Hall (Round Rock/Austin)",
@@ -10185,7 +10281,11 @@
   {
     "label": "Upstairs (San Francisco)",
     "name": "Upstairs",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": -0.2019846,
+      "lng": -78.4914474
+    }
   },
   {
     "label": "Upstairs At The 700 (Philadelphia)",
@@ -10200,7 +10300,11 @@
   {
     "label": "Urban Mo's (San Diego)",
     "name": "Urban Mo's",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7483704,
+      "lng": -117.1624268
+    }
   },
   {
     "label": "Usual Place + Horse Trailer Hideout (Las Vegas)",
@@ -10210,7 +10314,11 @@
   {
     "label": "Utopia (Los Angeles)",
     "name": "Utopia",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 33.9977675,
+      "lng": -118.4043667
+    }
   },
   {
     "label": "Utopia (McAllen)",
@@ -10220,7 +10328,11 @@
   {
     "label": "Utopian Tailgate (Chicago)",
     "name": "Utopian Tailgate",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.9113754,
+      "lng": -87.6349829
+    }
   },
   {
     "label": "Vagabond (Washington, DC)",
@@ -10230,7 +10342,11 @@
   {
     "label": "Valley Bar (Phoenix)",
     "name": "Valley Bar",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 50.9891114,
+      "lng": -1.4977526
+    }
   },
   {
     "label": "Vancouver Forum (Vancouver, BC)",
@@ -10240,7 +10356,11 @@
   {
     "label": "Variety Playhouse (Atlanta)",
     "name": "Variety Playhouse",
-    "address": "Atlanta"
+    "address": "Atlanta",
+    "geometry": {
+      "lat": 33.7636091,
+      "lng": -84.3509425
+    }
   },
   {
     "label": "Vecinos (Miami Beach)",
@@ -10255,7 +10375,11 @@
   {
     "label": "Venue (Vancouver, BC)",
     "name": "Venue",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2733167,
+      "lng": -123.1325319
+    }
   },
   {
     "label": "Vera Cocina (Washington, DC)",
@@ -10265,12 +10389,20 @@
   {
     "label": "Vermillion (Seattle)",
     "name": "Vermillion",
-    "address": "Seattle"
+    "address": "Seattle",
+    "geometry": {
+      "lat": 47.6144208,
+      "lng": -122.3179514
+    }
   },
   {
     "label": "Vermillion Art Gallery & Bar (Seattle, WA)",
     "name": "Vermillion Art Gallery & Bar",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6144208,
+      "lng": -122.3179514
+    }
   },
   {
     "label": "Vesper Books And Wine (Detroit)",
@@ -10280,12 +10412,20 @@
   {
     "label": "Vice (Seattle, WA)",
     "name": "Vice",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6147343,
+      "lng": -122.3284395
+    }
   },
   {
     "label": "Victory Hall (Seattle, WA)",
     "name": "Victory Hall",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.5914096,
+      "lng": -122.3347871
+    }
   },
   {
     "label": "Village Studios (Vancouver, BC)",
@@ -10295,12 +10435,20 @@
   {
     "label": "Vinyl (Philadelphia)",
     "name": "Vinyl",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9492252,
+      "lng": -75.2127726
+    }
   },
   {
     "label": "Vogue Theatre (Vancouver, BC)",
     "name": "Vogue Theatre",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2797734,
+      "lng": -123.121631
+    }
   },
   {
     "label": "Volcanic Theater Pub (Bend, OR)",
@@ -10325,7 +10473,11 @@
   {
     "label": "Vulcan Gas Company (Austin)",
     "name": "Vulcan Gas Company",
-    "address": "Austin"
+    "address": "Austin",
+    "geometry": {
+      "lat": 30.2671481,
+      "lng": -97.7384757
+    }
   },
   {
     "label": "Walter Studios (Phoenix)",
@@ -10335,12 +10487,20 @@
   {
     "label": "Walter Where?House (Phoenix)",
     "name": "Walter Where?House",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 33.4556917,
+      "lng": -112.1048387
+    }
   },
   {
     "label": "WaMu Theater (Seattle, WA)",
     "name": "WaMu Theater",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.593154,
+      "lng": -122.3329041
+    }
   },
   {
     "label": "Wanderlinger Brewing Company (Chattanooga, TN)",
@@ -10350,17 +10510,29 @@
   {
     "label": "Warehouse 215 (Phoenix)",
     "name": "Warehouse 215",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 33.4423573,
+      "lng": -112.0816331
+    }
   },
   {
     "label": "Warehouse 323 (Los Angeles)",
     "name": "Warehouse 323",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0329469,
+      "lng": -118.2412505
+    }
   },
   {
     "label": "Warehouse Live Midtown (Houston)",
     "name": "Warehouse Live Midtown",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.7456965,
+      "lng": -95.3755102
+    }
   },
   {
     "label": "Warehouse On Watts - The Loft (Philadelphia)",
@@ -10370,7 +10542,11 @@
   {
     "label": "Warehouse On Watts (Philadelphia)",
     "name": "Warehouse On Watts",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9707028,
+      "lng": -75.1585223
+    }
   },
   {
     "label": "Warehouse215 (Phoenix)",
@@ -10380,17 +10556,29 @@
   {
     "label": "Washington Hall (Seattle, WA)",
     "name": "Washington Hall",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.602808,
+      "lng": -122.314587
+    }
   },
   {
     "label": "Water and Power (Los Angeles)",
     "name": "Water and Power",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0514015,
+      "lng": -118.2361239
+    }
   },
   {
     "label": "Waterland Arcade (Des Moines, WA)",
     "name": "Waterland Arcade",
-    "address": "Des Moines, WA"
+    "address": "Des Moines, WA",
+    "geometry": {
+      "lat": 47.4016005,
+      "lng": -122.3242815
+    }
   },
   {
     "label": "Watson Island Park (Miami Beach)",
@@ -10405,27 +10593,47 @@
   {
     "label": "Westdale United (Hamilton)",
     "name": "Westdale United",
-    "address": "Hamilton"
+    "address": "Hamilton",
+    "geometry": {
+      "lat": 43.2621176,
+      "lng": -79.9069252
+    }
   },
   {
     "label": "Westin Copley (Boston)",
     "name": "Westin Copley",
-    "address": "Boston"
+    "address": "Boston",
+    "geometry": {
+      "lat": 42.3485752,
+      "lng": -71.0772032
+    }
   },
   {
     "label": "Whistler (Chicago)",
     "name": "Whistler",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.6838284,
+      "lng": -87.6548866
+    }
   },
   {
     "label": "Whistler Resort (Whistler, BC)",
     "name": "Whistler Resort",
-    "address": "Whistler, BC"
+    "address": "Whistler, BC",
+    "geometry": {
+      "lat": 50.0839117,
+      "lng": -123.0601911
+    }
   },
   {
     "label": "White Horse Inn (Oakland)",
     "name": "White Horse Inn",
-    "address": "Oakland"
+    "address": "Oakland",
+    "geometry": {
+      "lat": 37.8518069,
+      "lng": -122.260572
+    }
   },
   {
     "label": "White Oak Music Hall - Downstairs (Houston)",
@@ -10435,7 +10643,11 @@
   {
     "label": "White Oak Music Hall (Houston)",
     "name": "White Oak Music Hall",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.7857927,
+      "lng": -95.366809
+    }
   },
   {
     "label": "White Rabbit (San Francisco)",
@@ -10460,52 +10672,92 @@
   {
     "label": "William C. Powers Jr. Student Activity Center (Austin)",
     "name": "William C. Powers Jr. Student Activity Center",
-    "address": "Austin"
+    "address": "Austin",
+    "geometry": {
+      "lat": 30.2849283,
+      "lng": -97.7367665
+    }
   },
   {
     "label": "Wok And Roll (Washington, DC)",
     "name": "Wok And Roll",
-    "address": "Washington, DC"
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8996316,
+      "lng": -77.0203987
+    }
   },
   {
     "label": "Wonder Ballroom (Portland, OR)",
     "name": "Wonder Ballroom",
-    "address": "Portland, OR"
+    "address": "Portland, OR",
+    "geometry": {
+      "lat": 45.5407094,
+      "lng": -122.663501
+    }
   },
   {
     "label": "Wonderlove (Portland, OR)",
     "name": "Wonderlove",
-    "address": "Portland, OR"
+    "address": "Portland, OR",
+    "geometry": {
+      "lat": 45.5134977,
+      "lng": -122.6633494
+    }
   },
   {
     "label": "Wonky Power (Houston)",
     "name": "Wonky Power",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.7545192,
+      "lng": -95.3344193
+    }
   },
   {
     "label": "Wooly's (Des Moines, IA)",
     "name": "Wooly's",
-    "address": "Des Moines, IA"
+    "address": "Des Moines, IA",
+    "geometry": {
+      "lat": 41.5899048,
+      "lng": -93.6108781
+    }
   },
   {
     "label": "Wow Hall (Eugene, OR)",
     "name": "Wow Hall",
-    "address": "Eugene, OR"
+    "address": "Eugene, OR",
+    "geometry": {
+      "lat": 44.0511779,
+      "lng": -123.0970964
+    }
   },
   {
     "label": "Wurstkuche Venice (Venice/Los Angeles)",
     "name": "Wurstkuche Venice",
-    "address": "Venice/Los Angeles"
+    "address": "Venice/Los Angeles",
+    "geometry": {
+      "lat": 33.999778,
+      "lng": -118.4650308
+    }
   },
   {
     "label": "Wynwood Arts District (Miami)",
     "name": "Wynwood Arts District",
-    "address": "Miami"
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.800645,
+      "lng": -80.19908
+    }
   },
   {
     "label": "Xs Nightclub (Las Vegas)",
     "name": "Xs Nightclub",
-    "address": "Las Vegas"
+    "address": "Las Vegas",
+    "geometry": {
+      "lat": 36.128169,
+      "lng": -115.164866
+    }
   },
   {
     "label": "Xuxa 6910 Shirley Ave (Austin)",
@@ -10515,27 +10767,47 @@
   {
     "label": "Yamashiro Hollywood (Los Angeles)",
     "name": "Yamashiro Hollywood",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.1058544,
+      "lng": -118.3422938
+    }
   },
   {
     "label": "Yost Theater (Santa Ana)",
     "name": "Yost Theater",
-    "address": "Santa Ana"
+    "address": "Santa Ana",
+    "geometry": {
+      "lat": 33.7474972,
+      "lng": -117.8652446
+    }
   },
   {
     "label": "Yucca Tap Room (Tempe)",
     "name": "Yucca Tap Room",
-    "address": "Tempe"
+    "address": "Tempe",
+    "geometry": {
+      "lat": 33.392619,
+      "lng": -111.9406193
+    }
   },
   {
     "label": "Yz' Karaoke Cafe (Mesa)",
     "name": "Yz' Karaoke Cafe",
-    "address": "Mesa"
+    "address": "Mesa",
+    "geometry": {
+      "lat": 33.3890445,
+      "lng": -111.864668
+    }
   },
   {
     "label": "Zanzi (Oakland)",
     "name": "Zanzi",
-    "address": "Oakland"
+    "address": "Oakland",
+    "geometry": {
+      "lat": 37.8113118,
+      "lng": -122.266287
+    }
   },
   {
     "label": "Zebbie's Garden (Washington, DC)",
@@ -10550,7 +10822,11 @@
   {
     "label": "Zebulon (Los Angeles)",
     "name": "Zebulon",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.1071951,
+      "lng": -118.2547392
+    }
   },
   {
     "label": "Zero Lounge (Los Angeles)",
@@ -10560,7 +10836,11 @@
   {
     "label": "Zeyzey (Miami)",
     "name": "Zeyzey",
-    "address": "Miami"
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.8328078,
+      "lng": -80.189092
+    }
   },
   {
     "label": "Zouk Nightclub (Las Vegas)",
@@ -10575,6 +10855,10 @@
   {
     "label": "Zuzu (Cambridge)",
     "name": "Zuzu",
-    "address": "Cambridge"
+    "address": "Cambridge",
+    "geometry": {
+      "lat": 42.3638002,
+      "lng": -71.1013814
+    }
   }
 ]
