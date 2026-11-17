@@ -8153,7 +8153,11 @@
   {
     "label": "TBA (Corona)",
     "name": "TBA",
-    "address": "Corona"
+    "address": "Corona",
+    "geometry": {
+      "lat": -25.3750753,
+      "lng": -49.3316902
+    }
   },
   {
     "label": "TBA (Dallas)",
@@ -8163,12 +8167,20 @@
   {
     "label": "TBA (Denver)",
     "name": "TBA",
-    "address": "Denver"
+    "address": "Denver",
+    "geometry": {
+      "lat": -25.4264714,
+      "lng": -49.2861537
+    }
   },
   {
     "label": "TBA (Detroit)",
     "name": "TBA",
-    "address": "Detroit"
+    "address": "Detroit",
+    "geometry": {
+      "lat": -25.4575841,
+      "lng": -49.3114823
+    }
   },
   {
     "label": "TBA (DTLA/Los Angeles)",
@@ -8198,7 +8210,11 @@
   {
     "label": "TBA (Houston)",
     "name": "TBA",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": -25.4726026,
+      "lng": -49.3058992
+    }
   },
   {
     "label": "TBA (Inland Empire)",
@@ -8213,7 +8229,11 @@
   {
     "label": "TBA (Los ANgeles)",
     "name": "TBA",
-    "address": "Los ANgeles"
+    "address": "Los ANgeles",
+    "geometry": {
+      "lat": -25.5585166,
+      "lng": -49.2877683
+    }
   },
   {
     "label": "TBA (Loveland)",
@@ -8243,7 +8263,11 @@
   {
     "label": "TBA (Phoenix)",
     "name": "TBA",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 1.3763356,
+      "lng": 103.7588239
+    }
   },
   {
     "label": "TBA (Portland, OR)",
@@ -8253,7 +8277,11 @@
   {
     "label": "TBA (Sacramento)",
     "name": "TBA",
-    "address": "Sacramento"
+    "address": "Sacramento",
+    "geometry": {
+      "lat": -25.4515822,
+      "lng": -49.2938424
+    }
   },
   {
     "label": "TBA (San Antonio)",
@@ -8263,17 +8291,29 @@
   {
     "label": "TBA (San Diego)",
     "name": "TBA",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": -25.493654,
+      "lng": -49.2822604
+    }
   },
   {
     "label": "TBA (San Francisco)",
     "name": "TBA",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": -25.4593721,
+      "lng": -49.2830877
+    }
   },
   {
     "label": "TBA (San Jose)",
     "name": "TBA",
-    "address": "San Jose"
+    "address": "San Jose",
+    "geometry": {
+      "lat": -25.521147,
+      "lng": -49.2888378
+    }
   },
   {
     "label": "TBA (Seattle, WA)",
@@ -8293,12 +8333,20 @@
   {
     "label": "TBA (Toronto)",
     "name": "TBA",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6693623,
+      "lng": -79.4809348
+    }
   },
   {
     "label": "TBA (Van)",
     "name": "TBA",
-    "address": "Van"
+    "address": "Van",
+    "geometry": {
+      "lat": 45.1091175,
+      "lng": 35.4644516
+    }
   },
   {
     "label": "TBA (Vancouver, BC)",
@@ -8363,7 +8411,11 @@
   {
     "label": "Td Garden (Boston)",
     "name": "Td Garden",
-    "address": "Boston"
+    "address": "Boston",
+    "geometry": {
+      "lat": 42.3662986,
+      "lng": -71.0621622
+    }
   },
   {
     "label": "Techo Palma (Washington, DC)",
@@ -8373,12 +8425,20 @@
   {
     "label": "Temple (San Francisco)",
     "name": "Temple",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7648116,
+      "lng": -122.4866294
+    }
   },
   {
     "label": "Temple Bar (Detroit)",
     "name": "Temple Bar",
-    "address": "Detroit"
+    "address": "Detroit",
+    "geometry": {
+      "lat": 42.3421668,
+      "lng": -83.0584296
+    }
   },
   {
     "label": "Tempo e(Philadelphia)",
@@ -8388,17 +8448,29 @@
   {
     "label": "Tenth Level Tavern (Oakland Park)",
     "name": "Tenth Level Tavern",
-    "address": "Oakland Park"
+    "address": "Oakland Park",
+    "geometry": {
+      "lat": 26.1739702,
+      "lng": -80.1300165
+    }
   },
   {
     "label": "Teragram Ballroom (Los Angeles)",
     "name": "Teragram Ballroom",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0516899,
+      "lng": -118.2671329
+    }
   },
   {
     "label": "Terminal West (Atlanta)",
     "name": "Terminal West",
-    "address": "Atlanta"
+    "address": "Atlanta",
+    "geometry": {
+      "lat": 33.781466,
+      "lng": -84.4154041
+    }
   },
   {
     "label": "Terrace Afterhours (Las Vegas)",
@@ -8408,7 +8480,11 @@
   {
     "label": "Thalia Hall (Chicago)",
     "name": "Thalia Hall",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.8577222,
+      "lng": -87.6572854
+    }
   },
   {
     "label": "That One Spot Barbershop (Glendale)",
@@ -8428,22 +8504,38 @@
   {
     "label": "The Airliner (Los Angeles)",
     "name": "The Airliner",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0738885,
+      "lng": -118.2162323
+    }
   },
   {
     "label": "The Anthem (Washington, DC)",
     "name": "The Anthem",
-    "address": "Washington, DC"
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.8800652,
+      "lng": -77.0258973
+    }
   },
   {
     "label": "The Atlantis (Washington, DC)",
     "name": "The Atlantis",
-    "address": "Washington, DC"
+    "address": "Washington, DC",
+    "geometry": {
+      "lat": 38.9181583,
+      "lng": -77.0236472
+    }
   },
   {
     "label": "The Auld Shebeen (Fairfax, VA)",
     "name": "The Auld Shebeen",
-    "address": "Fairfax, VA"
+    "address": "Fairfax, VA",
+    "geometry": {
+      "lat": 38.8469397,
+      "lng": -77.3062158
+    }
   },
   {
     "label": "The Ave Live (Philadelphia)",
@@ -8493,32 +8585,56 @@
   {
     "label": "The Beaumont Studios (Vancouver, BC)",
     "name": "The Beaumont Studios",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2664804,
+      "lng": -123.111034
+    }
   },
   {
     "label": "The Beehive (Los Angeles)",
     "name": "The Beehive",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 33.9852999,
+      "lng": -118.2574711
+    }
   },
   {
     "label": "The Belasco (Los Angeles)",
     "name": "The Belasco",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0402385,
+      "lng": -118.2592643
+    }
   },
   {
     "label": "The Bellwether (Los Angeles)",
     "name": "The Bellwether",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0562378,
+      "lng": -118.2584445
+    }
   },
   {
     "label": "The Birdhouse (Vancouver, BC)",
     "name": "The Birdhouse",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2671744,
+      "lng": -123.1059887
+    }
   },
   {
     "label": "The Black Box (Denver)",
     "name": "The Black Box",
-    "address": "Denver"
+    "address": "Denver",
+    "geometry": {
+      "lat": 39.7366939,
+      "lng": -104.9830945
+    }
   },
   {
     "label": "The Black Box Lounge (Denver)",
@@ -8558,7 +8674,11 @@
   {
     "label": "The Bullet Bar (North Hollywood/Los Angeles)",
     "name": "The Bullet Bar",
-    "address": "North Hollywood/Los Angeles"
+    "address": "North Hollywood/Los Angeles",
+    "geometry": {
+      "lat": 34.1719704,
+      "lng": -118.360228
+    }
   },
   {
     "label": "The California Clipper (Chicago)",
@@ -8573,7 +8693,11 @@
   {
     "label": "The Casbah (San Diego)",
     "name": "The Casbah",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7302568,
+      "lng": -117.1718224
+    }
   },
   {
     "label": "The Castro Theatre (San Francisco)",
@@ -8583,7 +8707,11 @@
   {
     "label": "The Catalyst (Santa Cruz)",
     "name": "The Catalyst",
-    "address": "Santa Cruz"
+    "address": "Santa Cruz",
+    "geometry": {
+      "lat": 36.9712828,
+      "lng": -122.0258837
+    }
   },
   {
     "label": "The Catalyst Atrium (Santa Cruz)",
@@ -8613,7 +8741,11 @@
   {
     "label": "The Circle OC (Huntington Beach)",
     "name": "The Circle OC",
-    "address": "Huntington Beach"
+    "address": "Huntington Beach",
+    "geometry": {
+      "lat": 33.716172,
+      "lng": -117.9730827
+    }
   },
   {
     "label": "The Cloud (Hollywood)",
@@ -8623,22 +8755,38 @@
   {
     "label": "The Club Car (Baltimore, MD)",
     "name": "The Club Car",
-    "address": "Baltimore, MD"
+    "address": "Baltimore, MD",
+    "geometry": {
+      "lat": 39.3113936,
+      "lng": -76.6170449
+    }
   },
   {
     "label": "The Cobalt (Vancouver, BC)",
     "name": "The Cobalt",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2764955,
+      "lng": -123.1001072
+    }
   },
   {
     "label": "The Coffin (Portland, OR)",
     "name": "The Coffin",
-    "address": "Portland, OR"
+    "address": "Portland, OR",
+    "geometry": {
+      "lat": 45.5199652,
+      "lng": -122.6609603
+    }
   },
   {
     "label": "The Comfort Zone (Toronto)",
     "name": "The Comfort Zone",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6406826,
+      "lng": -79.4354862
+    }
   },
   {
     "label": "The Community Berlin (Los Angeles)",
@@ -8663,7 +8811,11 @@
   {
     "label": "The Concourse Project (Austin)",
     "name": "The Concourse Project",
-    "address": "Austin"
+    "address": "Austin",
+    "geometry": {
+      "lat": 30.1804384,
+      "lng": -97.6864891
+    }
   },
   {
     "label": "The Continental Noir (Des Moines, IA)",
@@ -8683,7 +8835,11 @@
   {
     "label": "The Crocodile (Seattle, WA)",
     "name": "The Crocodile",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6146474,
+      "lng": -122.3490734
+    }
   },
   {
     "label": "The Crofoot Ballroom (Pontiac)",
@@ -8693,7 +8849,11 @@
   {
     "label": "The Cuff Complex (Seattle, WA)",
     "name": "The Cuff Complex",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6149435,
+      "lng": -122.3161591
+    }
   },
   {
     "label": "The Dance Cave (Toronto)",
@@ -8708,17 +8868,29 @@
   {
     "label": "The Danforth Music Hall (Toronto)",
     "name": "The Danforth Music Hall",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6762917,
+      "lng": -79.3570395
+    }
   },
   {
     "label": "The Den (Portland, OR)",
     "name": "The Den",
-    "address": "Portland, OR"
+    "address": "Portland, OR",
+    "geometry": {
+      "lat": 45.5281183,
+      "lng": -122.5762149
+    }
   },
   {
     "label": "The District Theater (Gilroy)",
     "name": "The District Theater",
-    "address": "Gilroy"
+    "address": "Gilroy",
+    "geometry": {
+      "lat": 37.0072824,
+      "lng": -121.5686958
+    }
   },
   {
     "label": "The Dock At The Historic Sears Building (Los Angeles)",
@@ -8743,7 +8915,11 @@
   {
     "label": "The Downbeat (Victoria, BC)",
     "name": "The Downbeat",
-    "address": "Victoria, BC"
+    "address": "Victoria, BC",
+    "geometry": {
+      "lat": 48.4272302,
+      "lng": -123.3671134
+    }
   },
   {
     "label": "The Downbeat Event Centre (Victoria, BC)",
@@ -8753,7 +8929,11 @@
   {
     "label": "The Drake (Toronto)",
     "name": "The Drake",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6432467,
+      "lng": -79.424521
+    }
   },
   {
     "label": "The Drop (Phoenix)",
@@ -8763,7 +8943,11 @@
   {
     "label": "The Eagle Of Detroit (Detroit)",
     "name": "The Eagle Of Detroit",
-    "address": "Detroit"
+    "address": "Detroit",
+    "geometry": {
+      "lat": 42.346264,
+      "lng": -83.0574142
+    }
   },
   {
     "label": "The Earl (Los Angeles)",
@@ -8773,17 +8957,29 @@
   {
     "label": "The Eastern (Atlanta)",
     "name": "The Eastern",
-    "address": "Atlanta"
+    "address": "Atlanta",
+    "geometry": {
+      "lat": 33.745379,
+      "lng": -84.3605337
+    }
   },
   {
     "label": "The Echo (Los Angeles)",
     "name": "The Echo",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0777328,
+      "lng": -118.2601037
+    }
   },
   {
     "label": "The Echo Lounge & Music Hall (Dallas)",
     "name": "The Echo Lounge & Music Hall",
-    "address": "Dallas"
+    "address": "Dallas",
+    "geometry": {
+      "lat": 32.7906462,
+      "lng": -96.8144355
+    }
   },
   {
     "label": "The Ellis On Main Street (Vancouver, BC)",
@@ -8798,12 +8994,20 @@
   {
     "label": "The End (Houston)",
     "name": "The End",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.7171842,
+      "lng": -95.293748
+    }
   },
   {
     "label": "The Faight Collective (San Francisco)",
     "name": "The Faight Collective",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7720643,
+      "lng": -122.4299862
+    }
   },
   {
     "label": "The Far Out Lounge (Austin)",
@@ -8813,12 +9017,20 @@
   {
     "label": "The Fillmore (Philadelphia)",
     "name": "The Fillmore",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9655391,
+      "lng": -75.1349058
+    }
   },
   {
     "label": "The Fillmore (Phoenix)",
     "name": "The Fillmore",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 33.4540445,
+      "lng": -112.0795763
+    }
   },
   {
     "label": "The First Unitarian Church (Philadelphia)",
@@ -8828,7 +9040,11 @@
   {
     "label": "The Flamingo House (Sacramento)",
     "name": "The Flamingo House",
-    "address": "Sacramento"
+    "address": "Sacramento",
+    "geometry": {
+      "lat": 38.5746073,
+      "lng": -121.4756772
+    }
   },
   {
     "label": "The Flat (Houston)",
@@ -8838,7 +9054,11 @@
   {
     "label": "The Foundry (San Francisco)",
     "name": "The Foundry",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.6492038,
+      "lng": -122.3897778
+    }
   },
   {
     "label": "The Fox Cabaret (Vancouver, BC)",
@@ -8853,7 +9073,11 @@
   {
     "label": "The Garrison (Toronto)",
     "name": "The Garrison",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6491534,
+      "lng": -79.4223361
+    }
   },
   {
     "label": "The Get Down (Portland, OR)",
@@ -8863,7 +9087,11 @@
   {
     "label": "The Glass House (Pomona)",
     "name": "The Glass House",
-    "address": "Pomona"
+    "address": "Pomona",
+    "geometry": {
+      "lat": 34.0575001,
+      "lng": -117.7514584
+    }
   },
   {
     "label": "The Globe Theatre (Los Angeles)",
@@ -8888,17 +9116,29 @@
   {
     "label": "The Grand (Boston)",
     "name": "The Grand",
-    "address": "Boston"
+    "address": "Boston",
+    "geometry": {
+      "lat": 42.353174,
+      "lng": -71.04754
+    }
   },
   {
     "label": "The Grape (Philadelphia)",
     "name": "The Grape",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 40.02569,
+      "lng": -75.2231548
+    }
   },
   {
     "label": "The Grayson (Los Angeles)",
     "name": "The Grayson",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0499406,
+      "lng": -118.2493081
+    }
   },
   {
     "label": "The Great American Music Hall (San Francisco)",
@@ -8908,7 +9148,11 @@
   {
     "label": "The Great Northern (San Francisco)",
     "name": "The Great Northern",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7676612,
+      "lng": -122.4065246
+    }
   },
   {
     "label": "The Green Elephant (Dallas)",
@@ -8918,7 +9162,11 @@
   {
     "label": "The Ground (Miami)",
     "name": "The Ground",
-    "address": "Miami"
+    "address": "Miami",
+    "geometry": {
+      "lat": 40.133334,
+      "lng": -84.431653
+    }
   },
   {
     "label": "The Ground At Club Space (Miami)",
@@ -8933,7 +9181,11 @@
   {
     "label": "The Heights Theater (Houston)",
     "name": "The Heights Theater",
-    "address": "Houston"
+    "address": "Houston",
+    "geometry": {
+      "lat": 29.8031775,
+      "lng": -95.4028891
+    }
   },
   {
     "label": "The High Dive (Detroit)",
@@ -8948,7 +9200,11 @@
   {
     "label": "The Independent (San Francisco)",
     "name": "The Independent",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7755281,
+      "lng": -122.437641
+    }
   },
   {
     "label": "The Jackhammer (Chicago)",
@@ -8963,7 +9219,11 @@
   {
     "label": "The Kessler (Dallas)",
     "name": "The Kessler",
-    "address": "Dallas"
+    "address": "Dallas",
+    "geometry": {
+      "lat": 32.7632873,
+      "lng": -96.8454677
+    }
   },
   {
     "label": "The Key (Vancouver, BC)",
@@ -8973,7 +9233,11 @@
   {
     "label": "The Knockout (San Francisco)",
     "name": "The Knockout",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7451841,
+      "lng": -122.4199903
+    }
   },
   {
     "label": "The Lab @ Serum (Chicago)",
@@ -8988,12 +9252,20 @@
   {
     "label": "The Laughing Monk (San Francisco)",
     "name": "The Laughing Monk",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.77574,
+      "lng": -122.4460528
+    }
   },
   {
     "label": "The Lexington (Los Angeles)",
     "name": "The Lexington",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.1435403,
+      "lng": -118.7944153
+    }
   },
   {
     "label": "The Lighthouse (Huntington Beach)",
@@ -9008,7 +9280,11 @@
   {
     "label": "The Lower Level (Cambridge)",
     "name": "The Lower Level",
-    "address": "Cambridge"
+    "address": "Cambridge",
+    "geometry": {
+      "lat": 52.2372018,
+      "lng": 0.1621835
+    }
   },
   {
     "label": "The Magic Stick (Detroit)",
@@ -9038,7 +9314,11 @@
   {
     "label": "The Masquerade (Atlanta)",
     "name": "The Masquerade",
-    "address": "Atlanta"
+    "address": "Atlanta",
+    "geometry": {
+      "lat": 33.7517171,
+      "lng": -84.3897952
+    }
   },
   {
     "label": "The Melody Event Center (Portland, OR)",
@@ -9058,12 +9338,20 @@
   {
     "label": "The Middle East (Cambridge)",
     "name": "The Middle East",
-    "address": "Cambridge"
+    "address": "Cambridge",
+    "geometry": {
+      "lat": 35.9970184,
+      "lng": -86.7733331
+    }
   },
   {
     "label": "The Midway (San Francisco)",
     "name": "The Midway",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7495304,
+      "lng": -122.3860944
+    }
   },
   {
     "label": "The Midway Gods and Monsters (San Francisco)",
@@ -9073,12 +9361,20 @@
   {
     "label": "The Mod Club (Toronto)",
     "name": "The Mod Club",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6553688,
+      "lng": -79.4193467
+    }
   },
   {
     "label": "The Monkey Bar (Denver)",
     "name": "The Monkey Bar",
-    "address": "Denver"
+    "address": "Denver",
+    "geometry": {
+      "lat": 39.7339554,
+      "lng": -104.9985342
+    }
   },
   {
     "label": "The Moroccan Lounge (Los Angeles)",
@@ -9093,17 +9389,29 @@
   {
     "label": "The Nile (Mesa)",
     "name": "The Nile",
-    "address": "Mesa"
+    "address": "Mesa",
+    "geometry": {
+      "lat": 33.4148918,
+      "lng": -111.834505
+    }
   },
   {
     "label": "The Nile Theater (Mesa)",
     "name": "The Nile Theater",
-    "address": "Mesa"
+    "address": "Mesa",
+    "geometry": {
+      "lat": 33.414537,
+      "lng": -111.8345096
+    }
   },
   {
     "label": "The Novo (Los Angeles)",
     "name": "The Novo",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0445489,
+      "lng": -118.2654725
+    }
   },
   {
     "label": "The Observatory (Santa Ana)",
@@ -9113,12 +9421,20 @@
   {
     "label": "The Observatory North Park (San Diego)",
     "name": "The Observatory North Park",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7480128,
+      "lng": -117.1312797
+    }
   },
   {
     "label": "The Octopus Bar (Seattle, WA)",
     "name": "The Octopus Bar",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6612626,
+      "lng": -122.332721
+    }
   },
   {
     "label": "The Ogden Theatre (Denver)",
@@ -9148,7 +9464,11 @@
   {
     "label": "The Pearl (Vancouver, BC)",
     "name": "The Pearl",
-    "address": "Vancouver, BC"
+    "address": "Vancouver, BC",
+    "geometry": {
+      "lat": 49.2807129,
+      "lng": -123.1213979
+    }
   },
   {
     "label": "The Penthouse Night Club (Vancouver, BC)",
@@ -9163,7 +9483,11 @@
   {
     "label": "The Pickle (Miami)",
     "name": "The Pickle",
-    "address": "Miami"
+    "address": "Miami",
+    "geometry": {
+      "lat": 25.8035527,
+      "lng": -80.1952667
+    }
   },
   {
     "label": "The Piston (Toronto)",
@@ -9203,12 +9527,20 @@
   {
     "label": "The Rady Shell At Jacobs Park (San Diego)",
     "name": "The Rady Shell At Jacobs Park",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7047874,
+      "lng": -117.1658904
+    }
   },
   {
     "label": "The Rail (San Diego)",
     "name": "The Rail",
-    "address": "San Diego"
+    "address": "San Diego",
+    "geometry": {
+      "lat": 32.7468104,
+      "lng": -117.1606487
+    }
   },
   {
     "label": "The Red Room (Vancouver, BC)",
@@ -9218,17 +9550,29 @@
   {
     "label": "The Regency Ballroom (San Francisco)",
     "name": "The Regency Ballroom",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7878176,
+      "lng": -122.4215762
+    }
   },
   {
     "label": "The Regent (Los Angeles)",
     "name": "The Regent",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0469856,
+      "lng": -118.2478111
+    }
   },
   {
     "label": "The Regent Theater (Los Angeles)",
     "name": "The Regent Theater",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0469856,
+      "lng": -118.2478111
+    }
   },
   {
     "label": "The Rendezvous (Seattle, WA)",
@@ -9243,7 +9587,11 @@
   {
     "label": "The Ritz (San Jose)",
     "name": "The Ritz",
-    "address": "San Jose"
+    "address": "San Jose",
+    "geometry": {
+      "lat": 37.3301346,
+      "lng": -121.885471
+    }
   },
   {
     "label": "The Riviera Theatre (Chicago)",
@@ -9268,7 +9616,11 @@
   {
     "label": "The Roxy (Los Angeles)",
     "name": "The Roxy",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0908951,
+      "lng": -118.3879797
+    }
   },
   {
     "label": "The Royal Grove (Lincoln, NE)",
@@ -9293,7 +9645,11 @@
   {
     "label": "The Salt Shed (Chicago)",
     "name": "The Salt Shed",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.906736,
+      "lng": -87.659207
+    }
   },
   {
     "label": "The Salt Shed Indoors (Chicago)",
@@ -9308,22 +9664,38 @@
   {
     "label": "The Sea Star (San Francisco)",
     "name": "The Sea Star",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7607437,
+      "lng": -122.3884137
+    }
   },
   {
     "label": "The Shop (Seattle, WA)",
     "name": "The Shop",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6054916,
+      "lng": -122.340329
+    }
   },
   {
     "label": "The Showbox (Seattle, WA)",
     "name": "The Showbox",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6085136,
+      "lng": -122.3394726
+    }
   },
   {
     "label": "The Sinclair (Cambridge)",
     "name": "The Sinclair",
-    "address": "Cambridge"
+    "address": "Cambridge",
+    "geometry": {
+      "lat": 42.3740762,
+      "lng": -71.120629
+    }
   },
   {
     "label": "The Slipper Clutch (Los Angeles)",
@@ -9333,12 +9705,20 @@
   {
     "label": "The Slowdown (Omaha, NE)",
     "name": "The Slowdown",
-    "address": "Omaha, NE"
+    "address": "Omaha, NE",
+    "geometry": {
+      "lat": 41.2665385,
+      "lng": -95.934227
+    }
   },
   {
     "label": "The Smoot Standard (Cambridge)",
     "name": "The Smoot Standard",
-    "address": "Cambridge"
+    "address": "Cambridge",
+    "geometry": {
+      "lat": 42.3624672,
+      "lng": -71.0984516
+    }
   },
   {
     "label": "The Sonder Bar (Portland, OR)",
@@ -9373,7 +9753,11 @@
   {
     "label": "The Starlighter (San Antonio)",
     "name": "The Starlighter",
-    "address": "San Antonio"
+    "address": "San Antonio",
+    "geometry": {
+      "lat": 29.4627984,
+      "lng": -98.5241316
+    }
   },
   {
     "label": "The Steelhouse (Omaha, NE)",
@@ -9383,12 +9767,20 @@
   {
     "label": "The Strays (Hamtramck)",
     "name": "The Strays",
-    "address": "Hamtramck"
+    "address": "Hamtramck",
+    "geometry": {
+      "lat": 42.3909787,
+      "lng": -83.0536918
+    }
   },
   {
     "label": "The Stud (San Francisco)",
     "name": "The Stud",
-    "address": "San Francisco"
+    "address": "San Francisco",
+    "geometry": {
+      "lat": 37.7761653,
+      "lng": -122.4083643
+    }
   },
   {
     "label": "The Studio At The Bomb Factory (Dallas)",
@@ -9413,17 +9805,29 @@
   {
     "label": "The Trestle Inn (Philadelphia)",
     "name": "The Trestle Inn",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9587529,
+      "lng": -75.1565507
+    }
   },
   {
     "label": "The Usual Place (Las Vegas)",
     "name": "The Usual Place",
-    "address": "Las Vegas"
+    "address": "Las Vegas",
+    "geometry": {
+      "lat": 36.165551,
+      "lng": -115.1330623
+    }
   },
   {
     "label": "The Van Buren (Phoenix)",
     "name": "The Van Buren",
-    "address": "Phoenix"
+    "address": "Phoenix",
+    "geometry": {
+      "lat": 33.4510864,
+      "lng": -112.0794386
+    }
   },
   {
     "label": "The Vault 313 (Highland Park)",
@@ -9433,7 +9837,11 @@
   {
     "label": "The Venice West (Venice/Los Angeles)",
     "name": "The Venice West",
-    "address": "Venice/Los Angeles"
+    "address": "Venice/Los Angeles",
+    "geometry": {
+      "lat": 33.9963454,
+      "lng": -118.4579146
+    }
   },
   {
     "label": "The Venue at Oak Place (Huntsville, AL)",
@@ -9443,27 +9851,47 @@
   {
     "label": "The Vermont (Hollywood/Los Angeles)",
     "name": "The Vermont",
-    "address": "Hollywood/Los Angeles"
+    "address": "Hollywood/Los Angeles",
+    "geometry": {
+      "lat": 34.090386,
+      "lng": -118.2912659
+    }
   },
   {
     "label": "The Vic Theatre (Chicago)",
     "name": "The Vic Theatre",
-    "address": "Chicago"
+    "address": "Chicago",
+    "geometry": {
+      "lat": 41.9395215,
+      "lng": -87.6537443
+    }
   },
   {
     "label": "The Virgil (Los Angeles)",
     "name": "The Virgil",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.091047,
+      "lng": -118.2870625
+    }
   },
   {
     "label": "The Waiting Room (Omaha, NE)",
     "name": "The Waiting Room",
-    "address": "Omaha, NE"
+    "address": "Omaha, NE",
+    "geometry": {
+      "lat": 41.2852301,
+      "lng": -96.0085966
+    }
   },
   {
     "label": "The Wall (El Paso)",
     "name": "The Wall",
-    "address": "El Paso"
+    "address": "El Paso",
+    "geometry": {
+      "lat": 31.5466548,
+      "lng": -106.2275633
+    }
   },
   {
     "label": "The Warfield (San Francisco)",
@@ -9473,12 +9901,20 @@
   {
     "label": "The Wash (Seattle, WA)",
     "name": "The Wash",
-    "address": "Seattle, WA"
+    "address": "Seattle, WA",
+    "geometry": {
+      "lat": 47.6197933,
+      "lng": -122.322038
+    }
   },
   {
     "label": "The Webster (Hartford, CT)",
     "name": "The Webster",
-    "address": "Hartford, CT"
+    "address": "Hartford, CT",
+    "geometry": {
+      "lat": 41.7444223,
+      "lng": -72.6832131
+    }
   },
   {
     "label": "The Whistle Stop Depot (Tucson)",
@@ -9488,7 +9924,11 @@
   {
     "label": "The Wiltern (Los Angeles)",
     "name": "The Wiltern",
-    "address": "Los Angeles"
+    "address": "Los Angeles",
+    "geometry": {
+      "lat": 34.0614963,
+      "lng": -118.308908
+    }
   },
   {
     "label": "The Wormhole (Savannah, GA)",
@@ -9498,7 +9938,11 @@
   {
     "label": "The Wych (Toronto)",
     "name": "The Wych",
-    "address": "Toronto"
+    "address": "Toronto",
+    "geometry": {
+      "lat": 43.6747651,
+      "lng": -79.4316889
+    }
   },
   {
     "label": "The Yost Theater (Santa Ana)",
@@ -9508,12 +9952,20 @@
   {
     "label": "Theatre Of Living Arts (Philadelphia)",
     "name": "Theatre Of Living Arts",
-    "address": "Philadelphia"
+    "address": "Philadelphia",
+    "geometry": {
+      "lat": 39.9414106,
+      "lng": -75.1487443
+    }
   },
   {
     "label": "Thee Stork Club (Oakland)",
     "name": "Thee Stork Club",
-    "address": "Oakland"
+    "address": "Oakland",
+    "geometry": {
+      "lat": 37.8131364,
+      "lng": -122.2683848
+    }
   },
   {
     "label": "Theme House Karaoke Bar (Chicago)",
