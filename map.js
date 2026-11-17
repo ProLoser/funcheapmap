@@ -355,7 +355,7 @@ async function initialize() {
         }
         // Create marker
         const pinElement = new PinElement();
-        const content = pinElement.element;
+        const content = pinElement;
         event.marker = new AdvancedMarkerElement({
           map: window.map,
           position: event.geometry,
@@ -368,7 +368,7 @@ async function initialize() {
         const time = Math.random(); // Random delay between 0 and 1 second
         content.style.setProperty('--delay-time', time + 's');
         intersectionObserver.observe(content);
-        event.marker.addListener('gmp-click', function () {
+        event.marker.addEventListener('gmp-click', function () {
           if (cardModeEnabled) {
             showEventCard(event);
           } else {
@@ -564,10 +564,10 @@ window.filter = async function (filters = {}) {
         map: window.map,
         position: position,
         title: `${clusterCount} events at ${eventsAtLocation[0].venue}`,
-        content: clusterPin.element,
+        content: clusterPin,
       });
       
-      clusterMarker.addListener('gmp-click', function () {
+      clusterMarker.addEventListener('gmp-click', function () {
         showClusterInfo(eventsAtLocation, clusterMarker);
       });
       
@@ -719,7 +719,7 @@ window.showUserLocation = async function () {
             map: window.map,
             position: pos,
             title: "Your Location",
-            content: userPinElement.element,
+            content: userPinElement,
           });
         }
       },
