@@ -112,6 +112,19 @@ let userLocationMarker = null;
 
 // Global variable to track cluster markers
 let clusterMarkers = [];
+const CLUSTER_RADIUS = 16;
+let zoomFilterTimeout;
+
+function getMapPixelPosition(geometry, zoom) {
+  const worldSize = 256 * 2 ** zoom;
+  const latitude = Math.max(-85.0511, Math.min(85.0511, geometry.lat));
+  const sinLatitude = Math.sin(latitude * Math.PI / 180);
+
+  return {
+    x: (geometry.lng + 180) / 360 * worldSize,
+    y: (0.5 - Math.log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * Math.PI)) * worldSize
+  };
+}
 
 // Initialize the map
 async function initialize() {
@@ -227,6 +240,10 @@ async function initialize() {
         var dd = date.getDate();
         filters.date = `${date.getFullYear()}-${(mm>9 ? '' : '0') + mm}-${(dd>9 ? '' : '0') + dd}`;
       }
+      google.maps.event.addListener(window.map, 'zoom_changed', () => {
+        clearTimeout(zoomFilterTimeout);
+        zoomFilterTimeout = setTimeout(() => window.filter(), 100);
+      });
       window.filter(filters);
     });
 }
@@ -294,17 +311,24 @@ window.filter = async function (filters = {}) {
     }
   });
   
-  const venueGroups = new Map();
+  const locationGroups = [];
+  const zoom = window.map.getZoom() ?? 0;
   
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry || !event.visible) return;
-    
-    const venueKey = event.venue?.trim().toLowerCase() || event;
 
-    if (!venueGroups.has(venueKey)) {
-      venueGroups.set(venueKey, []);
+    const position = getMapPixelPosition(event.geometry, zoom);
+    let locationGroup = locationGroups.find(group => {
+      const xDistance = position.x - group.position.x;
+      const yDistance = position.y - group.position.y;
+      return Math.hypot(xDistance, yDistance) <= CLUSTER_RADIUS;
+    });
+
+    if (!locationGroup) {
+      locationGroup = { position, events: [] };
+      locationGroups.push(locationGroup);
     }
-    venueGroups.get(venueKey).push(event);
+    locationGroup.events.push(event);
   });
   
   // Load marker library
@@ -313,7 +337,8 @@ window.filter = async function (filters = {}) {
   const PinElement = markerLibrary.PinElement;
   
   // Create markers based on grouping
-  venueGroups.forEach(eventsAtLocation => {
+  locationGroups.forEach(locationGroup => {
+    const eventsAtLocation = locationGroup.events;
     if (eventsAtLocation.length === 1) {
       // Single event - show normal marker
       const event = eventsAtLocation[0];
