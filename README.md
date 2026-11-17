@@ -58,3 +58,9 @@ You need to add your API tokens as GitHub secrets:
 5. Click **Add secret** for each
 
 The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
+
+### Failed deployment diagnosis
+
+When the `Deploy` workflow fails on a push to `main`, the diagnosis workflow creates an issue assigned to Copilot, which investigates and can open a fix pull request. It creates at most one issue per workflow run, including reruns. Failures caused by external services or secrets may require manual intervention.
+
+To enable it, add an Actions repository secret named `COPILOT_AUTOMATION_TOKEN` containing a user-owned fine-grained personal access token scoped to this repository. Grant it read access to metadata and read/write access to actions, contents, issues, and pull requests. The token owner must have access to Copilot cloud agent and the repository. Copilot usage consumes credits; the default `GITHUB_TOKEN` cannot assign Copilot. Do not put the token in an issue or pull request.
