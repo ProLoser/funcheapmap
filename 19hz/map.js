@@ -161,9 +161,13 @@ async function initialize() {
   window.events.load()
     .then(events => {
       let minDate, maxDate, categories = new Set();
+      let missingGeometryCount = 0;
       events.forEach(event => {
         if (!event.title) return console.warn('Event Title Missing', { event });
-        if (!event.geometry) return console.warn('Event Geometry Missing', { event });
+        if (!event.geometry) {
+          missingGeometryCount++;
+          return;
+        }
         // Add categories to the set
         if (event.categories) {
           event.categories.forEach(category => categories.add(category));
@@ -198,6 +202,9 @@ async function initialize() {
           Events.infoWindow(event).open(window.map, event.marker);
         });
       });
+      if (missingGeometryCount) {
+        console.warn(`Skipped ${missingGeometryCount} events missing geometry`);
+      }
       const form = document.getElementById('controls');
       form.addEventListener('reset', window.filter);
       map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(form);
@@ -274,17 +281,17 @@ window.filter = async function (filters = {}) {
     }
   });
   
-  const venueGroups = new Map();
+  const locationGroups = new Map();
   
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry || !event.visible) return;
     
-    const venueKey = Events.normalizeVenueName(event.venueLabel);
+    const locationKey = `${event.geometry.lat.toFixed(6)},${event.geometry.lng.toFixed(6)}`;
     
-    if (!venueGroups.has(venueKey)) {
-      venueGroups.set(venueKey, []);
+    if (!locationGroups.has(locationKey)) {
+      locationGroups.set(locationKey, []);
     }
-    venueGroups.get(venueKey).push(event);
+    locationGroups.get(locationKey).push(event);
   });
   
   // Load marker library
@@ -293,10 +300,10 @@ window.filter = async function (filters = {}) {
   const PinElement = markerLibrary.PinElement;
   
   // Create markers based on grouping
-  venueGroups.forEach(eventsAtVenue => {
-    if (eventsAtVenue.length === 1) {
+  locationGroups.forEach(eventsAtLocation => {
+    if (eventsAtLocation.length === 1) {
       // Single event - show normal marker
-      const event = eventsAtVenue[0];
+      const event = eventsAtLocation[0];
       if (event.marker) {
         event.marker.map = window.map;
         if (event.marker.content.style.opacity === '0') {
@@ -305,15 +312,15 @@ window.filter = async function (filters = {}) {
       }
     } else {
       // Hide individual markers
-      eventsAtVenue.forEach(event => {
+      eventsAtLocation.forEach(event => {
         if (event.marker) {
           event.marker.map = null;
         }
       });
       
       // Create cluster marker
-      const position = eventsAtVenue[0].geometry;
-      const clusterCount = eventsAtVenue.length;
+      const position = eventsAtLocation[0].geometry;
+      const clusterCount = eventsAtLocation.length;
       
       // Create custom cluster pin with count
       const clusterPin = new PinElement({
@@ -327,13 +334,13 @@ window.filter = async function (filters = {}) {
       const clusterMarker = new AdvancedMarkerElement({
         map: window.map,
         position: position,
-        title: `${clusterCount} events at ${eventsAtVenue[0].venue}`,
+        title: `${clusterCount} events at ${eventsAtLocation[0].venue}`,
         gmpClickable: true,
         content: clusterPin,
       });
       
       clusterMarker.addEventListener('gmp-click', function () {
-        showClusterInfo(eventsAtVenue, clusterMarker);
+        showClusterInfo(eventsAtLocation, clusterMarker);
       });
       
       clusterMarkers.push(clusterMarker);
@@ -937,7 +944,6 @@ class Events {
       events.push({
         title: row.title,
         venue: venueData.name,
-        venueLabel: venueData.label,
         geometry: venueData.geometry,
         date: parsedDate.iso,
         date_text: parsedDate.text,
