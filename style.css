@@ -20,6 +20,9 @@ html, body, #map-canvas {
       margin: 0 -10px -10px;
       cursor: pointer;
       user-select: none;
+      touch-action: manipulation;
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
       justify-content: center;
