@@ -3,7 +3,7 @@ const fs = require('fs');
 const CSV_FILES = [
   'BayArea', 'LosAngeles', 'Seattle', 'Atlanta', 'Miami', 'DC', 'Toronto',
   'Iowa', 'Texas', 'PHL', 'Denver', 'CHI', 'Detroit', 'Massachusetts',
-  'LasVegas', 'Phoenix', 'ORE', 'BC'
+  'LasVegas', 'Phoenix', 'PNW'
 ].map(region => `https://19hz.info/events_${region}.csv`);
 
 function parseCSV(csvText) {
