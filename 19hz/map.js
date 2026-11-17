@@ -185,6 +185,7 @@ async function initialize() {
           map: window.map,
           position: event.geometry,
           title: event.title,
+          gmpClickable: true,
           content: content,
         });
         
@@ -351,6 +352,7 @@ window.filter = async function (filters = {}) {
         map: window.map,
         position: position,
         title: `${clusterCount} events at ${eventsAtLocation[0].venue}`,
+        gmpClickable: true,
         content: clusterPin,
       });
       
