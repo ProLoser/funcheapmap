@@ -286,7 +286,6 @@ window.filter = async function (filters = {}) {
     return event.visible;
   }).length;
   
-  // Group visible events by location for clustering
   // First, hide all markers
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry) return;
@@ -295,19 +294,17 @@ window.filter = async function (filters = {}) {
     }
   });
   
-  // Group visible events by location
-  const locationGroups = new Map();
+  const venueGroups = new Map();
   
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry || !event.visible) return;
     
-    // Create location key with rounded coordinates (to handle minor differences)
-    const locationKey = `${event.geometry.lat.toFixed(6)},${event.geometry.lng.toFixed(6)}`;
-    
-    if (!locationGroups.has(locationKey)) {
-      locationGroups.set(locationKey, []);
+    const venueKey = event.venue?.trim().toLowerCase() || event;
+
+    if (!venueGroups.has(venueKey)) {
+      venueGroups.set(venueKey, []);
     }
-    locationGroups.get(locationKey).push(event);
+    venueGroups.get(venueKey).push(event);
   });
   
   // Load marker library
@@ -316,7 +313,7 @@ window.filter = async function (filters = {}) {
   const PinElement = markerLibrary.PinElement;
   
   // Create markers based on grouping
-  locationGroups.forEach((eventsAtLocation, locationKey) => {
+  venueGroups.forEach(eventsAtLocation => {
     if (eventsAtLocation.length === 1) {
       // Single event - show normal marker
       const event = eventsAtLocation[0];
