@@ -345,7 +345,7 @@ window.filter = async function (filters = {}) {
         borderColor: "#ffffff",
         glyphColor: "#ffffff",
         scale: 1.2,
-        glyph: clusterCount.toString()
+        glyphText: clusterCount.toString()
       });
       
       const clusterMarker = new AdvancedMarkerElement({
