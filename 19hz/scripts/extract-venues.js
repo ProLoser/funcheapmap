@@ -1,4 +1,7 @@
 const fs = require('fs');
+const path = require('path');
+
+const VENUES_FILE = path.join(__dirname, '../venues.json');
 
 const CSV_FILES = [
   'BayArea', 'LosAngeles', 'Seattle', 'Atlanta', 'Miami', 'DC', 'Toronto',
@@ -66,20 +69,30 @@ async function extractVenuesFromCSV(url) {
 
 async function main() {
   console.log('Extracting venues from CSV files...');
-  const allVenues = new Map();
+  const existingVenues = fs.existsSync(VENUES_FILE)
+    ? JSON.parse(fs.readFileSync(VENUES_FILE, 'utf8'))
+    : [];
+  const allVenues = new Map(existingVenues.map(venue => [venue.label.toLowerCase(), venue]));
+  let extractedCount = 0;
 
   for (const file of CSV_FILES) {
     const venues = await extractVenuesFromCSV(file);
     venues.forEach(venue => {
       const match = venue.match(/^(.+?)\s*\((.+)\)$/);
-      if (match) allVenues.set(venue, { name: venue, address: match[2].trim() });
+      if (!match) return;
+      extractedCount++;
+      const key = venue.toLowerCase();
+      if (!allVenues.has(key)) {
+        allVenues.set(key, { label: venue, name: match[1].trim(), address: match[2].trim() });
+      }
     });
   }
 
-  if (!allVenues.size) throw new Error('No venues found in CSV files');
+  if (!extractedCount) throw new Error('No venues found in CSV files');
   console.log(`\nTotal unique venues across all files: ${allVenues.size}`);
-  fs.writeFileSync('../new-venues.json', JSON.stringify(Array.from(allVenues.values()), null, 2));
-  console.log(`Done! Wrote ${allVenues.size} venues to new-venues.json`);
+  const sortedVenues = Array.from(allVenues.values()).sort((firstVenue, secondVenue) => firstVenue.label.localeCompare(secondVenue.label));
+  fs.writeFileSync(VENUES_FILE, JSON.stringify(sortedVenues, null, 2));
+  console.log(`Done! Wrote ${allVenues.size} venues to venues.json`);
 }
 
 main().catch(error => {
