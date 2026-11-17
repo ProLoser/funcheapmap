@@ -2,6 +2,11 @@ name: Update 19hz venues
 
 on:
   workflow_dispatch:
+    inputs:
+      refresh_city_only:
+        description: Re-geocode existing venues whose address is only their city
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -23,10 +28,16 @@ jobs:
           node-version: 24
       - name: Extract, merge, and geocode venues
         working-directory: 19hz/scripts
+        env:
+          REFRESH_CITY_ONLY: ${{ inputs.refresh_city_only }}
         run: |
           node extract-venues.js
           node merge-venues.js
-          node geocode-venues.js
+          if [ "$REFRESH_CITY_ONLY" = "true" ]; then
+            node geocode-venues.js --refresh-city-only
+          else
+            node geocode-venues.js
+          fi
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
         with:

@@ -9,6 +9,18 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getVenueQuery(venue) {
+  const match = venue.name?.match(/^(.+?)\s*\(([^()]*)\)\s*$/);
+  const name = (match ? match[1] : venue.name || '').trim();
+  const address = (venue.address || match?.[2] || '').trim();
+  return name && address ? `${name}, ${address}` : '';
+}
+
+function hasCityOnlyAddress(venue) {
+  const match = venue.name?.match(/^(.+?)\s*\(([^()]*)\)\s*$/);
+  return match && match[2].trim().toLowerCase() === venue.address?.trim().toLowerCase();
+}
+
 function geocodeAddress(address) {
   return new Promise((resolve, reject) => {
     const encodedAddress = encodeURIComponent(address);
@@ -35,7 +47,8 @@ function geocodeAddress(address) {
       response.on('end', () => {
         try {
           const results = JSON.parse(data);
-          if (results && results.length > 0) {
+          if (results && results.length > 0 &&
+              !['administrative', 'country', 'state', 'county', 'city', 'town', 'village', 'municipality'].includes(results[0].type)) {
             resolve({
               lat: parseFloat(results[0].lat),
               lng: parseFloat(results[0].lon)
@@ -59,8 +72,9 @@ async function processVenues() {
   // Remove control characters except newlines, tabs, and carriage returns
   const data = JSON.parse(rawData);
   
-  const venuesWithoutGeometry = data.filter(venue => !venue.geometry);
-  const venuesWithGeometry = data.filter(venue => venue.geometry);
+  const refreshCityOnly = process.argv.includes('--refresh-city-only');
+  const venuesWithoutGeometry = data.filter(venue => !venue.geometry || (refreshCityOnly && hasCityOnlyAddress(venue)));
+  const venuesWithGeometry = data.filter(venue => !venuesWithoutGeometry.includes(venue));
   
   console.log(`Total venues: ${data.length}`);
   console.log(`Venues with geometry: ${venuesWithGeometry.length}`);
@@ -73,16 +87,17 @@ async function processVenues() {
   for (let i = 0; i < venuesWithoutGeometry.length; i++) {
     const venue = venuesWithoutGeometry[i];
     
-    if (!venue.address) {
+    const query = getVenueQuery(venue);
+    if (!query) {
       console.log(`[${i + 1}/${venuesWithoutGeometry.length}] Skipping ${venue.name} - no address`);
       failCount++;
       continue;
     }
     
     try {
-      console.log(`[${i + 1}/${venuesWithoutGeometry.length}] Geocoding: ${venue.name} (${venue.address})`);
+      console.log(`[${i + 1}/${venuesWithoutGeometry.length}] Geocoding: ${query}`);
       
-      const geometry = await geocodeAddress(venue.address);
+      const geometry = await geocodeAddress(query);
       
       if (geometry) {
         venue.geometry = geometry;

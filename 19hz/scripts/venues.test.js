@@ -25,6 +25,7 @@ test('venue scripts extract, merge and geocode without losing existing data', t 
       text: async () => 'date,title,genre,"New Venue (Oakland)"\\n'
     });
     require('node:https').get = (url, options, callback) => {
+      require('node:fs').appendFileSync(${JSON.stringify(path.join(directory, 'queries.txt'))}, new URL(url).searchParams.get('q') + '\\n');
       const request = new EventEmitter();
       process.nextTick(() => {
         const response = new EventEmitter();
@@ -32,14 +33,16 @@ test('venue scripts extract, merge and geocode without losing existing data', t 
         response.resume = () => {};
         callback(response);
         if (response.statusCode === 200) {
-          response.emit('data', '[{"lat":"37.8","lon":"-122.2"}]');
+          response.emit('data', process.env.NO_RESULT ? '[]' : process.env.CITY_RESULT ?
+            '[{"lat":"37.8","lon":"-122.2","type":"city"}]' :
+            '[{"lat":"37.8","lon":"-122.2","type":"building"}]');
           response.emit('end');
         }
       });
       return request;
     };
   `);
-  const run = (script, env = {}) => spawnSync(process.execPath, ['--require', mock, script], {
+  const run = (script, env = {}, args = []) => spawnSync(process.execPath, ['--require', mock, script, ...args], {
     cwd: scripts,
     env: { ...process.env, ...env },
     encoding: 'utf8'
@@ -51,6 +54,7 @@ test('venue scripts extract, merge and geocode without losing existing data', t 
   ]);
   assert.equal(run('merge-venues.js').status, 0);
   assert.equal(run('geocode-venues.js').status, 0);
+  assert.equal(fs.readFileSync(path.join(directory, 'queries.txt'), 'utf8'), 'New Venue, Oakland\n');
   assert.deepEqual(JSON.parse(fs.readFileSync(venuesFile)), [
     existing,
     { name: 'New Venue (Oakland)', address: 'Oakland', geometry: { lat: 37.8, lng: -122.2 } }
@@ -64,4 +68,28 @@ test('venue scripts extract, merge and geocode without losing existing data', t 
   const geocodeFailure = run('geocode-venues.js', { FAIL_GEOCODE: '1' });
   assert.notEqual(geocodeFailure.status, 0);
   assert.match(geocodeFailure.stderr, /HTTP 503/);
+
+  const oldGeometry = { lat: 10, lng: 20 };
+  const cityOnly = { name: '123 Main St (Oakland)', address: 'Oakland', geometry: oldGeometry };
+  const fullAddress = { name: 'Club', address: '123 Main St, Oakland', geometry: oldGeometry };
+  fs.writeFileSync(venuesFile, JSON.stringify([cityOnly, fullAddress]));
+  fs.writeFileSync(path.join(directory, 'queries.txt'), '');
+  assert.equal(run('geocode-venues.js').status, 0);
+  assert.equal(fs.readFileSync(path.join(directory, 'queries.txt'), 'utf8'), '');
+  assert.equal(run('geocode-venues.js', {}, ['--refresh-city-only']).status, 0);
+  assert.equal(fs.readFileSync(path.join(directory, 'queries.txt'), 'utf8'), '123 Main St, Oakland\n');
+  assert.deepEqual(JSON.parse(fs.readFileSync(venuesFile)), [
+    fullAddress,
+    { ...cityOnly, geometry: { lat: 37.8, lng: -122.2 } }
+  ]);
+  fs.writeFileSync(venuesFile, JSON.stringify([cityOnly]));
+  assert.equal(run('geocode-venues.js', { NO_RESULT: '1' }, ['--refresh-city-only']).status, 0);
+  assert.deepEqual(JSON.parse(fs.readFileSync(venuesFile)), [cityOnly]);
+  assert.equal(run('geocode-venues.js', { CITY_RESULT: '1' }, ['--refresh-city-only']).status, 0);
+  assert.deepEqual(JSON.parse(fs.readFileSync(venuesFile)), [cityOnly]);
+
+  fs.writeFileSync(venuesFile, JSON.stringify([{ name: 'Club', address: '123 Main St, Oakland' }]));
+  fs.writeFileSync(path.join(directory, 'queries.txt'), '');
+  assert.equal(run('geocode-venues.js').status, 0);
+  assert.equal(fs.readFileSync(path.join(directory, 'queries.txt'), 'utf8'), 'Club, 123 Main St, Oakland\n');
 });
