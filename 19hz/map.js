@@ -170,7 +170,7 @@ async function initialize() {
         }
         // Calculate min/max date
         if (event.date) {
-          const eventDate = new Date(event.date);
+          const eventDate = event.date;
           if (!minDate || eventDate < minDate) {
             minDate = eventDate;
           }
@@ -204,8 +204,8 @@ async function initialize() {
       map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('feedback'));
       // Update the date picker
       if (minDate && maxDate) {
-        form.elements['date'].min = minDate.toLocaleDateString('fr-ca');
-        form.elements['date'].max = maxDate.toLocaleDateString('fr-ca');
+        form.elements['date'].min = minDate;
+        form.elements['date'].max = maxDate;
       }
       // Update the category select
       form.elements['category'].innerHTML = Array.from(categories).sort().map(category => 
@@ -240,11 +240,6 @@ let options = {};
  */
 window.filter = async function (filters = {}) {
   Object.assign(options, filters);
-  let date;
-  if (options.date && options.date !== '') {
-    date = options.date.replace(/-/gi, '/');
-    date = new Date(date);
-  }
   let categories = [];
   if (options.category) {
     categories = options.category.split(CATEGORY_DELIMITER)
@@ -260,23 +255,8 @@ window.filter = async function (filters = {}) {
   let count = window.events.get()?.filter(event => {
     if (!event.title || !event.geometry) return; // skip corrupt events
     event.visible = true;
-    // check date
-    if (date) {
-      if (!event.date) {
-        // If filtering by date but event has no date, hide it
-        event.visible = false;
-      } else {
-        let eventDate = new Date(event.date);
-        // Make sure the date is valid
-        if (isNaN(eventDate.getTime())) {
-          event.visible = false;
-        } else if (date.getFullYear() !== eventDate.getFullYear() ||
-          date.getMonth() !== eventDate.getMonth() ||
-          date.getDate() !== eventDate.getDate()
-        ) {
-          event.visible = false;
-        }
-      }
+    if (options.date && event.date !== options.date) {
+      event.visible = false;
     }
     // check category
     if (categories.length && !event.categories.some(category => categories.includes(category))) {
@@ -692,9 +672,8 @@ class Events {
       year--;
     }
     
-    const eventDate = new Date(year, month, day);
     return {
-      iso: eventDate.toISOString().split('T')[0],
+      iso: `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
       text: `${monthStr} ${day}, ${year}`
     };
   }
