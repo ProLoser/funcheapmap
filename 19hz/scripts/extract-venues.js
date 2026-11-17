@@ -1,25 +1,10 @@
 const fs = require('fs');
 
 const CSV_FILES = [
-  https://19hz.info/events_BayArea.csv
-  https://19hz.info/events_LosAngeles.csv
-  https://19hz.info/events_Seattle.csv
-  https://19hz.info/events_Atlanta.csv
-  https://19hz.info/events_Miami.csv
-  https://19hz.info/events_DC.csv
-  https://19hz.info/events_Toronto.csv
-  https://19hz.info/events_Iowa.csv
-  https://19hz.info/events_Texas.csv
-  https://19hz.info/events_PHL.csv
-  https://19hz.info/events_Denver.csv
-  https://19hz.info/events_CHI.csv
-  https://19hz.info/events_Detroit.csv
-  https://19hz.info/events_Massachusetts.csv
-  https://19hz.info/events_LasVegas.csv
-  https://19hz.info/events_Phoenix.csv
-  https://19hz.info/events_ORE.csv
-  https://19hz.info/events_BC.csv
-];
+  'BayArea', 'LosAngeles', 'Seattle', 'Atlanta', 'Miami', 'DC', 'Toronto',
+  'Iowa', 'Texas', 'PHL', 'Denver', 'CHI', 'Detroit', 'Massachusetts',
+  'LasVegas', 'Phoenix', 'ORE', 'BC'
+].map(region => `https://19hz.info/events_${region}.csv`);
 
 function parseCSV(csvText) {
   const rows = [];
@@ -57,9 +42,11 @@ function parseCSV(csvText) {
   return rows;
 }
 
-function extractVenuesFromCSV(filename) {
-  console.log(`\nProcessing ${filename}...`);
-  const csvText = fs.readFileSync(filename, 'utf8');
+async function extractVenuesFromCSV(url) {
+  console.log(`\nProcessing ${url}...`);
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Failed to fetch ${url}: HTTP ${response.status}`);
+  const csvText = await response.text();
   const rows = parseCSV(csvText);
   
   const venues = new Set();
@@ -77,26 +64,25 @@ function extractVenuesFromCSV(filename) {
   return Array.from(venues).sort();
 }
 
-console.log('Extracting venues from CSV files...');
+async function main() {
+  console.log('Extracting venues from CSV files...');
+  const allVenues = new Map();
 
-const allVenues = new Map();
+  for (const file of CSV_FILES) {
+    const venues = await extractVenuesFromCSV(file);
+    venues.forEach(venue => {
+      const match = venue.match(/^(.+?)\s*\((.+)\)$/);
+      if (match) allVenues.set(venue, { name: venue, address: match[2].trim() });
+    });
+  }
 
-CSV_FILES.forEach(file => {
-  const venues = extractVenuesFromCSV(file);
-  venues.forEach(venue => {
-    const match = venue.match(/^(.+?)\s*\((.+)\)$/);
-    if (match) {
-      const name = match[1].trim();
-      const address = match[2].trim();
-      allVenues.set(venue, { name: venue, address: address });
-    }
-  });
+  if (!allVenues.size) throw new Error('No venues found in CSV files');
+  console.log(`\nTotal unique venues across all files: ${allVenues.size}`);
+  fs.writeFileSync('../new-venues.json', JSON.stringify(Array.from(allVenues.values()), null, 2));
+  console.log(`Done! Wrote ${allVenues.size} venues to new-venues.json`);
+}
+
+main().catch(error => {
+  console.error('Failed to extract venues:', error);
+  process.exitCode = 1;
 });
-
-console.log(`\nTotal unique venues across all files: ${allVenues.size}`);
-console.log('\nWriting to new-venues.json...');
-
-const venueArray = Array.from(allVenues.values());
-fs.writeFileSync('../new-venues.json', JSON.stringify(venueArray, null, 2));
-
-console.log(`Done! Wrote ${venueArray.length} venues to new-venues.json`);

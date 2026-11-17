@@ -21,6 +21,11 @@ function geocodeAddress(address) {
     };
     
     https.get(url, options, (response) => {
+      if (response.statusCode !== 200) {
+        response.resume();
+        reject(new Error(`Geocoding request failed: HTTP ${response.statusCode}`));
+        return;
+      }
       let data = '';
       
       response.on('data', (chunk) => {
@@ -97,8 +102,7 @@ async function processVenues() {
         await delay(DELAY_MS);
       }
     } catch (error) {
-      console.log(`  ✗ Error: ${error.message}`);
-      failCount++;
+      throw new Error(`Failed to geocode ${venue.name}: ${error.message}`, { cause: error });
     }
   }
   
