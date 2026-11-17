@@ -58,3 +58,9 @@ You need to add your API tokens as GitHub secrets:
 5. Click **Add secret** for each
 
 The GitHub Actions workflow will automatically inject these tokens into the JavaScript files at build time.
+
+### Monthly console check
+
+On the first of each month at 15:17 UTC, the monthly console check loads the production site in Chromium, waits for event initialization, and records console errors and uncaught exceptions. It can also be started from the Actions tab with **Run workflow**. The first run reports all errors it sees; later runs create an issue only for a previously unreported sanitized error, even if its earlier issue was closed. URLs and common credential fields are redacted from issue text.
+
+Missing-geometry warnings are counted separately: the check mentions @ProLoser in an issue, or comments on the existing open issue each month they recur. It does not attempt automated fixes. GitHub notification settings determine how issue mentions and new issues are delivered. A failed page load or initialization fails the workflow rather than reporting a clean check. The check covers initial loading only, not subsequent interactions.
