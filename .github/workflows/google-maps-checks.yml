@@ -1,0 +1,21 @@
+name: Google Maps checks
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          node --check map.js
+          node --check 19hz/map.js
+          node --check crawler.js
+      - name: Check Google Maps best practices
+        run: node scripts/check-google-maps.js
