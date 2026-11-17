@@ -286,7 +286,6 @@ window.filter = async function (filters = {}) {
     return event.visible;
   }).length;
   
-  // Group visible events by location for clustering
   // First, hide all markers
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry) return;
@@ -295,19 +294,17 @@ window.filter = async function (filters = {}) {
     }
   });
   
-  // Group visible events by location
-  const locationGroups = new Map();
+  const venueGroups = new Map();
   
   window.events.get()?.forEach(event => {
     if (!event.title || !event.geometry || !event.visible) return;
     
-    // Create location key with rounded coordinates (to handle minor differences)
-    const locationKey = `${event.geometry.lat.toFixed(6)},${event.geometry.lng.toFixed(6)}`;
+    const venueKey = Events.normalizeVenueName(event.venueLabel);
     
-    if (!locationGroups.has(locationKey)) {
-      locationGroups.set(locationKey, []);
+    if (!venueGroups.has(venueKey)) {
+      venueGroups.set(venueKey, []);
     }
-    locationGroups.get(locationKey).push(event);
+    venueGroups.get(venueKey).push(event);
   });
   
   // Load marker library
@@ -316,10 +313,10 @@ window.filter = async function (filters = {}) {
   const PinElement = markerLibrary.PinElement;
   
   // Create markers based on grouping
-  locationGroups.forEach((eventsAtLocation, locationKey) => {
-    if (eventsAtLocation.length === 1) {
+  venueGroups.forEach(eventsAtVenue => {
+    if (eventsAtVenue.length === 1) {
       // Single event - show normal marker
-      const event = eventsAtLocation[0];
+      const event = eventsAtVenue[0];
       if (event.marker) {
         event.marker.map = window.map;
         if (event.marker.content.style.opacity === '0') {
@@ -327,17 +324,16 @@ window.filter = async function (filters = {}) {
         }
       }
     } else {
-      // Multiple events at same location - create cluster marker
       // Hide individual markers
-      eventsAtLocation.forEach(event => {
+      eventsAtVenue.forEach(event => {
         if (event.marker) {
           event.marker.map = null;
         }
       });
       
       // Create cluster marker
-      const position = eventsAtLocation[0].geometry;
-      const clusterCount = eventsAtLocation.length;
+      const position = eventsAtVenue[0].geometry;
+      const clusterCount = eventsAtVenue.length;
       
       // Create custom cluster pin with count
       const clusterPin = new PinElement({
@@ -351,13 +347,13 @@ window.filter = async function (filters = {}) {
       const clusterMarker = new AdvancedMarkerElement({
         map: window.map,
         position: position,
-        title: `${clusterCount} events at ${eventsAtLocation[0].venue}`,
+        title: `${clusterCount} events at ${eventsAtVenue[0].venue}`,
         gmpClickable: true,
         content: clusterPin,
       });
       
       clusterMarker.addEventListener('gmp-click', function () {
-        showClusterInfo(eventsAtLocation, clusterMarker);
+        showClusterInfo(eventsAtVenue, clusterMarker);
       });
       
       clusterMarkers.push(clusterMarker);
@@ -582,12 +578,7 @@ class Events {
    * @returns {string} Normalized venue name
    */
   static normalizeVenueName(venueName) {
-    // Extract venue name from "Venue Name (City)" format
-    const match = venueName.match(/^(.+?)\s*\(/);
-    const baseName = match ? match[1] : venueName;
-    
-    // Normalize: lowercase, remove extra spaces, hyphens, special chars
-    return baseName
+    return venueName
       .toLowerCase()
       .replace(/[-]/g, ' ')
       .replace(/\s+/g, ' ')
@@ -939,7 +930,7 @@ class Events {
     console.log(`Loaded ${items.length} items from API, ${venues.length} venues`);
     const venueMap = new Map();
     venues.forEach(venue => {
-      venueMap.set(Events.normalizeVenueName(venue.name), venue);
+      venueMap.set(Events.normalizeVenueName(venue.label), venue);
     });
     const events = [];
     const unmatchedVenues = new Set();
@@ -948,7 +939,9 @@ class Events {
         console.warn(`Row ${index} has insufficient fields:`, row);
         return;
       }
-      const venueData = venueMap.get(Events.normalizeVenueName(row.venue));
+      const venueLabel = Events.normalizeVenueName(row.venue);
+      const venueData = venueMap.get(venueLabel)
+        || Array.from(venueMap).find(([label]) => label.includes(venueLabel) || venueLabel.includes(label))?.[1];
       if (!venueData) {
         unmatchedVenues.add(row.venue);
         return;
@@ -964,6 +957,7 @@ class Events {
       events.push({
         title: row.title,
         venue: venueData.name,
+        venueLabel: venueData.label,
         geometry: venueData.geometry,
         date: parsedDate.iso,
         date_text: parsedDate.text,

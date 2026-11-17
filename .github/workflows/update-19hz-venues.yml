@@ -2,6 +2,11 @@ name: Update 19hz venues
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: Re-geocode all venues, including those with existing coordinates
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -21,12 +26,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Extract, merge, and geocode venues
+      - name: Extract and geocode venues
         working-directory: 19hz/scripts
+        env:
+          FORCE_GEOCODING: ${{ inputs.force }}
         run: |
           node extract-venues.js
-          node merge-venues.js
-          node geocode-venues.js
+          geocode_arguments=()
+          if [ "$FORCE_GEOCODING" = "true" ]; then
+            geocode_arguments+=(--force)
+          fi
+          node geocode-venues.js "${geocode_arguments[@]}"
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
         with:
@@ -35,4 +45,4 @@ jobs:
           add-paths: 19hz/venues.json
           commit-message: Update 19hz venues
           title: Update 19hz venues
-          body: Updates the 19hz venue data using the extraction, merge, and geocoding scripts.
+          body: Updates the 19hz venue data using the extraction and geocoding scripts.

@@ -1,9 +1,11 @@
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 
-const INPUT_FILE = '../venues.json';
-const OUTPUT_FILE = '../venues.json';
-const DELAY_MS = 1000; // Nominatim requires 1 request per second
+const INPUT_FILE = path.join(__dirname, '../venues.json');
+const OUTPUT_FILE = path.join(__dirname, '../venues.json');
+const DELAY_MS = 1000;
+const force = process.argv.includes('--force');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -55,37 +57,42 @@ function geocodeAddress(address) {
 
 async function processVenues() {
   console.log('Reading data file...');
-  const rawData = fs.readFileSync(INPUT_FILE, 'utf8');
-  // Remove control characters except newlines, tabs, and carriage returns
+  const inputExists = fs.existsSync(INPUT_FILE);
+  const rawData = inputExists ? fs.readFileSync(INPUT_FILE, 'utf8') : '[]';
   const data = JSON.parse(rawData);
+  if (!inputExists) fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
   
   const venuesWithoutGeometry = data.filter(venue => !venue.geometry);
   const venuesWithGeometry = data.filter(venue => venue.geometry);
+  const venuesToGeocode = force ? data : venuesWithoutGeometry;
   
   console.log(`Total venues: ${data.length}`);
   console.log(`Venues with geometry: ${venuesWithGeometry.length}`);
   console.log(`Venues missing geometry: ${venuesWithoutGeometry.length}`);
   console.log('');
   
+  console.log(`Venues to geocode${force ? ' (forced)' : ''}: ${venuesToGeocode.length}`);
+
   let successCount = 0;
   let failCount = 0;
   
-  for (let i = 0; i < venuesWithoutGeometry.length; i++) {
-    const venue = venuesWithoutGeometry[i];
+  for (const [index, venue] of venuesToGeocode.entries()) {
+    const query = venue.label;
     
-    if (!venue.address) {
-      console.log(`[${i + 1}/${venuesWithoutGeometry.length}] Skipping ${venue.name} - no address`);
+    if (!query) {
+      console.log(`[${index + 1}/${venuesToGeocode.length}] Skipping ${venue.name} - no label`);
       failCount++;
       continue;
     }
     
     try {
-      console.log(`[${i + 1}/${venuesWithoutGeometry.length}] Geocoding: ${venue.name} (${venue.address})`);
+      console.log(`[${index + 1}/${venuesToGeocode.length}] Geocoding: ${query}`);
       
-      const geometry = await geocodeAddress(venue.address);
+      const geometry = await geocodeAddress(query);
       
       if (geometry) {
         venue.geometry = geometry;
+        fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
         console.log(`  ✓ Found: ${geometry.lat}, ${geometry.lng}`);
         successCount++;
       } else {
@@ -93,12 +100,7 @@ async function processVenues() {
         failCount++;
       }
       
-      // Save progress after each successful geocoding
-      const updatedVenues = [...venuesWithGeometry, ...venuesWithoutGeometry];
-      fs.writeFileSync(OUTPUT_FILE, JSON.stringify(updatedVenues, null, 2));
-      
-      // Rate limiting - wait before next request
-      if (i < venuesWithoutGeometry.length - 1) {
+      if (index < venuesToGeocode.length - 1) {
         await delay(DELAY_MS);
       }
     } catch (error) {
