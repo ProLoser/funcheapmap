@@ -38,7 +38,7 @@ jobs:
           fi
           node geocode-venues.js "${geocode_arguments[@]}"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: automation/update-19hz-venues
           base: main
